@@ -4,7 +4,7 @@ Ver la [consigna del trabajo practico](docs/consigna.md).
 
 ### La regla de oro:
 
-Una tarjeta = una rama = un PR (pull request). Escribí el nombre de la rama en la tarjeta (feature/crear-producto), y al abrir el PR pegá el link de la tarjeta en la descripción. Así se sabe qué código corresponde a cada tarea.
+Una tarjeta = una rama = un PR (pull request). Escribir el nombre de la rama en la tarjeta (feature/crear-producto), y al abrir el PR pegar el link de la tarjeta en la descripción. Así se sabe qué código corresponde a cada tarea.
 
 ### Ciclo para utilizar ramas
 
@@ -20,7 +20,7 @@ git commit -m "Agrega consigna e imagen al README"
 git push -u origin feature/readme  # subir la rama
 ```
 
-Después, en GitHub aparece el botón Compare & pull request. Abrís el PR y Nahuel lo revisa y lo mergea.
+Después, en GitHub aparece el botón Compare & pull request. Abrís el PR y hay que revisar antes de mergear.
 
 Si ya estás en una rama y es otro cambio más
 No hace falta crear otra. Solo:
