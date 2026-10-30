@@ -1,3 +1,33 @@
-# TP_INTEGRADOR_PROGRAMACIONIII
+Ver la [consigna del trabajo practico](docs/consigna.md).
 
-Primer linea de prueba para las ramas. By franco
+### Ciclo para utilizar ramas
+
+```
+git checkout main
+git pull                           # traer lo último
+git checkout -b feature/readme     # crear tu rama (el nombre lo elegís vos)
+
+# ... hacés los cambios (README, imagen, etc.) ...
+
+git add .                          # o archivos puntuales: git add README.md docs/img/
+git commit -m "Agrega consigna e imagen al README"
+git push -u origin feature/readme  # subir la rama
+```
+
+Después, en GitHub aparece el botón Compare & pull request. Abrís el PR y Nahuel lo revisa y lo mergea.
+
+Si ya estás en una rama y es otro cambio más
+No hace falta crear otra. Solo:
+
+```
+git add .
+git commit -m "Mensaje"
+git push
+```
+
+(el -u se usa solo la primera vez).
+
+### Dos comandos para ubicarte
+
+git status: te dice en qué rama estás y qué archivos cambiaron.
+git branch: lista las ramas locales.
