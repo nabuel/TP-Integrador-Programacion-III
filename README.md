@@ -31,3 +31,7 @@ git push
 
 git status: te dice en qué rama estás y qué archivos cambiaron.
 git branch: lista las ramas locales.
+
+### La regla de oro:
+
+Una tarjeta = una rama = un PR. Escribí el nombre de la rama en la tarjeta (feature/crear-producto), y al abrir el PR pegá el link de la tarjeta en la descripción. Así se sabe qué código corresponde a cada tarea.
