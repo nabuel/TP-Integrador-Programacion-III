@@ -30,7 +30,7 @@ para quienes no cumplan con su parte del trabajo.
 
 # Resumen del trabajo practico (recomendable ver antes de leer todas las consignas)
 
-![resumen](docs/img/resume.jpg)
+![resumen](img/resume.jpg)
 
 # 1. Requerimientos funcionales.
 
@@ -67,7 +67,7 @@ productos vendidos son hamburguesas y bebidas.
 
 ```
 
-![imagen](docs/img/autoservice-example.png)
+![imagen](img/autoservice-example.png)
 
 ```
 La aplicación puede vender dos tipos de productos de cualquier tipo que deseen, pero deben pertenecer al
