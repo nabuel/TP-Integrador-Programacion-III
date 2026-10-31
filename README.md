@@ -37,3 +37,7 @@ git push
 
 git status: te dice en qué rama estás y qué archivos cambiaron.
 git branch: lista las ramas locales.
+
+## Modelado de clases
+
+![clases](docs/modelado-de-clases.png)
