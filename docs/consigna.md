@@ -314,9 +314,7 @@ sencillas y repetitivas se recorten para hacer foco en otras funcionalidades.
 ```
 ●​ Todas las peticiones deben responder en formato JSON válido.
 
-●​ Debe poder procesar todas las peticiones de alta, baja, listados y modificación de la base de datos que
-sean necesarias para la correcta funcionalidad de la aplicación (tablas productos, usuarios, ventas y
-cualquier otra que necesiten). Utilizar un ORM.
+●​ Debe poder procesar todas las peticiones de alta, baja, listados y modificación de la base de datos que sean necesarias para la correcta funcionalidad de la aplicación (tablas productos, usuarios, ventas y cualquier otra que necesiten). Utilizar un ORM.
 
 ●​ Las rutas y los endpoints deben estar bien estructurados y de forma lógica (MVC).
 
