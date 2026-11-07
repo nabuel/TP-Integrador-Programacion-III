@@ -1,7 +1,7 @@
 /*====================
     Modelos de producto
 ====================*/
-import conexion from "../database/db";
+import conexion from "../database/db.js";
 
 // Traer todos los productos.
 const getProductos =  () =>{

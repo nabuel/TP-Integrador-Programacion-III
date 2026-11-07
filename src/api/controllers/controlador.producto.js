@@ -1,7 +1,7 @@
-import modeloProductos from "../models/modelo.productos";
+import modeloProductos from "../models/modelo.productos.js";
 
 const traerProductos = async (_, res) =>{
-    const [productos] =  await modeloProductos.getProductos();
+    const {productos} =  await modeloProductos.getProductos();
 
     if(productos.length === 0){
         return res.status(404).json({
@@ -16,7 +16,7 @@ const traerProductos = async (_, res) =>{
 
 const traerProducto = async(req, res)=>{
 
-    const [producto] = await modeloProductos.getProductoById(req.params.id)
+    const {producto} = await modeloProductos.getProductoById(req.params.id)
     
     res.status(200).json({
         payload: producto

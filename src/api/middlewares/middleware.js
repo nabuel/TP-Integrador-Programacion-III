@@ -1,5 +1,4 @@
-
-export function validarId(req, res, next){
+function validarId(req, res, next){
     // 1. Obtengo el id y lo convierto a un número
     const id = Number(req.params.id);
 
@@ -8,14 +7,15 @@ export function validarId(req, res, next){
         res.status(404).json({
             mensaje : "El id es inválido"
         })
-    }
+    };
+
     req.id = id;
     next();
 }
 
-export function validarProducto(req, res, next){
+function validarProducto(req, res, next){
     const {nombre, imagen, precio, activo, categoria} = req.body;
-    const errores = []
+    const errores = [];
 
 
     if(!nombre, !imagen, !precio, !activo, !categoria) errores.push("Campos faltantes");
@@ -28,8 +28,8 @@ export function validarProducto(req, res, next){
         return res.status(400).json({
             mensaje :"Error con los datos ingresados", 
             errores : errores
-        })
-    }
+        });
+    };
 
     next();
 }
