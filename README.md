@@ -40,7 +40,7 @@ git branch: lista las ramas locales.
 
 ## Modelado de clases
 
-![img](docs/modelado-de-clases.png)
+![img](docs/modelado-clases.png)
 
 ## BD con datos
 

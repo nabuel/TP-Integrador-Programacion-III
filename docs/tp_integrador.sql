@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-11-2026 a las 21:50:42
+-- Tiempo de generación: 07-11-2026 a las 01:10:52
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -29,142 +29,87 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `administradores` (
   `id` int(11) NOT NULL,
-  `email` varchar(30) NOT NULL,
-  `clave` varchar(12) NOT NULL
+  `email` varchar(25) NOT NULL,
+  `password` varchar(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `consolas`
+-- Estructura de tabla para la tabla `productos`
 --
 
-CREATE TABLE `consolas` (
-  `modelo` varchar(20) NOT NULL,
-  `marca` varchar(20) NOT NULL,
-  `imagen` varchar(150) DEFAULT NULL,
-  `activo` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `consolas`
---
-
-INSERT INTO `consolas` (`modelo`, `marca`, `imagen`, `activo`) VALUES
-('PC', 'Microsoft / Varios', '', 1),
-('PlayStation 2', 'Sony', 'ps2.jpg', 1),
-('PlayStation 3', 'Sony', 'ps3.jpg', 1),
-('PlayStation 4', 'Sony', 'ps4.jpg', 1),
-('PlayStation 5', 'Sony', 'ps5.jpg', 1),
-('Xbox 360', 'Microsoft', 'xbox-360.jpg', 1),
-('Xbox One', 'Microsoft', 'xbox-one.jpg', 1),
-('Xbox Series X', 'Microsoft', 'xbox-series-x.jpg', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `juegos`
---
-
-CREATE TABLE `juegos` (
+CREATE TABLE `productos` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `precio` int(11) NOT NULL,
-  `imagen` varchar(150) NOT NULL,
-  `activo` tinyint(1) NOT NULL,
-  `genero` varchar(50) NOT NULL,
-  `fecha_salida` date NOT NULL
+  `imagen` varchar(50) NOT NULL,
+  `activo` tinyint(1) NOT NULL DEFAULT 1,
+  `categoria` enum('Juego','Consola') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `juegos`
+-- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `juegos` (`id`, `nombre`, `precio`, `imagen`, `activo`, `genero`, `fecha_salida`) VALUES
-(1, 'Grand Theft Auto: San Andreas', 15000, 'gta_san_andreas_cover.jpg', 1, 'Acción / Mundo Abierto', '2004-10-26'),
-(2, 'God of War II', 15000, 'god_of_war_2_cover.jpg', 1, 'Hack and Slash', '2007-03-13'),
-(3, 'Shadow of the Colossus', 18000, 'shadow_of_the_colossus_cover.jpg', 1, 'Aventura', '2005-10-18'),
-(4, 'Resident Evil 4', 18000, 'resident_evil_4_cover.jpg', 1, 'Survival Horror', '2005-01-11'),
-(5, 'Silent Hill 2', 18000, 'silent_hill_2_cover.jpg', 1, 'Survival Horror', '2001-09-24'),
-(6, 'The Last of Us', 22000, 'the_last_of_us_cover.jpg', 1, 'Acción / Aventura', '2013-06-14'),
-(7, 'Grand Theft Auto V', 35000, 'gta_v_cover.jpg', 1, 'Acción / Mundo Abierto', '2013-09-17'),
-(8, 'Red Dead Redemption', 32000, 'red_dead_redemption_cover.jpg', 1, 'Mundo Abierto / Western', '2010-05-18'),
-(9, 'God of War III', 22000, 'god_of_war_3_cover.jpg', 1, 'Hack and Slash', '2010-03-16'),
-(10, 'Dark Souls', 25000, 'dark_souls_cover.jpg', 1, 'Soulslike / RPG', '2011-09-22'),
-(11, 'God of War (2018)', 35000, 'god_of_war_2018_cover.jpg', 1, 'Acción / Aventura', '2018-04-20'),
-(12, 'Bloodborne', 28000, 'bloodborne_cover.jpg', 1, 'Soulslike / RPG', '2015-03-24'),
-(13, 'The Witcher 3: Wild Hunt', 38000, 'witcher_3_cover.jpg', 1, 'RPG / Aventura', '2015-05-19'),
-(14, 'Red Dead Redemption 2', 65000, 'rdr2_cover.jpg', 1, 'Mundo Abierto / Western', '2018-10-26'),
-(15, 'Marvel\'s Spider-Man 2', 85000, 'spiderman_2_cover.jpg', 1, 'Acción / Aventura', '2023-10-20'),
-(16, 'Elden Ring', 72000, 'elden_ring_cover.jpg', 1, 'Soulslike / RPG', '2022-02-25'),
-(17, 'Cyberpunk 2077', 55000, 'cyberpunk_2077_cover.jpg', 1, 'Rol / Disparos', '2020-12-10'),
-(18, 'Baldur\'s Gate 3', 70000, 'baldurs_gate_3_cover.jpg', 1, 'Rol / RPG', '2023-08-03'),
-(19, 'Halo 3', 20000, 'halo_3_cover.jpg', 1, 'Disparos en primera persona', '2007-09-25'),
-(20, 'Gears of War 2', 20000, 'gears_of_war_2_cover.jpg', 1, 'Disparos en tercera persona', '2008-11-07'),
-(21, 'The Elder Scrolls V: Skyrim', 32000, 'skyrim_cover.jpg', 1, 'Rol / RPG', '2011-11-11'),
-(22, 'Halo: The Master Chief Collection', 42000, 'halo_mcc_cover.jpg', 1, 'Disparos en primera persona', '2014-11-11'),
-(23, 'Forza Horizon 4', 45000, 'forza_horizon_4_cover.jpg', 1, 'Carreras', '2018-10-02'),
-(24, 'Halo Infinite', 55000, 'halo_infinite_cover.jpg', 1, 'Disparos en primera persona', '2021-12-08'),
-(25, 'Forza Horizon 5', 75000, 'forza_horizon_5_cover.jpg', 1, 'Carreras', '2021-11-09'),
-(26, 'Half-Life 2', 12000, 'half_life_2_cover.jpg', 1, 'Disparos en primera persona', '2004-11-16'),
-(27, 'Counter-Strike 2', 0, 'cs2_cover.jpg', 1, 'Disparos táctico', '2023-09-27');
+INSERT INTO `productos` (`id`, `nombre`, `precio`, `imagen`, `activo`, `categoria`) VALUES
+(1, 'PlayStation 5 Slim 1TB', 980000, 'ps5-slim-1tb.webp', 1, 'Consola'),
+(2, 'EA Sports FC 26 PS5', 92000, 'ea-fc-26-ps5.webp', 1, 'Juego'),
+(3, 'Cyberpunk 2077 Ultimate Edition', 74000, 'cyberpunk-2077.webp', 1, 'Juego'),
+(4, 'Nintendo Switch OLED', 650000, 'switch-oled-white.webp', 1, 'Consola'),
+(5, 'Batman: Arkham Knight PS4', 35000, 'batman-arkham-knight.webp', 1, 'Juego'),
+(6, 'Xbox Series X 1TB', 1050000, 'xbox-series-x.webp', 0, 'Consola'),
+(7, 'For Honor Marching Fire', 28000, 'for-honor.webp', 1, 'Juego'),
+(8, 'PlayStation 4 Pro 1TB ', 650000, 'ps4-pro.webp', 0, 'Consola');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `juego_consola`
+-- Estructura de tabla para la tabla `productos_ventas`
 --
 
-CREATE TABLE `juego_consola` (
-  `id_juego` int(11) NOT NULL,
-  `modelo_consola` varchar(50) NOT NULL
+CREATE TABLE `productos_ventas` (
+  `id_producto` int(11) NOT NULL,
+  `id_venta` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `precio_unitario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `juego_consola`
+-- Volcado de datos para la tabla `productos_ventas`
 --
 
-INSERT INTO `juego_consola` (`id_juego`, `modelo_consola`) VALUES
-(1, 'PlayStation 2'),
-(2, 'PlayStation 2'),
-(3, 'PlayStation 2'),
-(4, 'PlayStation 2'),
-(5, 'PlayStation 2'),
-(6, 'PlayStation 3'),
-(7, 'PlayStation 3'),
-(7, 'PlayStation 4'),
-(7, 'PlayStation 5'),
-(7, 'Xbox 360'),
-(7, 'Xbox One'),
-(7, 'Xbox Series X'),
-(8, 'PlayStation 3'),
-(8, 'Xbox 360'),
-(9, 'PlayStation 3'),
-(10, 'PlayStation 3'),
-(11, 'PlayStation 4'),
-(12, 'PlayStation 4'),
-(13, 'PC'),
-(13, 'PlayStation 4'),
-(13, 'Xbox One'),
-(14, 'PlayStation 4'),
-(14, 'Xbox One'),
-(15, 'PlayStation 5'),
-(16, 'PlayStation 5'),
-(16, 'Xbox Series X'),
-(17, 'PC'),
-(17, 'PlayStation 5'),
-(17, 'Xbox Series X'),
-(18, 'PC'),
-(18, 'PlayStation 5'),
-(19, 'Xbox 360'),
-(20, 'Xbox 360'),
-(21, 'Xbox 360'),
-(22, 'Xbox One'),
-(23, 'Xbox One'),
-(24, 'Xbox Series X'),
-(25, 'Xbox Series X'),
-(26, 'PC'),
-(27, 'PC');
+INSERT INTO `productos_ventas` (`id_producto`, `id_venta`, `cantidad`, `precio_unitario`) VALUES
+(1, 1, 1, 980000),
+(2, 1, 2, 92000),
+(3, 2, 1, 74000),
+(4, 4, 1, 650000),
+(5, 3, 2, 35000),
+(5, 4, 1, 35000),
+(7, 3, 1, 28000);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ventas`
+--
+
+CREATE TABLE `ventas` (
+  `id` int(11) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `nombre_cliente` varchar(25) NOT NULL,
+  `precio_total` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `ventas`
+--
+
+INSERT INTO `ventas` (`id`, `fecha`, `nombre_cliente`, `precio_total`) VALUES
+(1, '2026-11-01 14:30:00', 'Lucas Benítez', 1164000),
+(2, '2026-11-02 18:15:00', 'Martina Gómez', 74000),
+(3, '2026-11-04 11:00:00', 'Joaquín Herrera', 98000),
+(4, '2026-11-05 16:45:00', 'Camila Díaz', 685000);
 
 --
 -- Índices para tablas volcadas
@@ -178,23 +123,23 @@ ALTER TABLE `administradores`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indices de la tabla `consolas`
+-- Indices de la tabla `productos`
 --
-ALTER TABLE `consolas`
-  ADD PRIMARY KEY (`modelo`);
-
---
--- Indices de la tabla `juegos`
---
-ALTER TABLE `juegos`
+ALTER TABLE `productos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `juego_consola`
+-- Indices de la tabla `productos_ventas`
 --
-ALTER TABLE `juego_consola`
-  ADD PRIMARY KEY (`id_juego`,`modelo_consola`),
-  ADD KEY `fk_jc_consola` (`modelo_consola`);
+ALTER TABLE `productos_ventas`
+  ADD PRIMARY KEY (`id_producto`,`id_venta`),
+  ADD KEY `fk_pv_venta` (`id_venta`);
+
+--
+-- Indices de la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -207,21 +152,27 @@ ALTER TABLE `administradores`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `juegos`
+-- AUTO_INCREMENT de la tabla `productos`
 --
-ALTER TABLE `juegos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+ALTER TABLE `productos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `juego_consola`
+-- Filtros para la tabla `productos_ventas`
 --
-ALTER TABLE `juego_consola`
-  ADD CONSTRAINT `fk_jc_consola` FOREIGN KEY (`modelo_consola`) REFERENCES `consolas` (`modelo`),
-  ADD CONSTRAINT `fk_jc_juego` FOREIGN KEY (`id_juego`) REFERENCES `juegos` (`id`);
+ALTER TABLE `productos_ventas`
+  ADD CONSTRAINT `fk_pv_producto` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pv_venta` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
