@@ -6,12 +6,12 @@ import conexion from "../database/db.js";
 // Traer todos los productos.
 const getProductos =  () =>{
     
-    return  conexion.query("SELECT id, nombre, precio, imagen FROM productos");
+    return conexion.query("SELECT id, nombre, precio, imagen FROM productos");
 }
 
 // Traer producto por id.
 const getProductoById =  (id) =>{
-    const sql = "SELECT id, nombre, precio, imagen FROM juegos WHERE id = ?";
+    const sql = "SELECT id, nombre, precio, imagen FROM productos WHERE id = ?";
     return  conexion.query(sql, [id]);
 }
 

@@ -1,8 +1,8 @@
 import modeloProductos from "../models/modelo.productos.js";
 
 const traerProductos = async (_, res) =>{
-    const {productos} =  await modeloProductos.getProductos();
-
+    const [productos] =  await modeloProductos.getProductos();
+    
     if(productos.length === 0){
         return res.status(404).json({
             mensaje: "No se han encontrado productos"
@@ -14,13 +14,26 @@ const traerProductos = async (_, res) =>{
     });
 };
 
-const traerProducto = async(req, res)=>{
+const traerProducto = async (req, res)=>{
 
-    const {producto} = await modeloProductos.getProductoById(req.params.id)
+    try{
+        
+        const [producto] = await modeloProductos.getProductoById(req.params.id)
+        
+        if(!producto.length){
+            return res.status(404).json({
+                mensaje: `No se ha encontrado un producto con id ${req.params.id}`
+            });
+        }
     
-    res.status(200).json({
-        payload: producto
-    });
+        res.status(200).json({
+            payload: producto
+        });
+    } catch(error){
+        res.status(500).json({
+            mensaje: "Error interno con la base de datos"
+        });
+    }
 }
 
 const crearProducto = async (req,res)=>{
@@ -69,7 +82,7 @@ const modificarProducto = async (req,res)=>{
 const borrarProducto = async (req, res)=>{
     try{
         const id = req.params.id;
-        respuesta = await modeloProductos.deleteProducto(id)
+        const {respuesta} = await modeloProductos.deleteProducto(id)
         
         res.status(204).json({
             mensaje : `Producto con id ${id} eliminado correctamente`

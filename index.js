@@ -18,7 +18,8 @@ app.use(express.json()) // Parseo de JSON recibido en el body de la request
 	Endpoints 
 =====================*/
 
-app.get("/api/productos", rutaProductos)
+app.use("/api/productos", rutaProductos)
+
 
 
 // Para que el servidor siga detectando las nuevas peticiones
