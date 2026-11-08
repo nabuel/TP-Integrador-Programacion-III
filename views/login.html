@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <main>
+        <section class="form-inicio-sesion">
+            <h2>Iniciar sesión</h2>
+            <form action="">
+                <label for="email">Email</label>
+                <input type="email" placeholder="admin@gmail.com" name="email" required>
+
+                <label for="password">Constraseña</label>
+                <input type="password" placeholder="3 a 12 caracteres" name="password" required>
+
+                <input type="submit" value="Iniciar sesión">
+            </form>
+        </section>
+    </main>
+
+    <script>
+        try{
+            const btn_inicio = document.getElementById("form-inicio-sesion")
+            const url = "http://localhost:3000/";
+
+            btn_inicio.addEventListener(event =>{
+                event.preventDefault();
+
+
+            })
+        }catch(error){
+
+        }
+    </script>
+</body>
+</html>

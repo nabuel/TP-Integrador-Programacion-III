@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav>
+            
+        </nav>
+    </header>
+
+    <main>
+        <section id="get-producto-by-id">
+            <form id="formGetById">
+
+                <label for="idProducto">ID del producto</label>
+                <input type="number" min="1" name="idProducto">
+
+                <input type="submit" value="Buscar producto">
+
+        </section>
+
+        <section id="contenedor-productos"></section>
+    </main>
+    <script>
+        const contenedorProductos = document.getElementById("contenedor-productos");
+        const contenedorProductosById = document.getElementById("get-producto-by-id");
+        const form = document.getElementById("formGetById");
+
+        const urlBase = "http://localhost:3000"
+
+        form.addEventListener("submit", async event =>{
+            event.preventDefault();
+            
+            try{
+                const id = event.target.idProducto.value.trim();
+
+                const response = await fetch(`${urlBase}/api/productos/${id}`);
+                
+                const productos = await response.json();
+                renderizarProducto(productos)
+    
+    
+            }catch (error){
+                console.error(error);
+            }
+        })
+
+
+        function renderizarProducto(productos){
+            const producto = productos.payload[0];
+            contenedorProductos.innerHTML = `<div class="card-producto">
+                                                <img src="${producto.imagen}" alt="${producto.nombre}">
+                                                <p class="nombre-prod">${producto.nombre}</p>
+                                                <p class="precio-prod">${producto.precio}$</p>
+                                            </div>`;
+
+            // let productosHTML = ""; 
+            // productos.forEach(p => {
+                // productosHTML += `  <div class="card-producto">
+            //                             <img src="${p.imagen}" alt="${p.nombre}">
+            //                             <p class="nombre-prod">${p.nombre}</p>
+            //                             <p class="precio-prod">${p.precio}$</p>
+            //                         </div>`
+            // });
+
+        }
+    </script>
+
+</body>
+</html>
