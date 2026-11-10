@@ -5,6 +5,10 @@ const traerProductos = async (_, res) =>{
 
     const [productos] = await modeloProductos.getProductos();
 
+
+const traerProductos = async (_, res) =>{
+    const [productos] =  await modeloProductos.getProductos();
+    
     if(productos.length === 0){
 
         return res.status(404).json({
@@ -24,6 +28,10 @@ const traerProducto = async (req, res)=>{
 
         if(!producto.length){
 
+        
+        const [producto] = await modeloProductos.getProductoById(req.params.id)
+        
+        if(!producto.length){
             return res.status(404).json({
                 mensaje: `No se ha encontrado un producto con id ${req.params.id}`
             });
@@ -33,6 +41,10 @@ const traerProducto = async (req, res)=>{
             payload: producto
         });
 
+    
+        res.status(200).json({
+            payload: producto
+        });
     } catch(error){
         res.status(500).json({
             mensaje: "Error interno con la base de datos"

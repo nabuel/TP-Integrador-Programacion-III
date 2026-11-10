@@ -1,7 +1,7 @@
 import express from "express";
 import environments from "./src/api/config/environments.js";
 import cors from "cors";
-import rutaProductos from "./src/api/routes/ruta.productos.js";
+import rutaProductos from "./src/api/routes/productos.route.js";
 
 const app = express();
 const PORT = environments.port;
@@ -18,7 +18,8 @@ app.use(express.json()) // Parseo de JSON recibido en el body de la request
 	Endpoints 
 =====================*/
 
-app.get("/api/productos", rutaProductos)
+app.use("/api/productos", rutaProductos)
+
 
 
 // Para que el servidor siga detectando las nuevas peticiones

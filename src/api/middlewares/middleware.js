@@ -1,7 +1,5 @@
 function validarId(req, res, next){
-
-// 1. Obtengo el id y lo convierto a un número
-
+    // 1. Obtengo el id y lo convierto a un número
     const id = Number(req.params.id);
 
 // 2. Valida que sea un número entero y mayor a 0.
@@ -18,6 +16,9 @@ function validarId(req, res, next){
     next();
 }
 
+function validarProducto(req, res, next){
+    const {nombre, imagen, precio, activo, categoria} = req.body;
+    const errores = [];
 
 function validarProducto(req, res, next){
 
@@ -40,6 +41,7 @@ function validarProducto(req, res, next){
         });
     };
     
+
     next();
 }
 
