@@ -82,7 +82,6 @@ const modificarProducto = async (req,res)=>{
 const borrarProducto = async (req, res)=>{
     try{
         const id = req.params.id;
-        const {respuesta} = await modeloProductos.deleteProducto(id)
         
         res.status(204).json({
             mensaje : `Producto con id ${id} eliminado correctamente`

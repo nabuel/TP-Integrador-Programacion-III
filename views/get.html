@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
 
     <link rel="stylesheet" href="css/styles.css">
     
@@ -61,43 +60,73 @@
         const form = document.getElementById("formGetById");
 
         const urlBase = "http://localhost:3000"
-
+        
+        
         form.addEventListener("submit", async event =>{
             event.preventDefault();
             
-            try{
-                const id = event.target.idProducto.value.trim();
+            const id = event.target.idProducto.value.trim();
+            buscarProducto(id);
+        })
+        
 
-                const response = await fetch(`${urlBase}/api/productos/${id}`);
+    /*=======================
+        FUNCIONES
+    =======================*/
+        async function buscarProductos() {
+            
+            try{
+                // Hago la request a la api para obtener todos los productos.
+                const response = await fech(`${urlBase}/api/productos`);
                 
+                // Envío la response de la request y lo convierto en un json. 
+                renderizarProductos(await response.json());
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        async function buscarProducto(id){
+            
+            try{
+                
+                const response = await fetch(`${urlBase}/api/productos/${id}`);
                 const productos = await response.json();
-                renderizarProducto(productos)
+                
+                if (response.ok){
+                    renderizarProductos(productos);
+                }else{
+                    mostrarError(productos.mensaje)
+                }
     
     
             }catch (error){
                 console.error(error);
             }
-        })
+        }
 
+        function renderizarProductos(productos){
+            let productosHTML = "";
 
-        function renderizarProducto(productos){
-            const producto = productos.payload[0];
-            contenedorProductos.innerHTML = `<div class="card-producto">
-                                                <img src="${producto.imagen}" alt="${producto.nombre}">
+            productos.payload.forEach(producto => {
+                productosHTML += `<div class="card-producto">
+                                                <img src="./img/${producto.imagen}" alt="${producto.nombre}">
                                                 <p class="nombre-prod">${producto.nombre}</p>
                                                 <p class="precio-prod">${producto.precio}$</p>
                                             </div>`;
-
-            // let productosHTML = ""; 
-            // productos.forEach(p => {
-                // productosHTML += `  <div class="card-producto">
-            //                             <img src="${p.imagen}" alt="${p.nombre}">
-            //                             <p class="nombre-prod">${p.nombre}</p>
-            //                             <p class="precio-prod">${p.precio}$</p>
-            //                         </div>`
-            // });
-
+            })
+            
+            contenedorProductos.innerHTML = productosHTML;
         }
+        
+        function mostrarError(error){
+            console.log(error);
+            contenedorProductos.innerHTML = error;
+        }
+        
+    
+        
     </script>
 
 </body>

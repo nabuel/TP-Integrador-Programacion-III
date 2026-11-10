@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard principal</title>
 
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
 
     <link rel="stylesheet" href="css/styles.css">
     
@@ -40,13 +39,58 @@
     </header>
 
     <main>
-
+        <section id="contenedor-productos"></section>
 
     </main>
 
     <script>
+        const contenedorProductos = document.getElementById("contenedor-productos");
 
+        const urlBase = "http://localhost:3000"
+        
+        
+        const productos = buscarProductos();
+        if (typeof productos !== "string"){ 
+            renderizarProductos(productos)
 
+        }else{
+            mostrarError(productos)
+        }  
+        
+        async function buscarProductos() {
+            
+            try{
+                // Hago la request a la api para obtener todos los productos.
+                const response = await fetch(`${urlBase}/api/administradores`);
+                
+                if(!response.ok) return response.json().mensaje;
+                
+                return await response.json(); 
+                // Envío la response de la request y lo convierto en un json. 
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        function renderizarProductos(productos){
+            let productosHTML = "";
+
+            productos.payload.forEach(producto => {
+                productosHTML += `<div class="card-producto">
+                                                <img src="./img/${producto.imagen}" alt="${producto.nombre}">
+                                                <p class="nombre-prod">${producto.nombre}</p>
+                                                <p class="precio-prod">${producto.precio}$</p>
+                                            </div>`;
+            })
+            
+            contenedorProductos.innerHTML = productosHTML;
+        }
+
+        function mostrarError(error){
+            console.log(error);
+            contenedorProductos.innerHTML = `<p>${error}</p>`;
+        }
     </script>
 
 </body>
