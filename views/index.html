@@ -66,15 +66,31 @@
 
     </main>
 
+        
+
+
     <script>
         //  Cargar mensaje de bienvenida
         const mensajeBienvenida = document.getElementById("mensaje-bienvenida");
         mensajeBienvenida.innerText = `Bienvenid@ ${localStorage.getItem("nombreUsuario")}`;
-
-
+        
+        const carrito = [];
+        const productos = [];
         //  Traer todos los productos
         const contenedorProductos = document.getElementById("contenedor-productos");
+        
+        
+        const botonesAgregarProd = document.querySelectorAll(".btn-agregar-prod-carrito");
+        
+    
+    
+        botonesAgregarProd.addEventListener("click", event => {
+            console.log(`Clickeaste para agregar el elemento ${event.currentTarget.id}`);
+            
+            carrito.push(productos.find(p => p.id == event.currentTarget.id));
 
+            localStorage.setItem("productosCarrito",carrito);
+        })
 
 
         async function buscarProductos() {
@@ -86,10 +102,9 @@
 
                 if (!response.ok) {
                     return mostrarError(data.mensaje);
-                    console.error(data.mensaje);
                 }
 
-                const productos = data.payload;
+                productos = data.payload;
 
                 renderizarProductos(productos);
             } catch (error) {
@@ -100,24 +115,24 @@
 
         function renderizarProductos(productos) {
             let productosHTML = "";
-            console.table(productos);
             productos.forEach(producto => {
                 productosHTML += `<div class="card-producto">
-                                                <img src="./img/${producto.imagen}" alt="${producto.nombre}">
-                                                <p class="nombre-prod">${producto.nombre}</p>
-                                                <p class="precio-prod">${producto.precio}$</p>
-                                                <button class="btn-agregar-prod-carrito" type="button">Agregar al carrito</button>
-                                            </div>`;
+                                    <button class="btn-agregar-prod-carrito" id="${producto.id}" type="button">
+                                        <img src="./img/${producto.imagen}" alt="${producto.nombre}">
+                                    </button>
+                                    <p class="nombre-prod">${producto.nombre}</p>
+                                    <p class="precio-prod">${producto.precio}$</p>
+                                </div>`;
             })
 
             contenedorProductos.innerHTML = productosHTML;
         }
+        
 
         function mostrarError(error) {
             console.log(error);
             contenedorProductos.innerHTML = `<p>${error}</p>`;
         }
-
         buscarProductos();
     </script>
 </body>
