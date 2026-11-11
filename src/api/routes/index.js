@@ -1,9 +1,11 @@
 //  Archivo que centraliza las rutas. Se importan con el mismo nombre
 import rutaProductos from "./productos.route.js";
+import rutaVentas from "./ventas.route.js";
 
 
-export{
-    rutaProductos
+export {
+    rutaProductos,
+    rutaVentas
 }
 
 
