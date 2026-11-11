@@ -8,6 +8,6 @@ const router = Router();
 router.get("/", traerVentas);
 
 // Guardar una venta nueva
-router.post("/", crearVenta);
+// router.post("/", crearVenta);
 
 export default router;
