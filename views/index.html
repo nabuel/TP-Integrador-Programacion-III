@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RappiGames</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tiny5+Duo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/styles.css">
-    
+
     <link rel="icon" type="image/png" href="../favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg" />
     <link rel="shortcut icon" href="../favicon/favicon.ico" />
@@ -22,32 +25,38 @@
         <section class="section-logo">
 
             <div>
-                
+
                 <a href="./index.html">
-                    <img src="img/logo-2026.png" alt="logo-rapigames" width="200">
+                    <img id="logo-rappigames" src="img/logo-2026.png" alt="logo-rappigames" width="150">
                 </a>
 
             </div>
 
             <div>
 
-                <h2>RappiGames</h2>
-                <h6>by Franco L. & Nahuel M.</h4>
-                
+                <h2 class="texto-gradiente">RappiGames</h2>
+                <h6 class="texto-gradiente">by Franco L. & Nahuel M.</h4>
+
             </div>
 
         </section>
-        
+
         <nav>
-            <p><a href="./login.html">Panel administrador</a></p>
+
+            <p>
+                <a id="parrafo-admin-nav" href="./login.html">Admin</a>
+            </p>
 
             <div id="contenedor-carrito">
+
                 <a href="./carrito.html">
-                    <img src="./img/cart.png" alt="carrito">
+                    <img id="carrito-img" src="./img/cart.png" alt="carrito">
                 </a>
+
             </div>
 
         </nav>
+
     </header>
 
     <main>
@@ -66,16 +75,16 @@
         //  Traer todos los productos
         const contenedorProductos = document.getElementById("contenedor-productos");
 
-        
-        
+
+
         async function buscarProductos() {
-            try{
+            try {
                 // Hago la request a la api para obtener todos los productos.
                 const urlBase = "http://localhost:3000"
                 const response = await fetch(`${urlBase}/api/productos`);
                 const data = await response.json();
 
-                if(!response.ok){
+                if (!response.ok) {
                     return mostrarError(data.mensaje);
                     console.error(data.mensaje);
                 }
@@ -89,7 +98,7 @@
         }
 
 
-        function renderizarProductos(productos){
+        function renderizarProductos(productos) {
             let productosHTML = "";
             console.table(productos);
             productos.forEach(producto => {
@@ -100,11 +109,11 @@
                                                 <button class="btn-agregar-prod-carrito" type="button">Agregar al carrito</button>
                                             </div>`;
             })
-            
+
             contenedorProductos.innerHTML = productosHTML;
         }
 
-        function mostrarError(error){
+        function mostrarError(error) {
             console.log(error);
             contenedorProductos.innerHTML = `<p>${error}</p>`;
         }
