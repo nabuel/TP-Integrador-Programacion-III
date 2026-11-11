@@ -3,9 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Carrito</title>
+
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <link rel="icon" type="image/png" href="../favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg" />
+    <link rel="shortcut icon" href="../favicon/favicon.ico" />
+    <link rel="manifest" href="../favicon/site.webmanifest" />
 </head>
 <body>
-    <h1>PAGINA DEL CARRITO</h1>
+    <header>
+        <section class="section-logo">
+
+            <div>
+                
+                <a href="./index.html">
+                    <img src="img/logo-2026.png" alt="logo-rapigames" width="200">
+                </a>
+
+            </div>
+
+            <div>
+
+                <h2>RappiGames</h2>
+                <h6>by Franco L. & Nahuel M.</h4>
+                
+            </div>
+
+        </section>
+    </header>
+
+    <main>
+
+        <h3>PAGINA DEL CARRITO</h3>
+
+        <section id="contenedor-productos"></section>
+        
+        
+        <p id="precio-total"></p>
+        <button type="button" id="btn-finalizar-compra">FINALIZAR COMPRA</button>
+    
+    </main>
+
+
+    <script>
+        const contenedorProductos = document.getElementById("contenedor-productos");
+        const btnFinalizarCompra = document.getElementById("btn-finalizar-compra");
+        const carrito = localStorage.getItem("productosCarrito"); 
+        const carritoSinRepetidos = [];
+        
+        btnFinalizarCompra.addEventListener("click", event =>{
+            if(window.confirm("¿Desea finaliar su compra?")){
+                window.location.replace("./ticket.html");
+            }
+        })
+        //  MUESTRO LOS PRODUCTOS DE LA LISTA DEL CARRITO
+        mostrarCarrito(carrito);
+        mostrarValorCarrito();
+
+
+
+        /**
+         * Muestra el valor del carrito por pantalla
+        */
+        function mostrarValorCarrito(){
+            var totalHTML = document.getElementById("precio-total");
+
+            totalHTML.textContent = `$ ${carrito.reduce((total,producto) => {return total + producto.precio},0)}`
+        }
+
+        function mostrarCarrito(carrito){
+            let mensaje = '<ul>';
+
+            //  Elimina los elementos repetidos para la vista
+            carrito.forEach(p => {if(!carritoSinRepetidos.some(producto => producto.id == p.id)) carritoSinRepetidos.push(p)});
+
+            carritoSinRepetidos.forEach(p => mensaje += `<li class="bloque-producto">
+                                            <p class="nombre-item">${p.nombre} - ${p.precio}$</p>
+                                            <button class="boton-eliminar" id="${p.id}">Eliminar</button>
+                                            <button class="boton-sumar" id="${p.id}">+</button>
+                                            <p class="cantidad" id="contador-${p.id}">${carrito.reduce((sum, producto) => {
+                                                if(producto.id === p.id){
+                                                    sum +=1
+                                                }
+                                                return sum;
+                                            },0)}</p>
+                                            <button class="boton-restar" id="${p.id}">-</button>
+                                        </li>`);
+
+            mensaje += "</ul>";
+            contenedorProductos.innerHTML = mensaje;
+
+            //  ESCUCHA EL EVENTO DE ELIMINAR UN PRODUCTO DEL CARRITO
+
+            const botonesEliminado = document.querySelectorAll(".boton-eliminar");
+        
+            botonesEliminado.forEach(b => b.addEventListener('click', e =>{
+                eliminarProducto(carrito.find(p=> p.id == e.target.id));
+            }))
+
+
+            // SUMO 1 AL CARRITO
+            const botonesSuma = document.querySelectorAll(".boton-sumar");
+            
+            botonesSuma.forEach(b=>b.addEventListener('click', e=>{
+
+                const cantidad = document.getElementById(`contador-${e.target.id}`);
+
+                cantidad.textContent = `${parseInt(cantidad.textContent) + 1}`;
+                agregarCarrito(productos.find(p=> p.id == e.target.id));
+            }))
+
+
+            // LE SACO 1 AL CARRITO
+            const botonesResta = document.querySelectorAll(".boton-restar");
+
+            botonesResta.forEach(b=>b.addEventListener('click', e=>{
+                const cantidad = document.getElementById(`contador-${e.target.id}`);
+
+                let resta = parseInt(cantidad.textContent) - 1;
+                
+                if(resta > 0){
+                    
+                    carrito.splice(carrito.indexOf(carrito.find(p=> p.id == e.target.id)),1);
+                    cantidad.textContent = `${resta}`
+                    almacenarCarrito();
+
+                } else {
+                    eliminarProducto(productos.find(p=> p.id == e.target.id))
+                }
+            }))
+            
+        }
+
+
+            function agregarCarrito(producto){
+                carrito.push(producto)
+                almacenarCarrito();
+                mostrarContador();
+                mostrarCarrito();
+            }
+
+
+            /**
+             * Elimina el producto indicado del carrito.
+             * @param {*} producto producto a eliminar.
+             */
+            function eliminarProducto(producto){
+                carrito = carrito.filter(p => p.id != producto.id)
+                carritoSinRepetidos.splice(carritoSinRepetidos.indexOf(producto),1);
+                almacenarCarrito();
+                mostrarContador();
+                mostrarCarrito();
+            }
+
+
+            function almacenarCarrito(){
+                localStorage.setItem("productosCarrito", JSON.stringify(carrito))
+            }
+
+
+            function mostrarContador(){
+                const contador = document.getElementById("contador-carrito");
+
+                contador.textContent = `${carrito.length}`;
+            }
+
+    </script>
+
 </body>
+
 </html>
