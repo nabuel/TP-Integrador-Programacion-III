@@ -34,53 +34,67 @@
                 
             </div>
 
+            
         </section>
+        
+        <nav>
+            <p><a href="./login.html">Panel administrador</a></p>
 
+            <div id="contenedor-carrito">
+                <img src="" alt="carrito">
+            </div>
+        </nav>
     </header>
 
     <main>
+        <h2 id="mensaje-bienvenida"></h2>
+
+
         <section id="contenedor-productos"></section>
 
     </main>
 
     <script>
+        //  Cargar mensaje de bienvenida
+        const mensajeBienvenida = document.getElementById("mensaje-bienvenida");
+        mensajeBienvenida.innerText = `Bienvenid@ ${localStorage.getItem("nombreUsuario")}`;
+
+
+        //  Traer todos los productos
         const contenedorProductos = document.getElementById("contenedor-productos");
 
-        const urlBase = "http://localhost:3000"
         
-        
-        const productos = buscarProductos();
-        if (typeof productos !== "string"){ 
-            renderizarProductos(productos)
-
-        }else{
-            mostrarError(productos)
-        }  
         
         async function buscarProductos() {
-            
             try{
                 // Hago la request a la api para obtener todos los productos.
-                const response = await fetch(`${urlBase}/api/administradores`);
-                
-                if(!response.ok) return response.json().mensaje;
-                
-                return await response.json(); 
-                // Envío la response de la request y lo convierto en un json. 
+                const urlBase = "http://localhost:3000"
+                const response = await fetch(`${urlBase}/api/productos`);
+                const data = await response.json();
 
+                if(!response.ok){
+                    return mostrarError(data.mensaje);
+                    console.error(data.mensaje);
+                }
+
+                const productos = data.payload;
+
+                renderizarProductos(productos);
             } catch (error) {
-                console.error(error);
+                console.error("Error del servidor");
             }
         }
 
+
         function renderizarProductos(productos){
             let productosHTML = "";
-
-            productos.payload.forEach(producto => {
+            console.table(productos);
+            productos.forEach(producto => {
                 productosHTML += `<div class="card-producto">
                                                 <img src="./img/${producto.imagen}" alt="${producto.nombre}">
                                                 <p class="nombre-prod">${producto.nombre}</p>
                                                 <p class="precio-prod">${producto.precio}$</p>
+                                                <button class="btn-agregar-prod-carrito" type="button">Agregar al carrito</button>
                                             </div>`;
             })
             
@@ -91,8 +105,9 @@
             console.log(error);
             contenedorProductos.innerHTML = `<p>${error}</p>`;
         }
-    </script>
 
+        buscarProductos();
+    </script>
 </body>
 
 </html>
