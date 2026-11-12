@@ -8,7 +8,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tiny5+Duo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tiny5+Duo:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="css/styles.css">
 
@@ -66,33 +67,22 @@
 
     </main>
 
-        
 
 
     <script>
         //  Cargar mensaje de bienvenida
         const mensajeBienvenida = document.getElementById("mensaje-bienvenida");
         mensajeBienvenida.innerText = `Bienvenid@ ${localStorage.getItem("nombreUsuario")}`;
-        
-        const carrito = [];
-        const productos = [];
-        //  Traer todos los productos
+
         const contenedorProductos = document.getElementById("contenedor-productos");
         
         
-        const botonesAgregarProd = document.querySelectorAll(".btn-agregar-prod-carrito");
+        const carrito = [];
+        const productos = [];
         
-    
-    
-        botonesAgregarProd.addEventListener("click", event => {
-            console.log(`Clickeaste para agregar el elemento ${event.currentTarget.id}`);
-            
-            carrito.push(productos.find(p => p.id == event.currentTarget.id));
-
-            localStorage.setItem("productosCarrito",carrito);
-        })
-
-
+        /**
+         * Obtengo los productos guardados en la bd
+        */
         async function buscarProductos() {
             try {
                 // Hago la request a la api para obtener todos los productos.
@@ -100,24 +90,27 @@
                 const response = await fetch(`${urlBase}/api/productos`);
                 const data = await response.json();
 
+                // Valido que la request haya sido exitosa. En caso de que no lo sea se notifica al usuario.
                 if (!response.ok) {
                     return mostrarError(data.mensaje);
                 }
 
-                productos = data.payload;
-
+                data.payload.forEach(e => productos.push(e));
                 renderizarProductos(productos);
             } catch (error) {
-                console.error("Error del servidor");
+                console.error(error);
             }
         }
 
-
+        /**
+         * Agrega las cartas de los productos al html.
+         * productos -> lista donde se encuentran los productos.
+        */
         function renderizarProductos(productos) {
             let productosHTML = "";
             productos.forEach(producto => {
                 productosHTML += `<div class="card-producto">
-                                    <button class="btn-agregar-prod-carrito" id="${producto.id}" type="button">
+                                    <button class="btn-agregar-prod-carrito"  onclick="agregarCarrito(${producto.id})">
                                         <img src="./img/${producto.imagen}" alt="${producto.nombre}">
                                     </button>
                                     <p class="nombre-prod">${producto.nombre}</p>
@@ -126,14 +119,34 @@
             })
 
             contenedorProductos.innerHTML = productosHTML;
-        }
-        
 
+        }
+
+        /**
+         * Agrega la alerta de error al html.
+        */
         function mostrarError(error) {
             console.log(error);
-            contenedorProductos.innerHTML = `<p>${error}</p>`;
+            contenedorProductos.innerHTML = `<p class="error-alerta">${error}</p>`;
         }
+
+        /**
+         *  Agrega el producto al carrito 
+         *  id -> id del producto que se quiere agregar
+         */
+        function agregarCarrito(id) {
+            const producto = productos.find(p => p.id == id); 
+            carrito.push(producto);
+            console.log("Agregando al carrito: ", producto)
+            almacenarCarrito();
+        }
+
+        function almacenarCarrito(){
+            sessionStorage.setItem("productosCarrito", JSON.stringify(carrito))
+        }
+
         buscarProductos();
+
     </script>
 </body>
 
