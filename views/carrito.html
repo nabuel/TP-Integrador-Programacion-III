@@ -50,7 +50,8 @@
     <script>
         const contenedorProductos = document.getElementById("contenedor-productos");
         const btnFinalizarCompra = document.getElementById("btn-finalizar-compra");
-        const carrito = localStorage.getItem("productosCarrito"); 
+        const carrito = sessionStorage.getItem("productosCarrito");
+
         const carritoSinRepetidos = [];
         
         btnFinalizarCompra.addEventListener("click", event =>{
@@ -160,7 +161,7 @@
 
 
             function almacenarCarrito(){
-                localStorage.setItem("productosCarrito", JSON.stringify(carrito))
+                sessionStorage.setItem("productosCarrito", JSON.stringify(carrito))
             }
 
 
