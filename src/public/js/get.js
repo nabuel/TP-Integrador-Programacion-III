@@ -1,61 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-
-    <link rel="stylesheet" href="css/styles.css">
-    
-    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon/favicon.ico" />
-    <link rel="manifest" href="/favicon/site.webmanifest" />
-
-</head>
-<body>
-    <header>
-
-        <section class="section-logo">
-
-            <div>
-
-                <img src="img/logo-2026.png" alt="logo-rapigames" width="200">
-
-            </div>
-
-            <div>
-
-                <h2>RappiGames</h2>
-                <h6>by Franco L. & Nahuel M.</h4>
-                
-            </div>
-
-        </section>
-
-        <nav>
-            
-        </nav>
-        
-    </header>
-
-    <main>
-        <section id="get-producto-by-id">
-            <form id="formGetById">
-
-                <label for="idProducto">ID del producto</label>
-                <input type="number" min="1" name="idProducto">
-
-                <input type="submit" value="Buscar producto">
-
-        </section>
-
-        <section id="contenedor-productos"></section>
-    </main>
-    <script>
-        const contenedorProductos = document.getElementById("contenedor-productos");
+const contenedorProductos = document.getElementById("contenedor-productos");
         const contenedorProductosById = document.getElementById("get-producto-by-id");
         const form = document.getElementById("formGetById");
 
@@ -124,10 +67,3 @@
             console.log(error);
             contenedorProductos.innerHTML = error;
         }
-        
-    
-        
-    </script>
-
-</body>
-</html>

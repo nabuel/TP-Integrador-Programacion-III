@@ -1,0 +1,25 @@
+<!-- Incluimos los fragmentos ejs faltantes -->
+<%- include("partials/head.ejs") %>
+    <%- include("partials/header.ejs") %>
+
+        <main>
+            <h2 id="mensaje-bienvenida"></h2>
+
+            <section id="contenedor-productos">
+
+                <!-- Ahora desde EJS podemos iterar directamente desde aca -->
+
+                <% listaProductos.forEach(producto => { %>
+                    <div class="card-producto">
+                        <button class="btn-agregar-prod-carrito" onclick="agregarCarrito(<%= producto.id %>)">
+                            <img src="/img/<%=producto.imagen%>" alt="<%=producto.nombre%>">
+                        </button>
+                        <p class="nombre-prod"><%=producto.nombre%></p>
+                        <p class="precio-prod"><%=producto.precio%>$</p>
+                    </div>
+                    <% }) %>
+            </section>
+
+        </main>
+
+        <%- include("partials/footer.ejs") %>
