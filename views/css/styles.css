@@ -1,3 +1,15 @@
+/* Ajustamos el body */
+body {
+    margin: 0px;
+    background-color: beige;
+    font-family: tiny5 duo;
+}
+
+/* Logo rappigames */
+#logo-rappigames {
+    width: 200px;
+}
+
 /* Primera seccion donde esta el logo, el nombre de la empresa y sus integrantes. */
 .section-logo {
     display: flex;
@@ -8,19 +20,21 @@
     margin-top: 60px;
     display: flex;
     flex-direction: column;
-    align-items: self-end;
 }
 
 /* El h2 especifico del primer section */
 .section-logo h2 {
     margin-bottom: 0;
+    text-shadow: -1px 3px 3px rgba(-11, -11, -37, 0.4);
 }
 
 /* El h6 especifico del primer section */
 .section-logo h6 {
-    width: 150px;
+    width: 155px;
     margin-top: 0;
-    font-size: 12px;
+    font-size: 10px;
+    margin-left: 64px;
+    text-shadow: -1px 3px 3px rgba(-11, -11, -37, 0.4);
 }
 
 /* Form pantalla bienvenida */
@@ -60,4 +74,39 @@ form {
 
 #submit-continuar::active {
     transform: scale(0.95);
+}
+
+/* Aplicamos un gradiente como fondo y lo recortamos a la forma del texto para el titulo de la empresa */
+
+.texto-gradiente {
+  background: linear-gradient(90deg, #ff0080, #7928ca, #2afadf);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Ajustamos el NAV */
+nav {
+    display: flex;
+    padding: 50px;
+}
+
+/* Ajustamos el header */
+header {
+    display: flex;
+    justify-content: space-around;
+}
+
+/* Img carrito */
+#carrito-img {
+    width: 80px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* Parrafo admin nav */
+#parrafo-admin-nav {
+    text-decoration: none;
+    color: #641501;
+    font-size: 40px;
 }
