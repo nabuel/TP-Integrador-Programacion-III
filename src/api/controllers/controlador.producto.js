@@ -14,6 +14,20 @@ const traerProductos = async (_, res) =>{
     });
 };
 
+const traerProductosActivos = async (_, res) => {
+    const [productosActivos] = await modeloProductos.getProductosActivos();
+
+    if(productosActivos.length === 0){
+        return res.status(404).json({
+            mensaje: "No se han encontrado productos"
+        });
+    };
+
+    res.status(200).json({
+        payload: productosActivos
+    });
+}
+
 const traerProducto = async (req, res)=>{
 
     try{
@@ -97,6 +111,7 @@ const borrarProducto = async (req, res)=>{
 
 export {
     traerProductos,
+    traerProductosActivos,
     traerProducto,
     crearProducto,
     modificarProducto,

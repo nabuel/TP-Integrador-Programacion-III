@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { traerProductos, traerProducto, crearProducto, modificarProducto, borrarProducto} from "../controllers/controlador.producto.js";
+import { traerProductos, traerProducto, crearProducto, modificarProducto, borrarProducto, traerProductosActivos} from "../controllers/controlador.producto.js";
 import { validarId, validarProducto } from "../middlewares/middleware.js";
 
 const router = Router();
@@ -8,6 +8,10 @@ const router = Router();
 //  Obtengo todos los productos.
 
 router.get("/", traerProductos);
+
+// Obtengo todos los productos activos
+
+router.get("/activos", traerProductosActivos);
 
 
 // Obtengo el producto por id
