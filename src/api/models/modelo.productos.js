@@ -9,6 +9,10 @@ const getProductos =  () =>{
     return conexion.query("SELECT id, nombre, precio, imagen FROM productos");
 }
 
+const getProductosActivos = () => {
+    return conexion.query("SELECT id, nombre, precio, imagen FROM productos WHERE activo = 1;");
+}
+
 // Traer producto por id.
 const getProductoById =  (id) =>{
     const sql = "SELECT id, nombre, precio, imagen FROM productos WHERE id = ?";
@@ -41,6 +45,7 @@ const deleteProducto =  id =>{
 
 export default {
     getProductos,
+    getProductosActivos,
     getProductoById,
     createProducto,
     updateProducto,
