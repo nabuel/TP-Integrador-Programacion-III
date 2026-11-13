@@ -1,0 +1,20 @@
+<!-- Incluimos los fragmentos ejs faltantes -->
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+
+    <main>
+        <section id="get-producto-by-id">
+            <form id="formGetById">
+
+                <label for="idProducto">ID del producto</label>
+                <input type="number" min="1" name="idProducto">
+
+                <input type="submit" value="Buscar producto">
+
+        </section>
+
+        <section id="contenedor-productos"></section>
+    </main>
+    <script src="/js/get.js"></script>
+
+<%- include("partials/footer.ejs") %>
