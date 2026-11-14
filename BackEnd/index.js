@@ -32,14 +32,14 @@ app.use(express.static(join(__dirname, "src/public"))); // Este middleware tiene
 =====================*/
 
 /**
- * Ruta para los endpoints
+ * Ruta para los endpoints de la api
  */
 app.use("/api/productos", rutaProductos);
 
 app.use("/api/ventas", rutaVentas);
 
 /**
- * Ruta para las vitas
+ * Ruta para las vistas de administrador
  */
 app.use("/dashboard", rutaVistas);
 

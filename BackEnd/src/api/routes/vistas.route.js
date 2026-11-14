@@ -7,7 +7,7 @@ const router = Router();
  * Vistas de principal, obtener por ID, ...
  */
 router.get("/principal", vistaProductos);
-router.get("/obtener", vistaObtenerPorId);
+router.get("/obtener/:id", vistaObtenerPorId);
 
 
 export default router;
