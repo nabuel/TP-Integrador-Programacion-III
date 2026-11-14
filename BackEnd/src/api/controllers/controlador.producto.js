@@ -43,6 +43,7 @@ const traerProducto = async (req, res)=>{
         res.status(200).json({
             payload: producto
         });
+        
     } catch(error){
         res.status(500).json({
             mensaje: "Error interno con la base de datos"
