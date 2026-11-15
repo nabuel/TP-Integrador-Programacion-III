@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tiny5+Duo:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="./css/styles.css">
     
-    <link rel="icon" type="image/png" href="../favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg" />
-    <link rel="shortcut icon" href="../favicon/favicon.ico" />
-    <link rel="manifest" href="../favicon/site.webmanifest" />
+    <link rel="icon" type="image/png" href="./favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="./favicon/favicon.svg" />
+    <link rel="shortcut icon" href="./favicon/favicon.ico" />
+    <!-- <link rel="manifest" href="../favicon/site.webmanifest" /> -->
 </head>
+
 <body>
     <header>
+
         <section class="section-logo">
 
             <div>
                 
-                <a href="./index.html">
+                <a href="./productos.html">
                     <img src="img/logo-2026.png" alt="logo-rapigames" width="200">
                 </a>
 
@@ -26,23 +34,28 @@
 
             <div>
 
-                <h2>RappiGames</h2>
-                <h6>by Franco L. & Nahuel M.</h4>
+                <h2 class="texto-gradiente">RappiGames</h2>
+                <h6 class="texto-gradiente">by Franco L. & Nahuel M.</h4>
                 
             </div>
 
         </section>
+
+        <p id="empresa-desc" class="texto-gradiente">The world's leading gaming and console company.</p>
+
     </header>
+
+    <hr>
 
     <main>
 
-        <h3>PAGINA DEL CARRITO</h3>
+        <h3 id="title-carrito" class="texto-gradiente">Your cart</h3>
 
         <section id="contenedor-productos"></section>
         
-        
         <p id="precio-total"></p>
-        <button type="button" id="btn-finalizar-compra">FINALIZAR COMPRA</button>
+
+        <button type="button" class="texto-gradiente" id="btn-finalizar-compra">Buy >></button>
     
     </main>
 
@@ -55,15 +68,13 @@
         const carritoSinRepetidos = [];
         
         btnFinalizarCompra.addEventListener("click", event =>{
-            if(window.confirm("¿Desea finaliar su compra?")){
+            if(window.confirm("¿Desea finalizar su compra?")){
                 window.location.replace("./ticket.html");
             }
         })
         //  MUESTRO LOS PRODUCTOS DE LA LISTA DEL CARRITO
         mostrarCarrito(carrito);
         mostrarValorCarrito();
-
-
 
         /**
          * Muestra el valor del carrito por pantalla

@@ -57,8 +57,10 @@ function renderizarProductos(productos) {
 function agregarCarrito(id) {
     const producto = productos.find((p) => p.id == id);
     carrito.push(producto);
-    console.log("Agregando al carrito: ", producto);
+    // console.log("Agregando al carrito: ", producto);
     almacenarCarrito();
+    console.log("Carrito actual logico: ", carrito);
+    console.log("Carrito actual en sesion local: ", sessionStorage.getItem("productosCarrito"));
 }
 
 /**
