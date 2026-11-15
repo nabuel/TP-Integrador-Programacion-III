@@ -2,7 +2,7 @@
 body {
     margin: 0px;
     background-color: beige;
-    font-family: tiny5 duo;
+    font-family: "Tiny5 Duo", sans-serif;
 }
 
 /* Logo rappigames */
@@ -10,8 +10,24 @@ body {
     width: 200px;
 }
 
+/* Hr que separa el logo de la descr. */
+#separador-logo {
+    margin: 0px;
+
+}
+
+/* Descripcion empresa */
+#empresa-desc{
+    margin-top: 5%;
+    /* La sintaxis para dar sombra es text-shadow: ejeX ejeY desenfoque color; */
+    text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.5); 
+    margin-right: -20%;
+}
+
 /* Primera seccion donde esta el logo, el nombre de la empresa y sus integrantes. */
 .section-logo {
+    margin-right: -550px;
+    margin-left: -250px;
     display: flex;
 }
 
@@ -45,23 +61,20 @@ form {
 
 /* Label de nombre en el form */
 #label-name {
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 900;
+    font-weight: 600;
     font-size: 40px;
     text-align: center;
+    text-shadow: -1px 2px 8px rgba(-11, -11, -37, 0.4);
 }
 
 /* Boton de submit en el form */
 #submit-continuar {
+    font-family: "Tiny5 Duo", sans-serif;
     font-size: 30px;
-    font-family: Arial, Helvetica, sans-serif;
     font-weight: 600;
-    color: rgb(202, 200, 200);
     border-radius: 10px;
-    width: 300px;
-    margin-left: 200px;
-    background-color: rgba(230, 74, 74, 0.8);
-    border: 0px;
+    width: 200px;
+    margin-left: 45%;
     transition: background-color 0.3s ease;
 }
 
@@ -74,6 +87,13 @@ form {
 
 #submit-continuar::active {
     transform: scale(0.95);
+}
+
+#fill-text {
+    margin-left: 40%;
+    width: 20%;
+    height: 30px;
+    border-radius: 12px;
 }
 
 /* Aplicamos un gradiente como fondo y lo recortamos a la forma del texto para el titulo de la empresa */
@@ -90,13 +110,22 @@ form {
 nav {
     display: flex;
     padding: 50px;
+    margin-right: -11%;
 }
 
-/* Ajustamos el header */
+/* Ajustamos el header en comun*/
 header {
     display: flex;
     justify-content: space-around;
+    margin-bottom: 200px;
+    margin-bottom: 0px;
 }
+
+/* Pisamos el selector para la pantalla bienvenida */
+.header-bienvenida {
+    margin-bottom: 150px;
+}
+
 
 /* Img carrito */
 #carrito-img {
