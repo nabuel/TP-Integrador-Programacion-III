@@ -56,11 +56,12 @@ function renderizarProductos(productos) {
  */
 function agregarCarrito(id) {
     const producto = productos.find((p) => p.id == id);
+    const carritoHistorico = JSON.parse(sessionStorage.getItem("productosCarrito"));
+
+    if(carritoHistorico) carritoHistorico.forEach(p => carrito.push(p));
+    
     carrito.push(producto);
-    // console.log("Agregando al carrito: ", producto);
     almacenarCarrito();
-    console.log("Carrito actual logico: ", carrito);
-    console.log("Carrito actual en sesion local: ", sessionStorage.getItem("productosCarrito"));
 }
 
 /**
@@ -75,4 +76,16 @@ function mostrarError(error) {
     contenedorProductos.innerHTML = error;
 }
 
-buscarProductosActivos();
+function mostrarNombreUsuario(){
+    const nombre = sessionStorage.getItem("nombreUsuario");
+    const contenedorBienvenida = document.getElementById("mensaje-bienvenida");
+
+    contenedorBienvenida.innerText = `Bienvenid@ ${nombre}`;
+}
+
+function init(){
+    mostrarNombreUsuario()
+    buscarProductosActivos();
+}
+
+init();

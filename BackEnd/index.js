@@ -43,17 +43,10 @@ app.use("/api/ventas", rutaVentas);
  */
 app.use("/dashboard", rutaVistas);
 
+
 // Para que el servidor siga detectando las nuevas peticiones
 app.listen(PORT, () => {
 	console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
-
-
-
-
-
-
-
-
 
 
