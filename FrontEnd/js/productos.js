@@ -1,9 +1,9 @@
 const contenedorProductos = document.getElementById("contenedor-productos");
 const urlBase = "http://localhost:3000";
 
-const carrito = [];
+let carrito = [];
 const productos = [];
-
+const carritoHistorico = JSON.parse(sessionStorage.getItem("productosCarrito"));
 /*=======================
         FUNCIONES
     =======================*/
@@ -55,12 +55,14 @@ function renderizarProductos(productos) {
  *  id -> id del producto que se quiere agregar
  */
 function agregarCarrito(id) {
-    const producto = productos.find((p) => p.id == id);
-    const carritoHistorico = JSON.parse(sessionStorage.getItem("productosCarrito"));
-
-    if(carritoHistorico) carritoHistorico.forEach(p => carrito.push(p));
     
+    const producto = productos.find((p) => p.id == id);
+    
+
+    if(carritoHistorico) carrito = carrito.concat(carritoHistorico)
+
     carrito.push(producto);
+    
     almacenarCarrito();
 }
 
@@ -86,6 +88,13 @@ function mostrarNombreUsuario(){
 function init(){
     mostrarNombreUsuario()
     buscarProductosActivos();
+}
+
+
+function mostrarContador() {
+    const contador = document.getElementById("contador-carrito");
+    let cantidad = carrito !== null ? carrito.length : 0;
+    contador.textContent = `${cantidad}`;
 }
 
 init();
