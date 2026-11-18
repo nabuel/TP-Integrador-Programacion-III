@@ -44,7 +44,7 @@
 
     <main>
 
-        <form action="./productos.html">
+        <form id="form-inicio" action="./productos.html">
             <label for="name" class="texto-gradiente" id="label-name">Your name</label><br>
             <input id="fill-text" type="text"><br><br>
             <input type="submit" class="texto-gradiente" id="submit-continuar" value="Continue">
@@ -53,7 +53,11 @@
     </main>
 
     <script>
-
+        const form = document.getElementById("form-inicio");
+        const contenedorNombre = document.getElementById("fill-text")
+        form.addEventListener("submit", event =>{
+            sessionStorage.setItem("nombreUsuario", contenedorNombre.value)
+        })
 
     </script>
 

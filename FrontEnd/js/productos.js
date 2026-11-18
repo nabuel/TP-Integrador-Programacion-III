@@ -1,9 +1,9 @@
 const contenedorProductos = document.getElementById("contenedor-productos");
 const urlBase = "http://localhost:3000";
 
-const carrito = [];
+let carrito = [];
 const productos = [];
-
+const carritoHistorico = JSON.parse(sessionStorage.getItem("productosCarrito"));
 /*=======================
         FUNCIONES
     =======================*/
@@ -55,12 +55,15 @@ function renderizarProductos(productos) {
  *  id -> id del producto que se quiere agregar
  */
 function agregarCarrito(id) {
+    
     const producto = productos.find((p) => p.id == id);
+    
+
+    if(carritoHistorico) carrito = carrito.concat(carritoHistorico)
+
     carrito.push(producto);
-    // console.log("Agregando al carrito: ", producto);
+    
     almacenarCarrito();
-    console.log("Carrito actual logico: ", carrito);
-    console.log("Carrito actual en sesion local: ", sessionStorage.getItem("productosCarrito"));
 }
 
 /**
@@ -75,4 +78,23 @@ function mostrarError(error) {
     contenedorProductos.innerHTML = error;
 }
 
-buscarProductosActivos();
+function mostrarNombreUsuario(){
+    const nombre = sessionStorage.getItem("nombreUsuario");
+    const contenedorBienvenida = document.getElementById("mensaje-bienvenida");
+
+    contenedorBienvenida.innerText = `Bienvenid@ ${nombre}`;
+}
+
+function init(){
+    mostrarNombreUsuario()
+    buscarProductosActivos();
+}
+
+
+function mostrarContador() {
+    const contador = document.getElementById("contador-carrito");
+    let cantidad = carrito !== null ? carrito.length : 0;
+    contador.textContent = `${cantidad}`;
+}
+
+init();
