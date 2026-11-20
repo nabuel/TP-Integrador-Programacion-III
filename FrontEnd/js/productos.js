@@ -1,5 +1,10 @@
 const contenedorProductos = document.getElementById("contenedor-productos");
+const nombreUser = sessionStorage.getItem("nombreUsuario");
 const urlBase = "http://localhost:3000";
+
+if (!nombreUser) {
+    window.location.href("bienvenida.html");
+}
 
 let carrito = [];
 const productos = [];

@@ -8,8 +8,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tiny5+Duo:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tiny5+Duo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="./css/styles.css">
 
@@ -54,10 +53,16 @@
 
     <script>
         const form = document.getElementById("form-inicio");
-        const contenedorNombre = document.getElementById("fill-text")
+
+        const nombre = document.getElementById("fill-text").value;
+
         form.addEventListener("submit", event =>{
-            sessionStorage.setItem("nombreUsuario", contenedorNombre.value)
+            sessionStorage.setItem("nombreUsuario", nombre)
         })
+
+        if (nombre.length > 3) {
+            window.location.href("productos.html");
+        }
 
     </script>
 

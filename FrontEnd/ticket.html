@@ -1,13 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="./css/styles.css">
     <title>Ticket</title>
+
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+
 </head>
+
 <body>
+
     <h1>PANTALLA TICKET</h1>
+
+    <button id="boton-imprimir" onclick="">Imprimir</button>
+
 </body>
+
+<script>
+    let carrito = JSON.parse(sessionStorage.getItem("productosCarrito")); // test
+
+    const botonImprimir = document.getElementById("boton-imprimir");
+
+    botonImprimir.addEventListener("click", event => {
+
+    });
+
+
+    function imprimirTicker() {
+
+        /**
+         * https://github.com/parallax/jsPDF
+           https://parallax.github.io/jsPDF/docs/ */
+
+        const idProductos = [];
+
+        // Gracias a CDN extraemos la clase jspdf del objeto global window
+        const { jsPDF } = window.jsPDF;
+
+        // Creamos una nueva instancia del document pdf usando la clase jsPDF
+        const doc = new jsPDF(); // Ahora doc contendra todos los metodos para poder crear un ticket
+
+        let y = 20; // establecemos margen superior de 20 pix en el eje vertical.
+
+        doc.setFontSize(20); // establecemos el tamaᇸo fuente del titulo
+
+        doc.text("ticket-compra", 20, y); // definimos titulo del ticket
+
+        y += 20;
+
+        doc.setFontSize(14); // reducimos tam. fuente para imprimir prod. del ticket.
+
+        carrito.forEach(producto => {
+            
+            idProductos.push(producto.id); // llenamos array de ids prouctos para crear la venta dsp
+
+            doc.text(`${producto.name} - `);
+        });
+    }
+</script>
+
 </html>
