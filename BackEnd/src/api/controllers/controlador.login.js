@@ -70,6 +70,12 @@ export const logoutUserAdmin = (req, res) => {
     });
 }
 
+/**
+ * Funcion flecha que contiene la logica del endpoint '/registrar'.
+ * IMPORTANTE: este solo proporciona la vista.
+ * @param {*} _: Solicitud HTTP. No se utiliza.
+ * @param {*} res: Respuesta HTTP.
+ */
 export const registrarDesdeLogin = (_, res) => {
     res.render("register", {
         title: "test"

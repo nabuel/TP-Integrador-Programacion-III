@@ -1,5 +1,10 @@
 import ModeloUsuarios from "../models/modelo.usuarios.js";
 
+/**
+ * Funcion flecha que contiene la logica del endpoint '/api/usuarios/crear'. 
+ * @param {*} req: Solicitud HTTP.
+ * @param {*} res: Respuesta HTTP.
+ */
 export const crearUsuario = async (req, res) => {
 
     try {

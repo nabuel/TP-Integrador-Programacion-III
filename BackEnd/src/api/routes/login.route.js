@@ -24,7 +24,7 @@ router.post("/login", loginUserAdmin);
 router.get("/logout", logoutUserAdmin);
 
 /**
- * (Por ahora) Enrutador que atiende peticiones GET a /registrar para llevarlos a la plantilla desde el Login.
+ * Enrutador que atiende peticiones GET en /registrar, llama al middlware 'requerirAutenticacion' y al controlador 'registrarDesdeLogin'.
  */
 router.get("/registrar", requerirAutenticacion, registrarDesdeLogin);
 

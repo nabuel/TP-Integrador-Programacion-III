@@ -35,7 +35,7 @@ function validarProducto(req, res, next){
 }
 
 /**
- * Middleware para proteger rutas de las vistas del adm.
+ * Middleware que verifica que exista un usuario en la session de Express.
  */
 
 const requerirAutenticacion = (req, res, next) => {
