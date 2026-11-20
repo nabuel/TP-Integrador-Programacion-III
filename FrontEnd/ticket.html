@@ -16,21 +16,23 @@
 
     <h1>PANTALLA TICKET</h1>
 
-    <button id="boton-imprimir" onclick="">Imprimir</button>
+    <button id="boton-imprimir">Imprimir</button>
 
 </body>
 
 <script>
+    const nombreUser = sessionStorage.getItem("nombreUsuario");
     let carrito = JSON.parse(sessionStorage.getItem("productosCarrito")); // test
 
     const botonImprimir = document.getElementById("boton-imprimir");
 
     botonImprimir.addEventListener("click", event => {
+        event.preventDefault();
 
+        imprimirTicket();
     });
 
-
-    function imprimirTicker() {
+    function imprimirTicket() {
 
         /**
          * https://github.com/parallax/jsPDF
@@ -39,7 +41,7 @@
         const idProductos = [];
 
         // Gracias a CDN extraemos la clase jspdf del objeto global window
-        const { jsPDF } = window.jsPDF;
+        const { jsPDF } = window.jspdf;
 
         // Creamos una nueva instancia del document pdf usando la clase jsPDF
         const doc = new jsPDF(); // Ahora doc contendra todos los metodos para poder crear un ticket
@@ -58,8 +60,24 @@
             
             idProductos.push(producto.id); // llenamos array de ids prouctos para crear la venta dsp
 
-            doc.text(`${producto.name} - `);
+            doc.text(`${producto.name} - ${producto.price}`, 20, y);
+
+            y += 5;
         });
+
+        const precioTotal = carrito.reduce((total, producto) => total + parseInt(producto.price), 0);
+
+        // Separamos los productos del total
+        y += 20;
+
+        doc.text(`TOTAL: $${precioTotal}`, 20, y);
+
+        const fecha = new Date();
+        //importar nombre user
+        const nombreTicket = `${nombreUser}_${fecha.toISOString()}`
+
+        //imprimimos ticket de venta
+        doc.save(`${nombreTicket}.pdf`);
     }
 </script>
 
