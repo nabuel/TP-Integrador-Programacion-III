@@ -13,11 +13,11 @@ export const vistaProductos = async (_, res) => {
 }
 
 // Trae el producto por id
-export const vistaObtenerPorId = (req, res) => {
-	res.render("get", {
-		title: "Consultar producto"
-	});
-}
+// export const vistaObtenerPorId = (req, res) => {
+// 	res.render("get", {
+// 		title: "Consultar producto"
+// 	});
+// }
 
 
 // Renderizamos /views/index.ejs

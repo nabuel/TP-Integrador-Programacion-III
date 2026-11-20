@@ -34,7 +34,22 @@ function validarProducto(req, res, next){
     next();
 }
 
+/**
+ * Middleware para proteger rutas de las vistas del adm.
+ */
+
+const requerirAutenticacion = (req, res, next) => {
+
+    if (!req.session.user) {
+		return res.redirect("/login");
+	}
+
+    next();
+}
+
+
 export{
     validarId,
-    validarProducto
+    validarProducto,
+    requerirAutenticacion
 }

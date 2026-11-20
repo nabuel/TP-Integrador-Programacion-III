@@ -25,7 +25,7 @@ router.post("/", validarProducto, crearProducto);
 
 // Modificación de un juego.
 
-router.put("/", validarProducto,modificarProducto)
+router.put("/", validarProducto, modificarProducto)
 
 
 // Eliminación del producto indicado
