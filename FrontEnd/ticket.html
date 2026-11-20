@@ -57,7 +57,7 @@
         doc.setFontSize(14); // reducimos tam. fuente para imprimir prod. del ticket.
 
         carrito.forEach(producto => {
-            
+
             idProductos.push(producto.id); // llenamos array de ids prouctos para crear la venta dsp
 
             doc.text(`${producto.name} - ${producto.price}`, 20, y);
@@ -79,6 +79,44 @@
         //imprimimos ticket de venta
         doc.save(`${nombreTicket}.pdf`);
     }
+
+    async function registrarVenta(precioTotal, idProductos) {
+        try {
+            const fecha = new Date();
+
+            const fechaFormato = fecha.toISOString().slice(0, 19).replace("T", " ");
+
+            const data = {
+                date: fechaFormato,
+                total_price: precioTotal,
+                user_name: nombreUsuario,
+                products: idProductos
+            }
+
+            const response = await fetch("http://localhost:3000/api/ventas", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = response.json();
+
+            if (response.ok) {
+                console.log("Venta registrada: ", result.message);
+                alert("Venta registrada: ", result.message);
+
+                //hecho esto eliminamos el item del sessionStorage y redirigimos
+                sessionStorage.removeItem("nombreUsuario");
+
+                window.location.href = "index.html";
+            }
+        } catch (error) {
+            console.error("Error al enviar los datos: ", error);
+            alert("Error al procesar la solicitud");
+        }
+    };
 </script>
 
 </html>
