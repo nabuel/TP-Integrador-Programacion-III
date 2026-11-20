@@ -69,3 +69,9 @@ export const logoutUserAdmin = (req, res) => {
         res.redirect("/login");
     });
 }
+
+export const registrarDesdeLogin = (_, res) => {
+    res.render("register", {
+        title: "test"
+    });
+}

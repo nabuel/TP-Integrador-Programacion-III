@@ -1,12 +1,11 @@
 import { Router } from "express";
+import { crearUsuario } from "../controllers/controlador.usuarios.js";
 
 const router = Router();
 
 /**
- * Atiende peticiones POST a /registrar que vienen del formulario de registrar
+ * Atiende peticiones POST en /crear.
  */
-router.post("/registrar", (req, res) => {
-    
-});
+router.post("/crear", crearUsuario);
 
 export default router;
