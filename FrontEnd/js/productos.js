@@ -86,7 +86,7 @@ function mostrarNombreUsuario(){
     const nombre = sessionStorage.getItem("nombreUsuario");
     const contenedorBienvenida = document.getElementById("mensaje-bienvenida");
 
-    contenedorBienvenida.innerText = `Bienvenid@ ${nombre}`;
+    contenedorBienvenida.innerText += ` ${nombre}!`;
 }
 
 function init(){

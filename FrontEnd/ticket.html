@@ -4,119 +4,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RappiGames</title>
 
-    <link rel="stylesheet" href="./css/styles.css">
-    <title>Ticket</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tiny5+Duo:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
 
+
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="icon" type="image/png" href="./favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="./favicon/favicon.svg" />
+    <link rel="shortcut icon" href="./favicon/favicon.ico" />
+    <!-- <link rel="manifest" href="./favicon/site.webmanifest" /> -->
 </head>
 
 <body>
 
-    <h1>PANTALLA TICKET</h1>
+    <header>
 
-    <button id="boton-imprimir">Imprimir</button>
+        <section class="section-logo">
+
+            <div>
+                <a href="./productos.html">
+                    <img id="logo-rappigames" src="img/logo-2026.png" alt="logo-rappigames" width="150">
+                </a>
+
+            </div>
+
+            <div>
+                <h2 class="texto-gradiente">RappiGames</h2>
+                <h6 class="texto-gradiente">por Franco L. & Nahuel M.</h4>
+
+            </div>
+
+        </section>
+
+        <nav>
+
+            <div id="contenedor-carrito">
+
+                <a href="./carrito.html">
+
+                    <img id="carrito-img" src="./img/cart.png" alt="carrito">
+
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+    <hr>
+
+    <main>
+
+        <h2 class="texto-gradiente" id="mensaje-agradecimiento">¡Gracias por tu compra, </h2>
+
+        <section id="ticket">
+
+
+        </section>
+
+        <button class="texto-gradiente" id="boton-imprimir">Imprimir ticket</button>
+
+    </main>
 
 </body>
 
-<script>
-    const nombreUser = sessionStorage.getItem("nombreUsuario");
-    let carrito = JSON.parse(sessionStorage.getItem("productosCarrito")); // test
-
-    const botonImprimir = document.getElementById("boton-imprimir");
-
-    botonImprimir.addEventListener("click", event => {
-        event.preventDefault();
-
-        imprimirTicket();
-    });
-
-    function imprimirTicket() {
-
-        /**
-         * https://github.com/parallax/jsPDF
-           https://parallax.github.io/jsPDF/docs/ */
-
-        const idProductos = [];
-
-        // Gracias a CDN extraemos la clase jspdf del objeto global window
-        const { jsPDF } = window.jspdf;
-
-        // Creamos una nueva instancia del document pdf usando la clase jsPDF
-        const doc = new jsPDF(); // Ahora doc contendra todos los metodos para poder crear un ticket
-
-        let y = 20; // establecemos margen superior de 20 pix en el eje vertical.
-
-        doc.setFontSize(20); // establecemos el tamaᇸo fuente del titulo
-
-        doc.text("ticket-compra", 20, y); // definimos titulo del ticket
-
-        y += 20;
-
-        doc.setFontSize(14); // reducimos tam. fuente para imprimir prod. del ticket.
-
-        carrito.forEach(producto => {
-
-            idProductos.push(producto.id); // llenamos array de ids prouctos para crear la venta dsp
-
-            doc.text(`${producto.name} - ${producto.price}`, 20, y);
-
-            y += 5;
-        });
-
-        const precioTotal = carrito.reduce((total, producto) => total + parseInt(producto.price), 0);
-
-        // Separamos los productos del total
-        y += 20;
-
-        doc.text(`TOTAL: $${precioTotal}`, 20, y);
-
-        const fecha = new Date();
-        //importar nombre user
-        const nombreTicket = `${nombreUser}_${fecha.toISOString()}`
-
-        //imprimimos ticket de venta
-        doc.save(`${nombreTicket}.pdf`);
-    }
-
-    async function registrarVenta(precioTotal, idProductos) {
-        try {
-            const fecha = new Date();
-
-            const fechaFormato = fecha.toISOString().slice(0, 19).replace("T", " ");
-
-            const data = {
-                date: fechaFormato,
-                total_price: precioTotal,
-                user_name: nombreUsuario,
-                products: idProductos
-            }
-
-            const response = await fetch("http://localhost:3000/api/ventas", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            });
-
-            const result = response.json();
-
-            if (response.ok) {
-                console.log("Venta registrada: ", result.message);
-                alert("Venta registrada: ", result.message);
-
-                //hecho esto eliminamos el item del sessionStorage y redirigimos
-                sessionStorage.removeItem("nombreUsuario");
-
-                window.location.href = "index.html";
-            }
-        } catch (error) {
-            console.error("Error al enviar los datos: ", error);
-            alert("Error al procesar la solicitud");
-        }
-    };
-</script>
+<script src="./js/ticket.js"></script>
 
 </html>
