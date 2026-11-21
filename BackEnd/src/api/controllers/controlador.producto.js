@@ -68,7 +68,6 @@ const crearProducto = async (req,res)=>{
         });
     };
 
-
 };
 
 const modificarProducto = async (req,res)=>{

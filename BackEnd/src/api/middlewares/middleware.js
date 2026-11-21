@@ -34,7 +34,22 @@ function validarProducto(req, res, next){
     next();
 }
 
+/**
+ * Middleware que verifica que exista un usuario en la session de Express.
+ */
+
+const requerirAutenticacion = (req, res, next) => {
+
+    if (!req.session.user) {
+		return res.redirect("/login");
+	}
+
+    next();
+}
+
+
 export{
     validarId,
-    validarProducto
+    validarProducto,
+    requerirAutenticacion
 }
