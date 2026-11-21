@@ -29,7 +29,7 @@ export const crearUsuario = async (req, res) => {
 
         const [user] = await ModeloLogin.selectUserAdmin(email);
 
-        if ([user].length > 0) {
+        if (user.length > 0) {
             return res.render("register", {
                 title: "Registrar usuario",
                 about: "Creacion de usuario administrador",
