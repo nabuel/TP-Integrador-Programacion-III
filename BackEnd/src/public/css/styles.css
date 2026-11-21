@@ -41,6 +41,12 @@ body {
     width: 200px;
 }
 
+/* Logo user logout */
+nav p a img {
+    width: 80px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
 /* Primera seccion donde esta el logo, el nombre de la empresa y sus integrantes. */
 .section-logo {
     display: flex;
@@ -61,7 +67,7 @@ body {
 
 /* El h6 especifico del primer section */
 .section-logo h6 {
-    width: 155px;
+    width: 160px;
     margin-top: 0;
     font-size: 10px;
     margin-left: 64px;
@@ -143,6 +149,14 @@ FILTROS DE BÚSQUEDA
 /* Parrafo admin nav */
 #contenedor-productos-por-id {
     text-decoration: none;
+    color: #641501;
+    font-size: 40px;
+}
+
+/* Mensajes de error */
+.mensaje-error {
+    text-align: center;
+}
     /* color: #641501; */
     /* font-size: 40px; */
 }
@@ -180,7 +194,6 @@ select{
 
 /*=====================================
 CARTAS DE LOS PRODUCTOS (POV ADMIN)
-=====================================*/
 
 #contenedor-productos{
     display: flex;
