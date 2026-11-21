@@ -1,11 +1,13 @@
 <%- include("partials/head.ejs") %>
 <%- include("partials/header.ejs") %>
 
+    </header>
+
     <main>
 
         <section class="form-inicio-sesion">
 
-            <h2>Iniciar sesión</h2>
+            <h2> <%= about %> </h2>
 
             <form action="/login" method="POST">
 
@@ -19,13 +21,9 @@
                 
             </form>
 
-            <form action="/registrar">
-
-                <label for"registrar"></label>
-                <input type="submit" value="Registrarse">
-
-            </form>
-
+            <% if (typeof error !== "undefined") { %>
+		        <p class="mensaje-error"> <%= error %> </p>
+            <% } %> 
         </section>
 
     </main>

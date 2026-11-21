@@ -1,7 +1,9 @@
 import ModeloUsuarios from "../models/modelo.usuarios.js";
+import bcrypt from "bcrypt";
 
 /**
- * Funcion flecha que contiene la logica del endpoint '/api/usuarios/crear'. 
+ * Funcion flecha que contiene la logica del endpoint '/api/usuarios/registrar'. 
+ * El algoritmo contiene 'bcrypt' que se encarga de hashear las claves.
  * @param {*} req: Solicitud HTTP.
  * @param {*} res: Respuesta HTTP.
  */
@@ -12,16 +14,25 @@ export const crearUsuario = async (req, res) => {
 
         if (!email || !password) {
             res.render("register", {
-                title: "test",
-                message: "Los campos no pueden estar vacios"
+                title: "Registrar usuario",
+                about: "Creacion de usuario administrador",
+                error: "Los campos no pueden estar vacios"
             });
-        }
+        };
 
-        await ModeloUsuarios.insertarUsuario(email, password);
+        /*
+         Indicamos las rondas de sal y ciframos el password recibido en el req.body
+         */
+
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+        await ModeloUsuarios.insertarUsuario(email, hashedPassword);
 
         res.render("register", {
-            title: "Registrarse",
-            exito: "Creaste el usuario con exito"
+            title: "Registrar usuario",
+            about: "Creacion de usuario administrador",
+            exito: "El usuario administrador se creo correctamente"
         });
 
     } catch (error) {
@@ -31,4 +42,17 @@ export const crearUsuario = async (req, res) => {
             message: "Error interno del servidor al crear usuario admin"
         });
     }
+    
+}
+
+/**
+ * Funcion flecha que contiene la logica del endpoint '/registrar'.
+ * @param {*} _: Solicitud HTTP. No se utiliza.
+ * @param {*} res: Respuesta HTTP.
+ */
+export const vistaRegistrar = (_, res) => {
+    res.render("register", {
+        title: "Registrar usuario",
+        about: "Creacion de usuario administrador",
+    });
 }

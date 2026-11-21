@@ -1,13 +1,15 @@
 <%- include("partials/head.ejs") %>
 <%- include("partials/header.ejs") %>
 
+    </header>
+
     <main>
 
         <section class="form-registro">
 
-            <h2>Registrarse</h2>
+            <h2> <%= about %> </h2>
 
-            <form action="/api/usuarios/crear" method="POST">
+            <form action="/api/usuarios/registrar" method="POST">
 
                 <label for="email">Email</label>
                 <input type="email" placeholder="admin@gmail.com" name="email" id="emailUser" required>

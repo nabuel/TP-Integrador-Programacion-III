@@ -1,9 +1,11 @@
 import { Router } from "express";
 import { traerProductos, traerProducto, crearProducto, modificarProducto, borrarProducto, traerProductosActivos} from "../controllers/controlador.producto.js";
-import { validarId, validarProducto } from "../middlewares/middleware.js";
+import { requerirAutenticacion, validarId, validarProducto } from "../middlewares/middleware.js";
 
 const router = Router();
 
+// Protejo directo con un middleware de aplicacion todos los endpoints
+router.use(requerirAutenticacion);
 
 //  Obtengo todos los productos.
 

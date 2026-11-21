@@ -1,6 +1,5 @@
 import { Router } from "express";
-import { logoutUserAdmin, vistaLogin, loginUserAdmin, registrarDesdeLogin } from "../controllers/controlador.login.js";
-import { requerirAutenticacion } from "../middlewares/middleware.js";
+import { logoutUserAdmin, vistaLogin, loginUserAdmin } from "../controllers/controlador.login.js";
 const router = Router();
 
 /**
@@ -22,10 +21,5 @@ router.post("/login", loginUserAdmin);
  * Enrutador que atiende peticiones GET a /logout y destruye la session-express.
  */
 router.get("/logout", logoutUserAdmin);
-
-/**
- * Enrutador que atiende peticiones GET en /registrar, llama al middlware 'requerirAutenticacion' y al controlador 'registrarDesdeLogin'.
- */
-router.get("/registrar", requerirAutenticacion, registrarDesdeLogin);
 
 export default router;
