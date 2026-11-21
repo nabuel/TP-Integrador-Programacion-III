@@ -3,24 +3,102 @@
 <%- include("partials/header.ejs") %>
 
     <main>
-        <section id="get-producto-by-id">
-            <form id="formGetById">
+        <section id="seccion-filtros" class="font-size-filter"> 
+            
+            <div id="contenedor-productos-por-id">
 
-                <label for="idProducto">ID del producto</label>
-                <input type="number" min="1" name="idProducto">
+                <form id="formGetById">
+                    
+                    <label for="idProducto" class="font-large">ID del producto</label>
+                    <input type="number" min="1" name="idProducto">
+                    
+                    <input type="submit" value="Buscar producto" class="btn">
+                    
+                </form>
+            
+            </div>
 
-                <input type="submit" value="Buscar producto">
+            <div id="contenedor-filtros">
 
+                
+                <div id="category-container" class="flex-column">
+                    
+                    <label>Filtrar por categoria</label>
+                    
+                    <select id="opciones-categorias">
+                        
+                        <option value="todos">---</option>
+                        <option value="Consola">Consola</option>
+                        <option value="Juego">Juego</option>
+                        
+                    </select>
+                    
+                </div>
+                
+                <div id="sort-container" class="flex-column">
+                    
+                    <label>Orden</label>
+                    
+                    <select name="ordenamiento" id="opciones-ordenamiento">
+                        
+                        <option value="predeterminado">---</option>
+                        <option value="alfabetico">Alfabetico</option>
+                        <option value="desendente">Desendente</option>
+                        <option value="ascendente">Ascendente</option>
+                        
+                    </select>
+                    
+                </div>
+                
+                <div id="available-filter-container" class="flex-column">
+                    
+                    <label>Mostrar</label>
+                    
+                    <select name="available" id="available-filter">
+                        
+                        <option value="default">---</option>
+                        <option value="active">activos</option>
+                        <option value="inactive">inactivos</option>
+                        
+                    </select>
+                    
+                </div>
+            </div>
+                
         </section>
 
         <section id="contenedor-productos">
             <!--Ahora desde EJS podemos iterar directamente desde aca -->
                 <% listaProductos.forEach(producto => { %>
-                    <div class="card-producto">
-                        <img src="/img/<%=producto.imagen%>" alt="<%=producto.nombre%>">
-                        <p class="nombre-prod"><%=producto.nombre%></p>
-                        <p class="precio-prod"><%=producto.precio%>$</p>
-                    </div>
+
+                    <% if (!producto.activo) { %>
+                        <div class="card-producto product-deactivated">
+                        
+                    <% } else {%>
+                    
+                        <div class="card-producto">
+                    
+                    <% } %>
+                        
+                            <img src="/img/<%=producto.imagen%>" alt="<%=producto.nombre%>" class="card-img">
+                            <p class="nombre-prod font-large"><%=producto.nombre%></p>
+                            <p class="precio-prod font-large"><%=producto.precio%>$</p>
+                            
+                            <div class="iconos-acciones">
+                                
+                                <button>
+
+                                    <img src="/img/icono-eliminar.png" alt="eliminar producto">
+                                    
+                                </button>
+                                <button>
+                                
+                                    <img src="/img/icono-modificar.png" alt="modificar producto">
+                                    
+                                </button>
+                            
+                            </div>
+                        </div>
                 <% }) %>
                 
 

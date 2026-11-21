@@ -6,7 +6,7 @@ import conexion from "../database/db.js";
 // Traer todos los productos.
 const getProductos =  () =>{
     
-    return conexion.query("SELECT id, nombre, precio, imagen FROM productos");
+    return conexion.query("SELECT id, nombre, precio, imagen, activo FROM productos");
 }
 
 const getProductosActivos = () => {
