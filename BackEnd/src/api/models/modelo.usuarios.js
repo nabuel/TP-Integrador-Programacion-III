@@ -7,10 +7,10 @@ import connection from "../database/db.js";
  * @param {*} password: " "     " "
  * @returns Promise
  */
-const insertarUsuario = (email, password) => {
-    const sql = `INSERT INTO administradores (email, password)
-                 VALUES (?, ?);`;
-    return connection.query(sql, [email, password]);
+const insertarUsuario = (name, email, password) => {
+    const sql = `INSERT INTO administradores (name, email, password)
+                 VALUES (?, ?, ?);`;
+    return connection.query(sql, [name, email, password]);
 }
 
 export default {
