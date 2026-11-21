@@ -98,13 +98,11 @@ const borrarProducto = async (req, res)=>{
     try{
         const id = req.params.id;
         
-        res.status(204).json({
-            mensaje : `Producto con id ${id} eliminado correctamente`
-        });
+        res.sendStatus(204);
 
     }catch(error){
         res.status(500).json({
-            mensaje: "Error al intentar borrar producto"
+            message: "Error al intentar borrar producto"
         });
     }
 }

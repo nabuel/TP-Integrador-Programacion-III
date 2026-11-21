@@ -15,7 +15,7 @@ const getProductosActivos = () => {
 
 // Traer producto por id.
 const getProductoById =  (id) =>{
-    const sql = "SELECT id, nombre, precio, imagen FROM productos WHERE id = ?";
+    const sql = "SELECT id, nombre, precio, imagen, activo FROM productos WHERE id = ?";
     return  conexion.query(sql, [id]);
 }
 
