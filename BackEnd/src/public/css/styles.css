@@ -156,7 +156,6 @@ FILTROS DE BÚSQUEDA
 /* Mensajes de error */
 .mensaje-error {
     text-align: center;
-}
     /* color: #641501; */
     /* font-size: 40px; */
 }
@@ -194,7 +193,7 @@ select{
 
 /*=====================================
 CARTAS DE LOS PRODUCTOS (POV ADMIN)
-
+======================================*/
 #contenedor-productos{
     display: flex;
     flex-direction: column;
