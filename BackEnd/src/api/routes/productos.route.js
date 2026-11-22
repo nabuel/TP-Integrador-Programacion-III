@@ -4,9 +4,6 @@ import { requerirAutenticacion, validarId, validarProducto } from "../middleware
 
 const router = Router();
 
-// Protejo directo con un middleware de aplicacion todos los endpoints
-router.use(requerirAutenticacion);
-
 //  Obtengo todos los productos.
 
 router.get("/", traerProductos);
@@ -23,16 +20,16 @@ router.get("/:id", validarId, traerProducto);
 
 //  Guardado de un nuevo juego 
 
-router.post("/", validarProducto, crearProducto);
+router.post("/", requerirAutenticacion, validarProducto, crearProducto);
 
 // Modificación de un juego.
 
-router.put("/", validarProducto, modificarProducto)
+router.put("/", requerirAutenticacion, validarProducto, modificarProducto)
 
 
 // Eliminación del producto indicado
 
-router.delete("/:id", validarId, borrarProducto);
+router.delete("/:id", requerirAutenticacion, validarId, borrarProducto);
 
 
 export default router;
