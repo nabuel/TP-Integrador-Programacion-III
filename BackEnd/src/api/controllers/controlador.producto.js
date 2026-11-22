@@ -14,17 +14,34 @@ const traerProductos = async (_, res) =>{
     });
 };
 
-const traerProductosActivos = async (_, res) => {
-    const [productosActivos] = await modeloProductos.getProductosActivos();
+// const traerProductosActivos = async (_, res) => {
+//     const [productosActivos] = await modeloProductos.getProductosActivos();
 
-    if(productosActivos.length === 0){
+//     if(productosActivos.length === 0){
+//         return res.status(404).json({
+//             message: "No se han encontrado productos"
+//         });
+//     };
+
+//     res.status(200).json({
+//         payload: productosActivos
+//     });
+// }
+
+const getElementsByAvaibletly = async (req, res) => {
+    
+    const avaible = req.params.disponible == "false" ? false : true;
+
+    const [products] = await modeloProductos.getElementsByAvaibletly(avaible);
+
+    if(products.length === 0){
         return res.status(404).json({
             message: "No se han encontrado productos"
         });
     };
 
     res.status(200).json({
-        payload: productosActivos
+        payload: products
     });
 }
 
@@ -50,6 +67,30 @@ const traerProducto = async (req, res)=>{
         });
     }
 }
+
+
+const getElementByCategory = async(req, res) =>{
+    try{
+        const category = req.params.categoria;
+        const [products] = await modeloProductos.getElementByCategory(category);
+    
+        if(!products.length > 0){
+            return res.status(400).json({
+                message: `No hay productos catalogados como "${category}"`
+            });
+        };
+
+        res.status(200).json({
+            payload: products
+        });
+
+    } catch(error){
+        console.error(error);
+        
+    }
+    
+}
+
 
 const crearProducto = async (req,res)=>{
     try{
@@ -122,8 +163,9 @@ const borrarProducto = async (req, res)=>{
 
 export {
     traerProductos,
-    traerProductosActivos,
+    getElementsByAvaibletly,
     traerProducto,
+    getElementByCategory,
     crearProducto,
     modificarProducto,
     borrarProducto

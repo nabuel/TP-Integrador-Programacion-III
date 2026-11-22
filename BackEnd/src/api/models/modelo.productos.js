@@ -9,14 +9,23 @@ const getProductos =  () =>{
     return conexion.query("SELECT * FROM productos");
 }
 
-const getProductosActivos = () => {
-    return conexion.query("SELECT id, nombre, precio, imagen, categoria FROM productos WHERE activo = 1;");
+const getElementsByAvaibletly = (avaibletly) => {
+    const sql = "SELECT * FROM productos WHERE activo = ?";
+    return conexion.query(sql, avaibletly);
 }
+
 
 // Traer producto por id.
 const getProductoById =  (id) =>{
     const sql = "SELECT * FROM productos WHERE id = ?";
     return  conexion.query(sql, id);
+}
+
+
+const getElementByCategory = (category) =>{
+    const sql = "SELECT * FROM productos WHERE categoria = ?";
+
+    return conexion.query(sql, category);
 }
 
 // Crear producto
@@ -45,8 +54,9 @@ const deleteProducto =  id =>{
 
 export default {
     getProductos,
-    getProductosActivos,
+    getElementsByAvaibletly,
     getProductoById,
+    getElementByCategory,
     createProducto,
     updateProducto,
     deleteProducto

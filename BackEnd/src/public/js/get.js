@@ -21,12 +21,12 @@ async function buscarProducto(id) {
   try {
     const response = await fetch(`${urlBase}/api/productos/${id}`);
     const data = await response.json();
-    const producto = data.payload[0];
+    const product = data.payload[0];
 
     if (response.ok) {
-      renderizarProducto(producto);
+      contenedorProductos.innerHTML = structureProductCard(product);
     } else {
-      mostrarError(producto.mensaje);
+      mostrarMensaje("error", producto.message);
     }
   } catch (error) {
     console.error(error);
@@ -38,29 +38,31 @@ function mostrarError(error) {
   contenedorProductos.innerHTML = error;
 }
 
-/**
- * Agrega las cartas de los productos al html.
- * productos -> lista donde se encuentran los productos.
- */
-function renderizarProducto(producto) {
 
-  let mensajeHTML = !producto.activo
+/**
+ * Crea la estructura de la carta del producto indicado 
+ * @param {*} product producto de donde se saca la información
+ * @returns la estructura para renderizar el producto.
+ */
+
+function structureProductCard(product){
+    let mensajeHTML = !product.activo
     ? `<div class="card-producto product-deactivated">`
     : `<div class="card-producto">`;
 
-  mensajeHTML += `<img src="/img/${producto.imagen}" alt="${producto.nombre}" class="card-img">
-                            <p class="nombre-prod font-large">${producto.nombre}</p>
-                            <p class="precio-prod font-large">${producto.precio}$</p>
+  mensajeHTML += `<img src="/img/${product.imagen}" alt="${product.nombre}" class="card-img">
+                            <p class="nombre-prod font-large">${product.nombre}</p>
+                            <p class="precio-prod font-large">${product.precio}$</p>
                             
                             <div class="iconos-acciones">
                                 
-                                <button class="delete-btn" onclick="deleteProduct(${producto.id})">
+                                <button class="delete-btn" onclick="deleteProduct(${product.id})">
                                 
                                     <img src="/img/icono-eliminar.png" alt="eliminar producto">
                                     
                                 </button>
 
-                                <button class="update-btn" onclick='renderForm(${JSON.stringify(producto)})' >
+                                <button class="update-btn" onclick='renderForm(${JSON.stringify(product)})'>
                                 
                                     <img src="/img/icono-modificar.png" alt="modificar producto" >
                                     
@@ -68,8 +70,8 @@ function renderizarProducto(producto) {
                             
                             </div>
                         </div>`;
-
-  contenedorProductos.innerHTML = mensajeHTML;
+  
+  return mensajeHTML;
 }
 
 function renderForm(product) {
@@ -107,29 +109,24 @@ function renderForm(product) {
         </select>
 
         <button type="submit">Guardar cambios</button>
-        <button type="button" id="btnCerrar">Cancelar</button>
+        <button type="button" id="btnCerrar" onclick="modalProduct.close()">Cancelar</button>
     </form>
   `;
 
   // Seleccionar el valor actual (después de que existen las opciones)
   document.getElementById('activo').value = String(Boolean(product.activo));
   document.getElementById('categoria').value = product.categoria;
-  document.getElementById('btnCerrar').addEventListener('click', () => modalProduct.close());
   
   document.getElementById("formProducto").addEventListener("submit", event =>{
     
     event.preventDefault();
+    
     if(window.confirm("¿Desea confirmar los cambios?")){
       
       const inputImg = document.getElementById("imagen");
       
       const data = new FormData(event.target);
       
-      // Obtengo el nombre del archivo cargado
-      // if(inputImg.files.lenght > 0){
-        
-      //   data.append("imagen", inputImg.files[0].name);  //  Lo agrego a los datos del form
-      // }
 
       inputImg.files.length > 0 ? data.append("imagen", inputImg.files[0].name) : data.append("imagen", product.imagen);
       
@@ -148,14 +145,11 @@ async function updateProduct(data){
   try{
   
     const product = Object.fromEntries(data.entries());
-    console.log("Antes de parsear: ", product.activo);
 
     product.precio = Number(product.precio);
     product.nombre = product.nombre.trim();
     product.activo = product.activo == "false" ? false : true;
-    product.id = Number(product.id);
     
-    console.log("Despues de parsear: ",product.activo)
 
     const response = await fetch(`${urlBase}/api/productos`, {
       method : "PUT",
@@ -187,7 +181,6 @@ async function deleteProduct(id) {
         method: "DELETE"
       });
 
-      console.log(response.ok);
       if (!response.ok) {
         const result = await response.json();
 
@@ -208,4 +201,53 @@ function mostrarMensaje(estado, mensaje) {
   contenedorProductos.innerHTML = `
         <p class="mensaje ${estado}">${mensaje}</p>
     `;
+}
+
+async function applyCategoryFilter() {
+  const filter = document.getElementById("category-filter");
+
+
+  if (filter.value != "todos") {
+    const response = await fetch(`${urlBase}/api/productos/categoria/${filter.value}`);
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return mostrarMensaje("error", data.message);
+    }
+
+    let productsHTML = "";
+
+    data.payload.forEach((p) => (productsHTML += structureProductCard(p)));
+
+    contenedorProductos.innerHTML = productsHTML;
+
+  } else {
+    window.location.reload();
+  }
+}
+
+async function applyAvailableFilter(){
+    const filter = document.getElementById("available-filter");
+    
+    if (filter.value != "default") {
+    
+      const avaible = filter.value == "false" ? false : true;
+
+      const response = await fetch(`${urlBase}/api/productos/activos/${avaible}`);
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return mostrarMensaje("error", data.message);
+      }
+
+      let productsHTML = "";
+
+      data.payload.forEach((p) => (productsHTML += structureProductCard(p)));
+
+      contenedorProductos.innerHTML = productsHTML;
+    } else {
+      window.location.reload();
+    }
 }
