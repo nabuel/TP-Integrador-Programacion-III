@@ -1,6 +1,8 @@
 const contenedorProductos = document.getElementById("contenedor-productos");
 const btnFinalizarCompra = document.getElementById("btn-finalizar-compra");
 let carrito = JSON.parse(sessionStorage.getItem("productosCarrito")); //  Testear si trae los productos del carrito
+const nombre = sessionStorage.getItem("nombreUsuario");
+
 
 const carritoSinRepetidos = [];
 
@@ -164,10 +166,9 @@ function almacenarCarrito() {
 }
 
 function mostrarNombreUsuario(){
-    const nombre = sessionStorage.getItem("nombreUsuario");
-    const contenedorBienvenida = document.getElementById("mensaje-bienvenida");
+    const tituloCarrito = document.getElementById("title-carrito");
 
-    contenedorBienvenida.innerText = `Carrito de ${nombre}`;
+    tituloCarrito.innerText = `Carrito de ${nombre}`;
 }
 
 function mostrarMensaje(){
