@@ -1,15 +1,12 @@
 const contenedorProductos = document.getElementById("contenedor-productos");
 const urlBase = "http://localhost:3000";
 const musica = document.getElementById("musicaFondo");
+const btnStop = document.getElementById("musica-img");
 musica.volume = 0.05;
-
-// if (!nombreUser) {
-//     window.location.href("bienvenida.html");
-// }
-
 let carrito = [];
 const productos = [];
 const carritoHistorico = JSON.parse(sessionStorage.getItem("productosCarrito"));
+
 /*=======================
         FUNCIONES
     =======================*/
@@ -94,6 +91,19 @@ function mostrarNombreUsuario(){
 function init(){
     mostrarNombreUsuario()
     buscarProductosActivos();
+    pararMusica();
+}
+
+function pararMusica() {
+    btnStop.addEventListener("click", () => {
+        if (musica.volume > 0) {
+            musica.pause();
+            musica.volume = 0;
+        } else {
+            musica.play();
+            musica.volume = 0.05;
+        }
+    });
 }
 
 
