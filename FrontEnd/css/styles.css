@@ -2,7 +2,7 @@
 ESTILADO GENERAL DE LA WEB
 ==================================*/
 
-/* Ajustamos el body */
+/* Ajustamos el body, chequear si se puede setear max. de altura */
 body {
     margin: 0px;
     background: linear-gradient(90deg, #9D8DF1, #E2C2F2, #A8DADC);
