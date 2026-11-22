@@ -1,5 +1,7 @@
 const contenedorProductos = document.getElementById("contenedor-productos");
 const urlBase = "http://localhost:3000";
+const musica = document.getElementById("musicaFondo");
+musica.volume = 0.05;
 
 // if (!nombreUser) {
 //     window.location.href("bienvenida.html");
@@ -45,7 +47,7 @@ function renderizarProductos(productos) {
     productos.forEach((producto) => {
         productosHTML += `<div class="card-producto">
                                     <button class="btn-agregar-prod-carrito"  onclick="agregarCarrito(${producto.id})">
-                                        <img src="./img/${producto.imagen}" alt="${producto.nombre}">
+                                        <img class="card-img" src="./img/${producto.imagen}" alt="${producto.nombre}">
                                     </button>
                                     <p class="nombre-prod">${producto.nombre}</p>
                                     <p class="precio-prod">${producto.precio}$</p>
