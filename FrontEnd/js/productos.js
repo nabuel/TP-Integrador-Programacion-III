@@ -1,6 +1,10 @@
 const contenedorProductos = document.getElementById("contenedor-productos");
 const urlBase = "http://localhost:3000";
 
+// if (!nombreUser) {
+//     window.location.href("bienvenida.html");
+// }
+
 let carrito = [];
 const productos = [];
 const carritoHistorico = JSON.parse(sessionStorage.getItem("productosCarrito"));
@@ -82,7 +86,7 @@ function mostrarNombreUsuario(){
     const nombre = sessionStorage.getItem("nombreUsuario");
     const contenedorBienvenida = document.getElementById("mensaje-bienvenida");
 
-    contenedorBienvenida.innerText = `Bienvenid@ ${nombre}`;
+    contenedorBienvenida.innerText += ` ${nombre}!`;
 }
 
 function init(){
