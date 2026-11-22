@@ -105,7 +105,7 @@
                                     
                                 </button>
 
-                                <button class="update-btn" onclick="renderForm(<%=JSON.stringify(producto)%>)">
+                                <button class="update-btn" onclick="renderForm(<%=JSON.stringify(producto)%>)" >
                                 
                                     <img src="/img/icono-modificar.png" alt="modificar producto" >
                                     
@@ -117,12 +117,11 @@
                 
 
         </section>
-        <dialog id="modalProducto">
+        <dialog id="modalProduct">
 
         </dialog>
 
     </main>
-
 
     <script src="/js/get.js"></script>
 <%- include("partials/footer.ejs") %>

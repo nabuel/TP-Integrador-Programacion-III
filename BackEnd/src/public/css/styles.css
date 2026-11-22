@@ -234,3 +234,7 @@ select{
 .iconos-acciones img{
     width: 65px;
 }
+
+
+/* ESTO SIRVE PARA MODIFICAR EL FONDO DEL MODAL */
+/* dialog::backdrop { background: rgba(0,0,0,.5); } */

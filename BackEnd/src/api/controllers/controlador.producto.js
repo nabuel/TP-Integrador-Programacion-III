@@ -5,7 +5,7 @@ const traerProductos = async (_, res) =>{
     
     if(productos.length === 0){
         return res.status(404).json({
-            mensaje: "No se han encontrado productos"
+            message: "No se han encontrado productos"
         });
     };
 
@@ -19,7 +19,7 @@ const traerProductosActivos = async (_, res) => {
 
     if(productosActivos.length === 0){
         return res.status(404).json({
-            mensaje: "No se han encontrado productos"
+            message: "No se han encontrado productos"
         });
     };
 
@@ -36,7 +36,7 @@ const traerProducto = async (req, res)=>{
         
         if(!producto.length){
             return res.status(404).json({
-                mensaje: `No se ha encontrado un producto con id ${req.params.id}`
+                message: `No se ha encontrado un producto con id ${req.params.id}`
             });
         }
     
@@ -46,7 +46,7 @@ const traerProducto = async (req, res)=>{
         
     } catch(error){
         res.status(500).json({
-            mensaje: "Error interno con la base de datos"
+            message: "Error interno con la base de datos"
         });
     }
 }
@@ -58,13 +58,13 @@ const crearProducto = async (req,res)=>{
         const [respuesta] = await modeloProductos.createProducto(nombre,imagen,precio,activo,categoria)
 
         res.status(201).json({
-            mensaje: `Producto creado`,
+            message: `Producto creado`,
             productoId : respuesta.insertId
         });
 
     } catch(error){
         res.status(500).json({
-            mensaje: "Error al crear producto"
+            message: "Error al crear producto"
         });
     };
 
@@ -73,22 +73,22 @@ const crearProducto = async (req,res)=>{
 
 const modificarProducto = async (req,res)=>{
     try{
-        const {nombre, imagen, precio, activo, categoria, id} = req.body;
+        const {id, nombre, precio, imagen, activo, categoria} = req.body;
         const [respuesta] = await modeloProductos.updateProducto(nombre, imagen, precio, activo, categoria, id)
         
         if(respuesta.changedRows === 0){
             return res.status(400).json({
-                mensaje : `No se han aplicado cambios al producto con id ${id}` 
+                message : `No se han aplicado cambios al producto con id ${id}` 
             })
         }
         res.status(200).json({
-            mensaje: `Juego con id ${id} actualizado`
+            message: `Producto con id ${id} actualizado`
         })
         
     }catch(error){
         // Ej: Fallo la conexion a la BBDD, tardo demasiado, la tabla no existe, error de sintaxis
         res.status(500).json({
-            mensaje: "Error interno del servidor al modificar un producto"
+            message: "Error interno del servidor al modificar un producto"
         });
     }
     
