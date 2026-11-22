@@ -21,11 +21,11 @@ router.get("/activos", traerProductosActivos);
 router.get("/:id", validarId, traerProducto);
 
 
-//  Guardado de un nuevo juego 
+//  Guardado de un nuevo product. 
 
 router.post("/", validarProducto, crearProducto);
 
-// Modificación de un juego.
+// Modificación de un product.
 
 router.put("/", validarProducto, modificarProducto)
 

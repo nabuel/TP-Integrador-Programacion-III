@@ -53,7 +53,7 @@
                     <label>Orden</label>
                     
                     <select name="ordenamiento" id="opciones-ordenamiento">
-                        
+                        <!-- en los select podemos hacer dropdown -->
                         <option value="predeterminado">---</option>
                         <option value="alfabetico">Alfabetico</option>
                         <option value="desendente">Desendente</option>
@@ -99,23 +99,28 @@
                             
                             <div class="iconos-acciones">
                                 
-                                <button>
-
+                                <button class="delete-btn" onclick="deleteProduct(<%=producto.id%>)">
+                                
                                     <img src="/img/icono-eliminar.png" alt="eliminar producto">
                                     
                                 </button>
-                                <button>
+
+                                <button class="update-btn" onclick="renderForm(<%=JSON.stringify(producto)%>)" >
                                 
-                                    <img src="/img/icono-modificar.png" alt="modificar producto">
+                                    <img src="/img/icono-modificar.png" alt="modificar producto" >
                                     
                                 </button>
-                            
+                                
                             </div>
                         </div>
                 <% }) %>
                 
 
         </section>
+        <dialog id="modalProduct">
+
+        </dialog>
+
     </main>
 
     <script src="/js/get.js"></script>

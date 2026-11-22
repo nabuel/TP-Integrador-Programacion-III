@@ -6,17 +6,17 @@ import conexion from "../database/db.js";
 // Traer todos los productos.
 const getProductos =  () =>{
     
-    return conexion.query("SELECT id, nombre, precio, imagen, activo FROM productos");
+    return conexion.query("SELECT * FROM productos");
 }
 
 const getProductosActivos = () => {
-    return conexion.query("SELECT id, nombre, precio, imagen FROM productos WHERE activo = 1;");
+    return conexion.query("SELECT id, nombre, precio, imagen, categoria FROM productos WHERE activo = 1;");
 }
 
 // Traer producto por id.
 const getProductoById =  (id) =>{
-    const sql = "SELECT id, nombre, precio, imagen FROM productos WHERE id = ?";
-    return  conexion.query(sql, [id]);
+    const sql = "SELECT * FROM productos WHERE id = ?";
+    return  conexion.query(sql, id);
 }
 
 // Crear producto
@@ -31,7 +31,7 @@ const createProducto = (nombre, imagen, precio, activo, categoria) =>{
 const updateProducto = (nombre, imagen, precio, activo, categoria, id) =>{
     const sql = "UPDATE productos SET nombre = ?,precio = ?,imagen = ?,activo = ?,categoria = ? WHERE id = ?";
 
-    return conexion.query(sql, [nombre,precio,imagen, categoria, activo, id]);
+    return conexion.query(sql, [nombre,precio,imagen, activo,categoria, id]);
 }
 
 
@@ -39,7 +39,7 @@ const updateProducto = (nombre, imagen, precio, activo, categoria, id) =>{
 const deleteProducto =  id =>{
     const sql = "DELETE FROM productos WHERE id = ?";
     
-    return conexion.query(sql,[id]);
+    return conexion.query(sql,id);
 };
 
 
