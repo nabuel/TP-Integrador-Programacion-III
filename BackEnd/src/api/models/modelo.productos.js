@@ -39,7 +39,7 @@ const updateProducto = (nombre, imagen, precio, activo, categoria, id) =>{
 const deleteProducto =  id =>{
     const sql = "DELETE FROM productos WHERE id = ?";
     
-    return conexion.query(sql,[id]);
+    return conexion.query(sql,id);
 };
 
 

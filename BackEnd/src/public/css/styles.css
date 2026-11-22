@@ -149,14 +149,13 @@ FILTROS DE BÚSQUEDA
 /* Parrafo admin nav */
 #contenedor-productos-por-id {
     text-decoration: none;
-    color: #641501;
-    font-size: 40px;
+    /* color: #641501;
+    font-size: 40px; */
 }
 
 /* Mensajes de error */
 .mensaje-error {
     text-align: center;
-}
     /* color: #641501; */
     /* font-size: 40px; */
 }
@@ -193,8 +192,8 @@ select{
 
 
 /*=====================================
-CARTAS DE LOS PRODUCTOS (POV ADMIN)
-
+    CARTAS DE LOS PRODUCTOS (POV ADMIN)
+======================================*/
 #contenedor-productos{
     display: flex;
     flex-direction: column;

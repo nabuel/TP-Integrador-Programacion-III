@@ -68,6 +68,7 @@ const crearProducto = async (req,res)=>{
         });
     };
 
+
 };
 
 const modificarProducto = async (req,res)=>{
@@ -96,9 +97,21 @@ const modificarProducto = async (req,res)=>{
 const borrarProducto = async (req, res)=>{
     try{
         const id = req.params.id;
+
+        const [rows] = await modeloProductos.deleteProducto(id);
+
+        
+        
+        if(rows.length === 0){
+        
+            return res.status(400).json({
+                message: `Producto con id ${id} innexistente`
+            })
+        
+        }
         
         res.sendStatus(204);
-
+        
     }catch(error){
         res.status(500).json({
             message: "Error al intentar borrar producto"
