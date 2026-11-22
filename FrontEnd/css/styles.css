@@ -1,8 +1,21 @@
+/*================================================
+            ESTILADO GENERAL DE LA WEB
+==================================================*/
+
 /* Ajustamos el body */
 body {
     margin: 0px;
     background-color: beige;
     font-family: "Tiny5 Duo", sans-serif;
+}
+
+/* Fondo gradiente y clipeado al texto */
+.texto-gradiente {
+  background: linear-gradient(90deg, #ff0080, #7928ca, #2afadf);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 /* Logo rappigames */
@@ -54,59 +67,68 @@ body {
 }
 
 /* Form pantalla bienvenida */
-form {
-    display: flex;
-    flex-direction: column;
+#contenedor-form-bienvenida {
+    text-align: center;
+}
+
+/* Input de texto para el nombre */
+#fill-text {
+    width: 20%;
+    height: 30px;
+    border-radius: 12px;
 }
 
 /* Label de nombre en el form */
 #label-name {
     font-weight: 600;
     font-size: 40px;
-    text-align: center;
     text-shadow: -1px 2px 8px rgba(-11, -11, -37, 0.4);
 }
 
-/* Boton de submit en el form */
+/*=================================================
+                BOTONES EN GENERAL
+==================================================*/
+
+/* Botones de la pagina */
+#btn-finalizar-compra, #boton-imprimir, #boton-salir {
+    font-family: "Tiny5 Duo", sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    text-shadow: -1px 2px 4px rgba(-11, -11, -37, 0.4);
+}
+
+/* Boton de submit bienvenida, tuvimos que estilar por separado */
 #submit-continuar {
     font-family: "Tiny5 Duo", sans-serif;
     font-size: 30px;
     font-weight: 600;
     border-radius: 10px;
-    width: 220px;
-    margin-left: 45%;
     transition: background-color 0.3s ease;
     text-shadow: -1px 2px 4px rgba(-11, -11, -37, 0.4);
+    width: 20%;
 }
 
-#submit-continuar:hover {
+/* Pseudoclase hover de los botones */
+
+#submit-continuar:hover, #btn-finalizar-compra:hover, #boton-imprimir:hover, #boton-salir:hover {
 
     background-color: #641501;
     transform: scale(1.05);
     opacity: 0.9;
-}   
-#fill-text {
-    margin-left: 40%;
-    width: 20%;
-    height: 30px;
-    border-radius: 12px;
 }
 
-/* Aplicamos un gradiente como fondo y lo recortamos a la forma del texto para el titulo de la empresa */
-
-.texto-gradiente {
-  background: linear-gradient(90deg, #ff0080, #7928ca, #2afadf);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+/* Contenedor de botones */
+.contenedor-botones {
+    display: flex;
+    justify-content: center;
 }
 
 /* Ajustamos el NAV */
-nav {
-    display: flex;
-    padding: 50px;
-    margin-right: -11%;
+.barra-navegacion {
+    padding: 2.5%;
+    margin-right: -10%;
 }
 
 /* Ajustamos el header en comun*/
@@ -118,8 +140,18 @@ header {
 
 /* Pisamos el selector para la pantalla bienvenida */
 .header-bienvenida {
-    margin-bottom: 150px;
-    margin-right: 1130px;
+    margin-bottom: 10%;
+    margin-right: 60%;
+}
+
+/* Pisamos el selector para la pantalla ticket */
+.header-ticket {
+    margin-right: 60%;
+}
+
+/* Pisamos el selector para la pantalla carrito */
+.header-carrito {
+    margin-right: 60%;
 }
 
 
@@ -142,24 +174,6 @@ header {
     font-size: 40px;
     text-shadow: -2px 3px 1px rgba(-19, -19, -37, 0.2);
 }
-
-#btn-finalizar-compra, #boton-imprimir {
-    font-family: "Tiny5 Duo", sans-serif;
-    font-size: 30px;
-    font-weight: 600;
-    border-radius: 10px;
-    width: 200px;
-    margin-left: 45%;
-    transition: background-color 0.3s ease;
-    text-shadow: -1px 2px 8px rgba(-11, -11, -37, 0.4);
-}
-
-#btn-finalizar-compra:hover {
-
-    background-color: #641501;
-    transform: scale(1.05);
-    opacity: 0.9;
-}  
 
 #mensaje-bienvenida, #mensaje-agradecimiento {
     text-align: center;

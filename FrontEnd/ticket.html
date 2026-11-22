@@ -18,12 +18,12 @@
     <link rel="icon" type="image/png" href="./favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="./favicon/favicon.svg" />
     <link rel="shortcut icon" href="./favicon/favicon.ico" />
-    <!-- <link rel="manifest" href="./favicon/site.webmanifest" /> -->
+
 </head>
 
 <body>
 
-    <header>
+    <header class="header-ticket">
 
         <section class="section-logo">
 
@@ -42,20 +42,6 @@
 
         </section>
 
-        <nav>
-
-            <div id="contenedor-carrito">
-
-                <a href="./carrito.html">
-
-                    <img id="carrito-img" src="./img/cart.png" alt="carrito">
-
-                </a>
-
-            </div>
-
-        </nav>
-
     </header>
 
     <hr>
@@ -69,7 +55,15 @@
 
         </section>
 
-        <button class="texto-gradiente" id="boton-imprimir">Imprimir ticket</button>
+        <div class="contenedor-botones">
+
+            <button class="texto-gradiente" id="boton-imprimir">Imprimir ticket</button>
+            
+            <!-- La idea es que este sea el boton para volver a iniciar un proceso de compra, 
+            me gustaria redirigir automaticamente si no se toca el mismo en 60 segundos aprox. -->
+            <button class="texto-gradiente" id="boton-salir">Salir</button>
+
+        </div>    
 
     </main>
 

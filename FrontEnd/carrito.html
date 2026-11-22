@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <header>
+    <header class="header-carrito">
 
         <section class="section-logo">
 
@@ -41,8 +41,6 @@
 
         </section>
 
-        <p id="empresa-desc" class="texto-gradiente">La compañia de videojuegos y consolas que lidera el mercado.</p>
-
     </header>
 
     <hr>
@@ -53,9 +51,14 @@
 
         <section id="contenedor-productos"></section>
         
-        <p id="precio-total"></p>
+        <div class="contenedor-botones">
 
-        <button type="button" class="texto-gradiente" id="btn-finalizar-compra">Buy >></button>
+            <p id="precio-total"></p>
+            
+            <!-- Agregar validacion y mensaje error -->
+            <button type="button" class="texto-gradiente" id="btn-finalizar-compra">Comprar >></button>
+        
+        </div>
     
     </main>
 
