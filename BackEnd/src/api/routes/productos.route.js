@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { traerProductos, traerProducto, crearProducto, modificarProducto, borrarProducto, traerProductosActivos} from "../controllers/controlador.producto.js";
+import { traerProductos, traerProducto, getElementByCategory,getElementsByAvaibletly,crearProducto, modificarProducto, borrarProducto} from "../controllers/controlador.producto.js";
 import { requerirAutenticacion, validarId, validarProducto } from "../middlewares/middleware.js";
 
 const router = Router();
@@ -13,10 +13,18 @@ router.get("/", traerProductos);
 
 // Obtengo todos los productos activos
 
-router.get("/activos", traerProductosActivos);
+// router.get("/activos", traerProductosActivos);
 
+// Get products by their avaibletly
+
+router.get("/activos/:disponible", getElementsByAvaibletly)
+
+// Get products by their category.
+
+router.get("/categoria/:categoria", getElementByCategory)
 
 // Obtengo el producto por id
+
 
 router.get("/:id", validarId, traerProducto);
 

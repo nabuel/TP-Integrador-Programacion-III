@@ -38,14 +38,14 @@
                     
                     <label>Filtrar por categoria</label>
                     
-                    <select id="opciones-categorias">
+                    <select id="category-filter">
                         
                         <option value="todos">---</option>
                         <option value="Consola">Consola</option>
                         <option value="Juego">Juego</option>
                         
                     </select>
-                    
+                    <button onclick="applyCategoryFilter()" >APLICAR</button>
                 </div>
                 
                 <div id="sort-container" class="flex-column">
@@ -70,11 +70,11 @@
                     <select name="available" id="available-filter">
                         
                         <option value="default">---</option>
-                        <option value="active">activos</option>
-                        <option value="inactive">inactivos</option>
+                        <option value="true">activos</option>
+                        <option value="false">inactivos</option>
                         
                     </select>
-                    
+                    <button onclick="applyAvailableFilter()" >APLICAR</button>
                 </div>
             </div>
                 
@@ -117,6 +117,7 @@
                 
 
         </section>
+        
         <dialog id="modalProduct">
 
         </dialog>
