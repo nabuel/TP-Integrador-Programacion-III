@@ -149,8 +149,8 @@ FILTROS DE BÚSQUEDA
 /* Parrafo admin nav */
 #contenedor-productos-por-id {
     text-decoration: none;
-    color: #641501;
-    font-size: 40px;
+    /* color: #641501;
+    font-size: 40px; */
 }
 
 /* Mensajes de error */
@@ -192,7 +192,7 @@ select{
 
 
 /*=====================================
-CARTAS DE LOS PRODUCTOS (POV ADMIN)
+    CARTAS DE LOS PRODUCTOS (POV ADMIN)
 ======================================*/
 #contenedor-productos{
     display: flex;
@@ -234,3 +234,7 @@ CARTAS DE LOS PRODUCTOS (POV ADMIN)
 .iconos-acciones img{
     width: 65px;
 }
+
+
+/* ESTO SIRVE PARA MODIFICAR EL FONDO DEL MODAL */
+/* dialog::backdrop { background: rgba(0,0,0,.5); } */

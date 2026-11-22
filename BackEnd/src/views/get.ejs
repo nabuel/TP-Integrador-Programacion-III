@@ -38,14 +38,14 @@
                     
                     <label>Filtrar por categoria</label>
                     
-                    <select id="opciones-categorias">
+                    <select id="category-filter">
                         
                         <option value="todos">---</option>
                         <option value="Consola">Consola</option>
                         <option value="Juego">Juego</option>
                         
                     </select>
-                    
+                    <button onclick="applyCategoryFilter()" >APLICAR</button>
                 </div>
                 
                 <div id="sort-container" class="flex-column">
@@ -53,7 +53,7 @@
                     <label>Orden</label>
                     
                     <select name="ordenamiento" id="opciones-ordenamiento">
-                        
+                        <!-- en los select podemos hacer dropdown -->
                         <option value="predeterminado">---</option>
                         <option value="alfabetico">Alfabetico</option>
                         <option value="desendente">Desendente</option>
@@ -70,11 +70,11 @@
                     <select name="available" id="available-filter">
                         
                         <option value="default">---</option>
-                        <option value="active">activos</option>
-                        <option value="inactive">inactivos</option>
+                        <option value="true">activos</option>
+                        <option value="false">inactivos</option>
                         
                     </select>
-                    
+                    <button onclick="applyAvailableFilter()" >APLICAR</button>
                 </div>
             </div>
                 
@@ -99,23 +99,29 @@
                             
                             <div class="iconos-acciones">
                                 
-                                <button>
-
+                                <button class="delete-btn" onclick="deleteProduct(<%=producto.id%>)">
+                                
                                     <img src="/img/icono-eliminar.png" alt="eliminar producto">
                                     
                                 </button>
-                                <button>
+
+                                <button class="update-btn" onclick="renderForm(<%=JSON.stringify(producto)%>)" >
                                 
-                                    <img src="/img/icono-modificar.png" alt="modificar producto">
+                                    <img src="/img/icono-modificar.png" alt="modificar producto" >
                                     
                                 </button>
-                            
+                                
                             </div>
                         </div>
                 <% }) %>
                 
 
         </section>
+        
+        <dialog id="modalProduct">
+
+        </dialog>
+
     </main>
 
     <script src="/js/get.js"></script>
