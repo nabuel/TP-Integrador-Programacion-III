@@ -1,21 +1,29 @@
-/*================================================
-            ESTILADO GENERAL DE LA WEB
-==================================================*/
+/*================================
+ESTILADO GENERAL DE LA WEB
+==================================*/
 
-/* Ajustamos el body */
+/* Ajustamos el body, chequear si se puede setear max. de altura */
 body {
     margin: 0px;
-    background-color: beige;
+    background: linear-gradient(90deg, #9D8DF1, #E2C2F2, #A8DADC);
     font-family: "Tiny5 Duo", sans-serif;
 }
 
 /* Fondo gradiente y clipeado al texto */
+/* 
+background: crea el degradado.
+background-clip: text: recorta el fondo para que solo se vea dentro de las letras.
+color: transparent: hace transparente el color original del texto.
+-webkit-background-clip y -webkit-text-fill-color: compatibilidad con navegadores basados en WebKit/Blink.
+*/
 .texto-gradiente {
-  background: linear-gradient(90deg, #ff0080, #7928ca, #2afadf);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+    background: linear-gradient(90deg, #a406b3, #c55ece, #f3680b);
+
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    color: transparent;
+    -webkit-text-fill-color: transparent;
 }
 
 /* Logo rappigames */
@@ -23,24 +31,18 @@ body {
     width: 200px;
 }
 
-/* Hr que separa el logo de la descr. */
-#separador-logo {
-    margin: 0px;
-
-}
-
 /* Descripcion empresa */
-#empresa-desc{
+#empresa-desc {
     margin-top: 5%;
     /* La sintaxis para dar sombra es text-shadow: ejeX ejeY desenfoque color; */
-    text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.5); 
+    text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.5);
     margin-right: -20%;
 }
 
 /* Primera seccion donde esta el logo, el nombre de la empresa y sus integrantes. */
 .section-logo {
     margin-right: -550px;
-    margin-left: -250px; 
+    margin-left: -250px;
     display: flex;
 }
 
@@ -90,7 +92,9 @@ body {
 ==================================================*/
 
 /* Botones de la pagina */
-#btn-finalizar-compra, #boton-imprimir, #boton-salir {
+#btn-finalizar-compra,
+#boton-imprimir,
+#boton-salir {
     font-family: "Tiny5 Duo", sans-serif;
     font-size: 30px;
     font-weight: 600;
@@ -112,7 +116,10 @@ body {
 
 /* Pseudoclase hover de los botones */
 
-#submit-continuar:hover, #btn-finalizar-compra:hover, #boton-imprimir:hover, #boton-salir:hover {
+#submit-continuar:hover,
+#btn-finalizar-compra:hover,
+#boton-imprimir:hover,
+#boton-salir:hover {
 
     background-color: #641501;
     transform: scale(1.05);
@@ -155,10 +162,17 @@ header {
 }
 
 
-/* Img carrito */
+/* Logo carrito y musica */
 #carrito-img {
     width: 80px;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    padding-left: 20px;
+}
+
+#musica-img {
+    width: 70px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    cursor: pointer;
 }
 
 /* Parrafo admin nav */
@@ -175,7 +189,8 @@ header {
     text-shadow: -2px 3px 1px rgba(-19, -19, -37, 0.2);
 }
 
-#mensaje-bienvenida, #mensaje-agradecimiento {
+#mensaje-bienvenida,
+#mensaje-agradecimiento {
     text-align: center;
     text-decoration-thickness: 5px;
     letter-spacing: 3px;
@@ -197,4 +212,37 @@ footer {
     padding-left: 10px;
     color: red;
     text-shadow: 2px 2px black;
+}
+
+.oculto {
+    display: none;
+}
+
+/*===========================================
+ESTILADO PRODUCTOS.HTML/CARRITO.HTML (CONTENEDORES)
+=============================================*/
+
+#contenedor-productos {
+    display: flex;
+    flex-direction: column;
+    margin: 3% 12%;
+}
+
+.card-producto, .bloque-producto {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: #ddd3f2 1px solid;
+    margin: 45px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.card-img {
+    width: 200px;
+    max-height: 200px;
+    object-fit: contain;
+    margin: 15px;
+    border-radius: 20px;
 }

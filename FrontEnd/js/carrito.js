@@ -7,7 +7,7 @@ const nombre = sessionStorage.getItem("nombreUsuario");
 const carritoSinRepetidos = [];
 
 btnFinalizarCompra.addEventListener("click", () => {
-    if(carrito.length > 0){    
+    if (carrito.length > 0) {
         if (window.confirm("¿Desea finalizar su compra?")) {
             window.location.replace("./ticket.html");
         }
@@ -19,11 +19,11 @@ btnFinalizarCompra.addEventListener("click", () => {
 
 
 
-function init(){
+function init() {
 
     mostrarNombreUsuario();
     mostrarMensaje();
-    
+
 }
 
 
@@ -34,7 +34,7 @@ function mostrarValorCarrito() {
     const totalHTML = document.getElementById("precio-total");
 
 
-    if(carrito.length == 0) totalHTML.textContent = "$ 0"
+    if (carrito.length == 0) totalHTML.textContent = "$ 0"
 
     totalHTML.textContent = `$ ${carrito.reduce((total, producto) => {
         return total + producto.precio;
@@ -53,7 +53,7 @@ function mostrarCarrito() {
     carritoSinRepetidos.forEach(
         p =>
         (mensaje += `<li class="bloque-producto">
-                        <img src="./img/${p.imagen}" alt="${p.nombre}">
+                        <img class="card-img" src="./img/${p.imagen}" alt="${p.nombre}">
                         <p class="nombre-item">${p.nombre} - ${p.precio}$</p>
                         <button class="boton-eliminar" id="${p.id}">Eliminar</button>
                         <button class="boton-sumar" id="${p.id}">+</button>
@@ -77,7 +77,7 @@ function mostrarCarrito() {
 
     const botonesEliminado = document.querySelectorAll(".boton-eliminar");
 
-    botonesEliminado.forEach( b =>
+    botonesEliminado.forEach(b =>
         b.addEventListener("click", (e) => {
             eliminarProducto(carrito.find(p => p.id == e.target.id));
         })
@@ -90,9 +90,9 @@ function mostrarCarrito() {
         b.addEventListener("click", (e) => {
             let id = e.target.id;
             const cantidad = document.getElementById(`contador-${id}`);
-            
+
             cantidad.textContent = `${parseInt(cantidad.textContent) + 1}`;
-            
+
             agregarCarrito(carrito.find((p) => p.id == id));
         })
     );
@@ -110,9 +110,9 @@ function mostrarCarrito() {
             let resta = parseInt(cantidad.textContent) - 1;
 
             if (resta > 0) {
-                
+
                 restarProducto(producto);
-                
+
                 cantidad.textContent = `${resta}`;
             } else {
                 eliminarProducto(producto);
@@ -131,16 +131,16 @@ function mostrarCarrito() {
  */
 function agregarCarrito(producto) {
     carrito.push(producto);
-    
+
     almacenarCarrito();
     mostrarCarrito();
 }
 
 
 
-function restarProducto(producto){
+function restarProducto(producto) {
 
-    carrito.splice(carrito.indexOf(producto), 1 );
+    carrito.splice(carrito.indexOf(producto), 1);
 
     almacenarCarrito();
     mostrarCarrito();
@@ -156,7 +156,7 @@ function eliminarProducto(producto) {
 
 
     carritoSinRepetidos.splice(carritoSinRepetidos.indexOf(producto), 1);
-    
+
     almacenarCarrito();
     mostrarMensaje();
 }
@@ -165,15 +165,15 @@ function almacenarCarrito() {
     sessionStorage.setItem("productosCarrito", JSON.stringify(carrito));
 }
 
-function mostrarNombreUsuario(){
+function mostrarNombreUsuario() {
     const tituloCarrito = document.getElementById("title-carrito");
 
     tituloCarrito.innerText = `Carrito de ${nombre}`;
 }
 
-function mostrarMensaje(){
-    
-    if (carrito.length > 0) mostrarCarrito(); 
+function mostrarMensaje() {
+
+    if (carrito.length > 0) mostrarCarrito();
     else {
         contenedorProductos.innerText = "Carrito sin productos";
         document.getElementById("precio-total").innerText = "";
