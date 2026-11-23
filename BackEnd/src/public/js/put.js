@@ -8,11 +8,14 @@ modifyForm.addEventListener("submit", function (event) {
     if (window.confirm("¿Desea confirmar los cambios?")) {
 
         const inputImg = document.getElementById("productImg");
+        const currentProductImg = document.getElementById("currentProductImg");
 
         const data = new FormData(event.target);
 
         if (inputImg.files.length > 0) {
-            data.append("imagen", inputImg.files[0].name);
+            data.append("productImg", inputImg.files[0].name);
+        } else {
+            data.append("productImg", currentProductImg.value);
         }
 
         updateProduct(data);

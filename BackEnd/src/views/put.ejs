@@ -7,46 +7,50 @@
             <section class="form-modify-product">
                 <h2>Modificar producto</h2>
 
-                <form id="formProducto">
+                    <form id="formProducto">
 
-                    <input name="productId" id="<%= product.id %>" value="<%= product.id %>" hidden>
+                        <input name="productId" id="<%= product.id %>" value="<%= product.id %>" hidden>
 
-                    <label for="productName">Nombre:</label>
-                    <input type="text" id="productName" name="productName" value="<%= product.nombre %>" required>
+                        <label for="productName">Nombre:</label>
+                        <input type="text" id="productName" name="productName" value="<%= product.nombre %>" required>
 
-                    <label for="productPrice">Precio:</label>
-                    <input type="number" id="productPrice" name="productPrice" min="5000" value="<%= product.precio %>" required>
+                        <label for="productPrice">Precio:</label>
+                        <input type="number" id="productPrice" name="productPrice" min="5000"
+                            value="<%= product.precio %>" required>
 
-                    <label for="productImg">Imagen:</label>
-                    <input type="file" id="productImg" name="productImg" value="<%= product.imagen %>">
+                        <label for="productImg">Imagen:</label>
+                        <input type="file" id="productImg" name="productImg">
 
-                    <label for="active">Activo:</label>
-                    <select id="active" name="productActive" value="<%= product.activo %>" required>
+                        <input type="hidden" id="currentProductImg" value="<%= product.imagen %>">
 
-                        <option value="true">Activo</option>
-                        <option value="false">Inactivo</option>
+                        <label for="active">Activo:</label>
+                        <select id="active" name="productActive" value="<%= Boolean(product.activo) %>" required>
+                            <% console.log(product.activo) %> 
+                            <option value="true" <%= product.activo ? "selected" : "" %>>Activo</option>
+                            <option value="false" <%= !product.activo ? "selected" : "" %>>Inactivo</option>
 
-                    </select>
+                        </select>
 
-                    <label for="productCategory">Categoría:</label>
-                    <select id="productCategory" name="productCategory" value="<%= product.categoria %>" required>
+                        <label for="productCategory">Categoría:</label>
+                        <select id="productCategory" name="productCategory" value="<%= product.categoria %>" required>
 
-                        <option value="Consola">Consola</option>
-                        <option value="Juego">Juego</option>
+                            <option value="Consola">Consola</option>
+                            <option value="Juego">Juego</option>
 
-                    </select>
+                        </select>
 
-                    <button type="submit">Guardar cambios</button>
-                    <!-- Gracias Nahuel por decirme la ruta que estuve 10 minutos en resolver -->
-                    <button type="button" id="btnCerrar" onclick="window.location.assign(`/dashboard/principal`)">Salir</button>
-                </form>
+                        <button type="submit">Guardar cambios</button>
+                        <!-- Gracias Nahuel por decirme la ruta que estuve 10 minutos en resolver -->
+                        <button type="button" id="btnCerrar"
+                            onclick="window.location.assign(`/dashboard/principal`)">Salir</button>
+                    </form>
 
             </section>
 
-            <div id="message-container">
+                <div id="message-container">
 
 
-            </div>
+                </div>
 
         </main>
 

@@ -121,12 +121,12 @@ const modificarProducto = async (req, res) => {
 
         if (respuesta.changedRows === 0) {
             return res.status(400).json({
-                message: `No se han aplicado cambios al producto con id ${id}`
+                message: `No se han aplicado cambios al producto con id ${productId}`
             })
         }
 
         res.status(200).json({
-            message: `Producto con id ${id} actualizado`
+            message: `Producto con id ${productId} actualizado`
         })
 
     } catch (error) {

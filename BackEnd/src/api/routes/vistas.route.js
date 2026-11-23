@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { vistaProductos, vistaRegistrar, viewCreateProduct } from "../controllers/controlador.vistas.js";
-import { requerirAutenticacion } from "../middlewares/middleware.js";
+import { vistaProductos, vistaRegistrar, viewCreateProduct, viewModifyProduct } from "../controllers/controlador.vistas.js";
+import { requerirAutenticacion, validarId } from "../middlewares/middleware.js";
 
 const router = Router();
 
