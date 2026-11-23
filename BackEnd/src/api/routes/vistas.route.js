@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { vistaProductos } from "../controllers/controlador.vistas.js";
-import { requerirAutenticacion } from "../middlewares/middleware.js";
+import { viewModifyProduct, vistaProductos } from "../controllers/controlador.vistas.js";
+import { requerirAutenticacion, validarId } from "../middlewares/middleware.js";
 
 const router = Router();
 
@@ -9,7 +9,6 @@ const router = Router();
  */
 router.get("/principal", requerirAutenticacion, vistaProductos);
 
-// router.get("/obtener/:id", requerirAutenticacion, vistaObtenerPorId);
-
+router.get("/principal/modificar/producto/:id", requerirAutenticacion, validarId, viewModifyProduct);
 
 export default router;

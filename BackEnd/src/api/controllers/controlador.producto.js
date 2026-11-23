@@ -1,9 +1,9 @@
 import modeloProductos from "../models/modelo.productos.js";
 
-const traerProductos = async (_, res) =>{
-    const [productos] =  await modeloProductos.getProductos();
-    
-    if(productos.length === 0){
+const traerProductos = async (_, res) => {
+    const [productos] = await modeloProductos.getProductos();
+
+    if (productos.length === 0) {
         return res.status(404).json({
             message: "No se han encontrado productos"
         });
@@ -29,12 +29,12 @@ const traerProductos = async (_, res) =>{
 // }
 
 const getElementsByAvaibletly = async (req, res) => {
-    
+
     const avaible = req.params.disponible == "false" ? false : true;
 
     const [products] = await modeloProductos.getElementsByAvaibletly(avaible);
 
-    if(products.length === 0){
+    if (products.length === 0) {
         return res.status(404).json({
             message: "No se han encontrado productos"
         });
@@ -45,23 +45,23 @@ const getElementsByAvaibletly = async (req, res) => {
     });
 }
 
-const traerProducto = async (req, res)=>{
+const traerProducto = async (req, res) => {
 
-    try{
-        
+    try {
+
         const [producto] = await modeloProductos.getProductoById(req.params.id)
-        
-        if(!producto.length){
+
+        if (!producto.length) {
             return res.status(404).json({
                 message: `No se ha encontrado un producto con id ${req.params.id}`
             });
         }
-    
+
         res.status(200).json({
             payload: producto
         });
-        
-    } catch(error){
+
+    } catch (error) {
         res.status(500).json({
             message: "Error interno con la base de datos"
         });
@@ -69,12 +69,12 @@ const traerProducto = async (req, res)=>{
 }
 
 
-const getElementByCategory = async(req, res) =>{
-    try{
+const getElementByCategory = async (req, res) => {
+    try {
         const category = req.params.categoria;
         const [products] = await modeloProductos.getElementByCategory(category);
-    
-        if(!products.length > 0){
+
+        if (!products.length > 0) {
             return res.status(400).json({
                 message: `No hay productos catalogados como "${category}"`
             });
@@ -84,26 +84,26 @@ const getElementByCategory = async(req, res) =>{
             payload: products
         });
 
-    } catch(error){
+    } catch (error) {
         console.error(error);
-        
+
     }
-    
+
 }
 
 
-const crearProducto = async (req,res)=>{
-    try{
-        const {nombre,precio,imagen,activo,categoria} = req.body;
-        
-        const [respuesta] = await modeloProductos.createProducto(nombre,imagen,precio,activo,categoria)
+const crearProducto = async (req, res) => {
+    try {
+        const { nombre, precio, imagen, activo, categoria } = req.body;
+
+        const [respuesta] = await modeloProductos.createProducto(nombre, imagen, precio, activo, categoria)
 
         res.status(201).json({
             message: `Producto creado`,
-            productoId : respuesta.insertId
+            productoId: respuesta.insertId
         });
 
-    } catch(error){
+    } catch (error) {
         res.status(500).json({
             message: "Error al crear producto"
         });
@@ -112,48 +112,49 @@ const crearProducto = async (req,res)=>{
 
 };
 
-const modificarProducto = async (req,res)=>{
-    try{
-        const {id, nombre, precio, imagen, activo, categoria} = req.body;
-        const [respuesta] = await modeloProductos.updateProducto(nombre, imagen, precio, activo, categoria, id)
-        
-        if(respuesta.changedRows === 0){
+const modificarProducto = async (req, res) => {
+    try {
+        const { productId, productName, productPrice, productImg, productActive, productCategory } = req.body;
+        const [respuesta] = await modeloProductos.updateProducto(productName, productPrice, productImg, productActive, productCategory, productId);
+
+        if (respuesta.changedRows === 0) {
             return res.status(400).json({
-                message : `No se han aplicado cambios al producto con id ${id}` 
+                message: `No se han aplicado cambios al producto con id ${id}`
             })
         }
+
         res.status(200).json({
             message: `Producto con id ${id} actualizado`
         })
-        
-    }catch(error){
+
+    } catch (error) {
         // Ej: Fallo la conexion a la BBDD, tardo demasiado, la tabla no existe, error de sintaxis
         res.status(500).json({
             message: "Error interno del servidor al modificar un producto"
         });
     }
-    
+
 }
 
-const borrarProducto = async (req, res)=>{
-    try{
+const borrarProducto = async (req, res) => {
+    try {
         const id = req.params.id;
 
         const [rows] = await modeloProductos.deleteProducto(id);
 
-        
-        
-        if(rows.length === 0){
-        
+
+
+        if (rows.length === 0) {
+
             return res.status(400).json({
                 message: `Producto con id ${id} innexistente`
             })
-        
+
         }
-        
+
         res.sendStatus(204);
-        
-    }catch(error){
+
+    } catch (error) {
         res.status(500).json({
             message: "Error al intentar borrar producto"
         });

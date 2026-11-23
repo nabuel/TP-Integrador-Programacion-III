@@ -93,19 +93,19 @@
                     
                     <% } %>
                         
-                            <img src="/img/<%=producto.imagen%>" alt="<%=producto.nombre%>" class="card-img">
-                            <p class="nombre-prod font-large"><%=producto.nombre%></p>
-                            <p class="precio-prod font-large"><%=producto.precio%>$</p>
+                            <img src="/img/<%= producto.imagen %>" alt="<%= producto.nombre %>" class="card-img">
+                            <p class="nombre-prod font-large"><%= producto.nombre %></p>
+                            <p class="precio-prod font-large"><%= producto.precio %>$</p>
                             
                             <div class="iconos-acciones">
                                 
-                                <button class="delete-btn" onclick="deleteProduct(<%=producto.id%>)">
+                                <button class="delete-btn" onclick="deleteProduct(<%= producto.id %>)">
                                 
                                     <img src="/img/icono-eliminar.png" alt="eliminar producto">
                                     
                                 </button>
 
-                                <button class="update-btn" onclick="renderForm(<%=JSON.stringify(producto)%>)" >
+                                <button class="update-btn" onclick="window.location.assign(`principal/modificar/producto/<%= producto.id %>`)" >
                                 
                                     <img src="/img/icono-modificar.png" alt="modificar producto" >
                                     
@@ -118,9 +118,9 @@
 
         </section>
         
-        <dialog id="modalProduct">
+        <!-- <dialog id="modalProduct">
 
-        </dialog>
+        </dialog> -->
 
     </main>
 

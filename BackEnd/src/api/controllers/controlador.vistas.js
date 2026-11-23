@@ -3,21 +3,23 @@ import modeloProductos from "../models/modelo.productos.js";
 
 //	Trae todos los productos para el administrador
 export const vistaProductos = async (_, res) => {
-	
+
 	const [rows] = await modeloProductos.getProductos();
-	
+
 	res.render("get", {
 		title: "Dashboard principal",
-        listaProductos: rows
-	}); 
+		listaProductos: rows
+	});
 }
 
-// Trae el producto por id
-// export const vistaObtenerPorId = (req, res) => {
-// 	res.render("get", {
-// 		title: "Consultar producto"
-// 	});
-// }
+export const viewModifyProduct = async (req, res) => {
+	
+	const id = req.params.id;
+	const [rows] = await modeloProductos.getProductoById(id);
 
-
-// Renderizamos /views/index.ejs
+	res.render("put", {
+		title: "Modificar producto",
+		about: "Modifique el producto",
+		product: rows[0]
+	});
+}
