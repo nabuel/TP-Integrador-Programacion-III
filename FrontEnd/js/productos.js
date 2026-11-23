@@ -17,7 +17,7 @@ const carritoHistorico = JSON.parse(sessionStorage.getItem("productosCarrito"));
 async function buscarProductosActivos() {
     try {
     // Hago la request a la api para obtener todos los productos.
-        const response = await fetch(`${urlBase}/api/productos/activos`);
+        const response = await fetch(`${urlBase}/api/productos/activos/true`);
 
         // convierto la response en un json.
         const data = await response.json();

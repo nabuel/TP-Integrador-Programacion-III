@@ -14,15 +14,15 @@ function validarId(req, res, next){
 }
 
 function validarProducto(req, res, next){
-    const {nombre, imagen, precio, activo, categoria} = req.body;
+    const {productName, productPrice, productImg, productActive, productCategory} = req.body;
     const errores = [];
 
 
-    if(!nombre, !imagen, !precio, !activo, !categoria) errores.push("Campos faltantes");
+    if(!productName, !productPrice, !productImg, !productActive, !productCategory) errores.push("Campos faltantes");
 
-    if(typeof nombre !== "string" || nombre.trim().length < 2) errores.push('El nombre del producto debe contener al menos 2 caracteres');
+    if(typeof productName !== "string" || productName.trim().length < 2) errores.push('El nombre del producto debe contener al menos 2 caracteres');
     
-    if (typeof precio !== "number" || precio <= 0) errores.push("El precio debe ser mayor a 0");
+    if (typeof productPrice !== "number" || productPrice <= 0) errores.push("El precio debe ser mayor a 0");
 
     if(errores.length > 0){
         return res.status(400).json({
