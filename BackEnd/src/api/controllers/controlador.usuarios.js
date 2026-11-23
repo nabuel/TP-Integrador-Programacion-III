@@ -61,15 +61,3 @@ export const crearUsuario = async (req, res) => {
     }
 
 }
-
-/**
- * Funcion flecha que contiene la logica del endpoint '/registrar'.
- * @param {*} _: Solicitud HTTP. No se utiliza.
- * @param {*} res: Respuesta HTTP.
- */
-export const vistaRegistrar = (_, res) => {
-    res.render("register", {
-        title: "Registrar usuario",
-        about: "Creacion de usuario administrador",
-    });
-}

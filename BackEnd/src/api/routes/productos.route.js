@@ -22,7 +22,6 @@ router.get("/categoria/:categoria", getElementByCategory)
 
 // Obtengo el producto por id
 
-
 router.get("/:id", validarId, traerProducto);
 
 

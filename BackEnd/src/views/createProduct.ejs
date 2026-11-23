@@ -1,0 +1,51 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+
+    </header>
+
+    <main>
+
+        <section class="formProducto">
+
+            <h2> <%= about %> </h2>
+
+            <form id="formProducto" enctype="multipart/form-data">
+
+                <label for="productName">Nombre:</label>
+                <input type="text" id="productName" name="productName" required>
+
+                <label for="productPrice">Precio:</label>
+                <input type="number" id="productPrice" name="productPrice" min="5000" max="100000000"required>
+
+                <label for="productImg">Imagen:</label>
+                <input type="file" id="productImg" name="productImg" required>
+
+                <label for="productActive">Activo:</label>
+                <select id="productActive" name="productActive" required>
+
+                    <option value="true">Activo</option>
+                    <option value="false">Inactivo</option>
+
+                </select>
+
+                <label for="productCategory">Categoría:</label>
+                <select id="productCategory" name="productCategory" required>
+
+                    <option value="Consola">Consola</option>
+                    <option value="Juego">Juego</option>
+
+                </select>
+
+                <button type="submit" onclick="prepareData()">Crear</button>
+                <button type="button" onclick="window.location.assign('/dashboard/principal')">Volver al inicio</button>
+            </form>
+
+        </section>
+
+        <div id="message-container">
+
+        </div>
+        <script src="/js/createProduct.js"></script>
+    </main>
+
+<%- include("partials/footer.ejs") %> 

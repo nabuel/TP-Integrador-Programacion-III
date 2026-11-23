@@ -26,16 +26,11 @@ async function buscarProducto(id) {
     if (response.ok) {
       contenedorProductos.innerHTML = structureProductCard(product);
     } else {
-      mostrarMensaje("error", producto.message);
+      showMessage("error", producto.message);
     }
   } catch (error) {
     console.error(error);
   }
-}
-
-function mostrarError(error) {
-  console.log(error);
-  contenedorProductos.innerHTML = error;
 }
 
 
@@ -74,6 +69,10 @@ function structureProductCard(product){
   return mensajeHTML;
 }
 
+/**
+ * Renderiza el formulario para actualizar un producto.
+ * @param {*} product producto el cual será actualizado
+ */
 function renderForm(product) {
     
     modalProduct.innerHTML = `
@@ -162,10 +161,10 @@ async function updateProduct(data){
     const result = await response.json();
 
     if(!response.ok){
-      return mostrarMensaje("error", result.message)
+      return showMessage("error", result.message)
     }
 
-    mostrarMensaje("exito", result.message)
+    showMessage("exito", result.message)
   
   } catch (error){
     console.error(error);
@@ -184,10 +183,10 @@ async function deleteProduct(id) {
       if (!response.ok) {
         const result = await response.json();
 
-        return mostrarMensaje("error", result.message);
+        return showMessage("error", result.message);
       }
 
-      mostrarMensaje("exito", `se ha borrado el producto con id: ${id}`);
+      showMessage("exito", `se ha borrado el producto con id: ${id}`);
       
       window.location.reload();
     
@@ -197,23 +196,43 @@ async function deleteProduct(id) {
   }
 }
 
-function mostrarMensaje(estado, mensaje) {
-  contenedorProductos.innerHTML = `
-        <p class="mensaje ${estado}">${mensaje}</p>
-    `;
-}
 
 async function applyCategoryFilter() {
   const filter = document.getElementById("category-filter");
-
-
+  
+  
   if (filter.value != "todos") {
     const response = await fetch(`${urlBase}/api/productos/categoria/${filter.value}`);
+    
+    const data = await response.json();
+    
+    if (!response.ok) {
+      return showMessage("error", data.message);
+    }
+    
+    let productsHTML = "";
+    
+    data.payload.forEach((p) => (productsHTML += structureProductCard(p)));
+    
+    contenedorProductos.innerHTML = productsHTML;
+    
+  } else {
+    window.location.reload();
+  }
+}
+
+async function applyAvailableFilter() {
+  const filter = document.getElementById("available-filter");
+
+  if (filter.value != "default") {
+    const avaible = filter.value == "false" ? false : true;
+
+    const response = await fetch(`${urlBase}/api/productos/activos/${avaible}`);
 
     const data = await response.json();
 
     if (!response.ok) {
-      return mostrarMensaje("error", data.message);
+      return showMessage("error", data.message);
     }
 
     let productsHTML = "";
@@ -221,33 +240,70 @@ async function applyCategoryFilter() {
     data.payload.forEach((p) => (productsHTML += structureProductCard(p)));
 
     contenedorProductos.innerHTML = productsHTML;
-
   } else {
     window.location.reload();
   }
 }
+/**
+ * Renderiza el formulario para crear un nuevo producto
+*/
+function renderForm() {
+    modalProduct.innerHTML = `
+      <h2>Modificar producto</h2>
+   
+      <form id="formProducto" enctype="multipart/form-data">
+   
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+   
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" name="precio" min="5000" required>
+   
+        <label for="imagen">Imagen:</label>
+        <input type="file" id="imagen" name="imagen" required>
+   
+        <label for="activo">Activo:</label>
+        <select id="activo" name="activo" required>
+   
+          <option value="true">Activo</option>
+          <option value="false">Inactivo</option>
+   
+        </select>
+   
+        <label for="categoria">Categoría:</label>
+        <select id="categoria" name="categoria" required>
 
-async function applyAvailableFilter(){
-    const filter = document.getElementById("available-filter");
-    
-    if (filter.value != "default") {
-    
-      const avaible = filter.value == "false" ? false : true;
+          <option value="Consola">Consola</option>
+          <option value="Juego">Juego</option>
 
-      const response = await fetch(`${urlBase}/api/productos/activos/${avaible}`);
+        </select>
 
-      const data = await response.json();
+        <button type="submit">Guardar cambios</button>
+        <button type="button" id="btnCerrar" onclick="modalProduct.close()">Cancelar</button>
+      </form>
+      `;
 
-      if (!response.ok) {
-        return mostrarMensaje("error", data.message);
-      }
+  document.getElementById("formProducto")
+          .addEventListener("submit", (event) => {
+              event.preventDefault();
 
-      let productsHTML = "";
+            if (window.confirm("¿Desea crear un nuevo producto?")) {
+              const inputImg = document.getElementById("imagen");
 
-      data.payload.forEach((p) => (productsHTML += structureProductCard(p)));
+              const data = new FormData(event.target);
+              data.append("imagen", inputImg.files[0].name);
 
-      contenedorProductos.innerHTML = productsHTML;
-    } else {
-      window.location.reload();
-    }
+              createProduct(data);
+
+              modalProduct.close();
+            }
+          });
+
+  modalProduct.showModal();
+}
+
+function showMessage(estado, mensaje) {
+      contenedorProductos.innerHTML = `
+          <p class="mensaje ${estado}">${mensaje}</p>
+      `;
 }

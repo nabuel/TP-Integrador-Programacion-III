@@ -94,9 +94,11 @@ const getElementByCategory = async(req, res) =>{
 
 const crearProducto = async (req,res)=>{
     try{
-        const {nombre,precio,imagen,activo,categoria} = req.body;
+        const {productName,productPrice,productImg,productActive,productCategory} = req.body;
         
-        const [respuesta] = await modeloProductos.createProducto(nombre,imagen,precio,activo,categoria)
+        console.log(req.body);
+
+        const [respuesta] = await modeloProductos.createProducto(productName,productPrice,productImg,productActive,productCategory)
 
         res.status(201).json({
             message: `Producto creado`,
