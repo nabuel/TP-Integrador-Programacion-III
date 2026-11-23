@@ -37,7 +37,7 @@ const createProducto = (nombre, precio, imagen, activo, categoria) =>{
 
 
 //Actualizar producto
-const updateProducto = (nombre, imagen, precio, activo, categoria, id) =>{
+const updateProducto = (nombre, precio, imagen, activo, categoria, id) =>{
     const sql = "UPDATE productos SET nombre = ?,precio = ?,imagen = ?,activo = ?,categoria = ? WHERE id = ?";
 
     return conexion.query(sql, [nombre,precio,imagen, activo,categoria, id]);
