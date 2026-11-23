@@ -29,10 +29,10 @@ const getElementByCategory = (category) =>{
 }
 
 // Crear producto
-const createProducto = (nombre, imagen, precio, activo, categoria) =>{
+const createProducto = (nombre, precio, imagen, activo, categoria) =>{
     const sql = "INSERT productos SET nombre = ?,precio = ?,imagen = ?,activo = ?,categoria = ?";
 
-    return conexion.query(sql, [nombre,precio,imagen, categoria, activo]);
+    return conexion.query(sql, [nombre,precio,imagen, activo, categoria]);
 }
 
 
