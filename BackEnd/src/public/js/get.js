@@ -99,23 +99,31 @@ async function applyCategoryFilter() {
   
   
   if (filter.value != "todos") {
-    const response = await fetch(`${urlBase}/api/productos/categoria/${filter.value}`);
     
-    const data = await response.json();
     
-    if (!response.ok) {
-      return showMessage("error", data.message);
-    }
-    
-    let productsHTML = "";
-    
-    data.payload.forEach((p) => (productsHTML += structureProductCard(p)));
-    
-    contenedorProductos.innerHTML = productsHTML;
     
   } else {
-    window.location.reload();
+
   }
+
+  // if (filter.value != "todos") {
+  //   const response = await fetch(`${urlBase}/api/productos/categoria/${filter.value}`);
+    
+  //   const data = await response.json();
+    
+  //   if (!response.ok) {
+  //     return showMessage("error", data.message);
+  //   }
+    
+  //   let productsHTML = "";
+    
+  //   data.payload.forEach((p) => (productsHTML += structureProductCard(p)));
+    
+  //   contenedorProductos.innerHTML = productsHTML;
+    
+  // } else {
+  //   window.location.reload();
+  // }
 }
 
 async function applyAvailableFilter() {
@@ -141,63 +149,7 @@ async function applyAvailableFilter() {
     window.location.reload();
   }
 }
-/**
- * Renderiza el formulario para crear un nuevo producto
-*/
-function renderForm() {
-    modalProduct.innerHTML = `
-      <h2>Modificar producto</h2>
-   
-      <form id="formProducto" enctype="multipart/form-data">
-   
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
-   
-        <label for="precio">Precio:</label>
-        <input type="number" id="precio" name="precio" min="5000" required>
-   
-        <label for="imagen">Imagen:</label>
-        <input type="file" id="imagen" name="imagen" required>
-   
-        <label for="activo">Activo:</label>
-        <select id="activo" name="activo" required>
-   
-          <option value="true">Activo</option>
-          <option value="false">Inactivo</option>
-   
-        </select>
-   
-        <label for="categoria">Categoría:</label>
-        <select id="categoria" name="categoria" required>
 
-          <option value="Consola">Consola</option>
-          <option value="Juego">Juego</option>
-
-        </select>
-
-        <button type="submit">Guardar cambios</button>
-        <button type="button" id="btnCerrar" onclick="modalProduct.close()">Cancelar</button>
-      </form>
-      `;
-
-  document.getElementById("formProducto")
-          .addEventListener("submit", (event) => {
-              event.preventDefault();
-
-            if (window.confirm("¿Desea crear un nuevo producto?")) {
-              const inputImg = document.getElementById("imagen");
-
-              const data = new FormData(event.target);
-              data.append("imagen", inputImg.files[0].name);
-
-              createProduct(data);
-
-              modalProduct.close();
-            }
-          });
-
-  modalProduct.showModal();
-}
 
 function showMessage(estado, mensaje) {
       contenedorProductos.innerHTML = `

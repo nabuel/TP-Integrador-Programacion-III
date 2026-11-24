@@ -1,6 +1,5 @@
 const nombreUser = sessionStorage.getItem("nombreUsuario");
-let carrito = JSON.parse(sessionStorage.getItem("productosCarrito")); // test
-console.log(carrito);
+let cart = JSON.parse(sessionStorage.getItem("productosCarrito")); // test
 
 const botonImprimir = document.getElementById("boton-imprimir");
 
@@ -22,7 +21,7 @@ function imprimirTicket() {
      * https://github.com/parallax/jsPDF
        https://parallax.github.io/jsPDF/docs/ */
 
-    const idProductos = [];
+    const idProducts = [];
 
     // Gracias a CDN extraemos la clase jspdf del objeto global window
     const { jsPDF } = window.jspdf;
@@ -40,18 +39,17 @@ function imprimirTicket() {
 
     doc.setFontSize(14); // reducimos tam. fuente para imprimir prod. del ticket.
 
-    carrito.forEach(producto => {
+    cart.forEach(product => {
 
-        idProductos.push(producto.id); // llenamos array de ids prouctos para crear la venta dsp
+        idProducts.push(product.id); // llenamos array de ids prouctos para crear la venta dsp
 
-        doc.text(`${producto.nombre} - ${producto.precio}`, 20, y);
+        doc.text(`${product.nombre} - ${product.precio}`, 20, y);
 
         y += 5;
     });
 
-    console.log(idProductos);
 
-    const precioTotal = carrito.reduce((total, producto) => total + parseInt(producto.precio), 0);
+    const precioTotal = cart.reduce((total, producto) => total + parseInt(producto.precio), 0);
 
     // Separamos los productos del total
     y += 20;
@@ -66,7 +64,7 @@ function imprimirTicket() {
     doc.save(`${nombreTicket}.pdf`);
 }
 
-async function registrarVenta(precioTotal, idProductos) {
+async function registrarVenta(totalPrice, idProducts) {
     try {
         const fecha = new Date();
 
@@ -74,9 +72,9 @@ async function registrarVenta(precioTotal, idProductos) {
 
         const data = {
             date: fechaFormato,
-            total_price: precioTotal,
-            user_name: nombreUsuario,
-            products: idProductos
+            total_price: totalPrice,
+            user_name: nombreUser,
+            products: idProducts
         }
 
         const response = await fetch("http://localhost:3000/api/ventas", {
