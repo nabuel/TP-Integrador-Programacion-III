@@ -1,6 +1,7 @@
-const nombreUser = sessionStorage.getItem("nombreUsuario");
-let carrito = JSON.parse(sessionStorage.getItem("productosCarrito")); // test
+const userName = sessionStorage.getItem("nombreUsuario");
+let cart = JSON.parse(sessionStorage.getItem("productosCarrito")); // test
 const carritoSinRepetidos = [];
+const URL_BASE = "http://localhost:3000";
 
 const botonImprimir = document.getElementById("boton-imprimir");
 
@@ -9,10 +10,10 @@ botonImprimir.addEventListener("click", () => {
     imprimirTicket();
 });
 
-function mostrarMensajeAgradecimiento() {
-    const contenedorAgradecimiento = document.getElementById("mensaje-agradecimiento");
+function showExitMessage() {
+    const exitMessage = document.getElementById("mensaje-agradecimiento");
 
-    contenedorAgradecimiento.innerText += ` ${nombreUser}!`;
+    exitMessage.innerText += ` ${userName}!`;
 }
 
 function imprimirTicket() {
@@ -39,18 +40,18 @@ function imprimirTicket() {
 
     doc.setFontSize(14); // reducimos tam. fuente para imprimir prod. del ticket.
 
-    carrito.forEach(producto => {
+    cart.forEach(product => {
 
-        const existente = productosVenta.find(p => p.id === producto.id);
+        const existente = productosVenta.find(p => p.id === product.id);
 
         if (existente) {
             existente.cantidad++;
         } else {
             productosVenta.push({
-                id: producto.id,
-                nombre: producto.nombre,
+                id: product.id,
+                nombre: product.nombre,
                 cantidad: 1,
-                precio_unitario: producto.precio
+                precio_unitario: product.precio
             });
         }
     });
@@ -62,37 +63,38 @@ function imprimirTicket() {
         y += 5;
     });
 
-    const precioTotal = carrito.reduce((total, producto) => total + parseInt(producto.precio), 0);
+    const totalPrice = cart.reduce((total, product) => total + parseInt(product.precio), 0);
 
     // Separamos los productos del total
     y += 20;
 
-    doc.text(`TOTAL: $${precioTotal}`, 20, y);
+    doc.text(`TOTAL: $${totalPrice}`, 20, y);
 
-    const fecha = new Date();
+    const date = new Date();
+    
     //importar nombre user
-    const nombreTicket = `${nombreUser}_${fecha.toISOString()}`
+    const ticketName = `${userName}_${date.toISOString()}`
 
     //imprimimos ticket de venta
-    doc.save(`${nombreTicket}.pdf`);
+    doc.save(`${ticketName}.pdf`);
 
-    registrarVenta(precioTotal, productosVenta);
+    registrarVenta(totalPrice, productosVenta);
 }
 
-async function registrarVenta(precioTotal, productosVenta) {
+async function registrarVenta(totalPrice, productosVenta) {
     try {
-        const fecha = new Date();
+        const date = new Date();
 
-        const fechaFormato = fecha.toISOString().slice(0, 19).replace("T", " ");
+        const formatDate = date.toISOString().slice(0, 19).replace("T", " ");
 
         const data = {
-            fecha: fechaFormato,
-            precio_total: precioTotal,
-            nombre_cliente: nombreUser,
+            fecha: formatDate,
+            precio_total: totalPrice,
+            nombre_cliente: userName,
             products: productosVenta
         }
 
-        const response = await fetch("http://localhost:3000/api/ventas", {
+        const response = await fetch(`${URL_BASE}/api/ventas`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -100,10 +102,9 @@ async function registrarVenta(precioTotal, productosVenta) {
             body: JSON.stringify(data)
         });
 
-        const result = response.json();
+        const result = await response.json();
 
         if (response.ok) {
-            console.log("Venta registrada: ", result.message);
             alert("Venta registrada: ", result.message);
 
             //hecho esto eliminamos el item del sessionStorage y redirigimos
@@ -119,7 +120,7 @@ async function registrarVenta(precioTotal, productosVenta) {
 };
 
 function init() {
-    mostrarMensajeAgradecimiento();
+    showExitMessage();
 }
 
 init();
