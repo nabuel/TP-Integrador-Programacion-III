@@ -1,6 +1,6 @@
 import modeloVentas from "../models/modelo.ventas.js";
 
-const traerVentas = async (_, res) => {
+export const traerVentas = async (_, res) => {
 
     const [ventas] = await modeloVentas.getVentas();
 
@@ -16,6 +16,40 @@ const traerVentas = async (_, res) => {
 
 }
 
-export {
-    traerVentas
+export const crearVenta = async (req, res) => {
+
+    try {
+        const { fecha, precio_total, nombre_cliente, products } = req.body;
+    
+        if (!fecha || !precio_total || !nombre_cliente || !Array.isArray(products) || products.length === 0) {
+            return res.status(400).json({
+                message: "Datos invalidos. Debes enviar date, total_price, user_name y products como array"
+            });
+        };
+    
+        const [saleResult] = await modeloVentas.createVenta(fecha, nombre_cliente, precio_total);
+    
+        const saleId = saleResult.insertId;
+    
+        for (const product of products) {
+            await modeloVentas.insertIntoProductSales(
+                product.id, 
+                saleId, 
+                product.cantidad,
+                product.precio_unitario
+            );
+        };
+    
+        res.status(200).json({
+            message: "Venta registrada con exito"
+        });
+
+    } catch (error) {
+        console.log("Error creando venta: ", error);
+
+        res.status(500).json({
+            message: "Error interno del servidor al crear un producto"
+        });
+    }
+
 }

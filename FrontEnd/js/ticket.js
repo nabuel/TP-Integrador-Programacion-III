@@ -1,16 +1,15 @@
 const nombreUser = sessionStorage.getItem("nombreUsuario");
 let carrito = JSON.parse(sessionStorage.getItem("productosCarrito")); // test
-console.log(carrito);
+const carritoSinRepetidos = [];
 
 const botonImprimir = document.getElementById("boton-imprimir");
 
 botonImprimir.addEventListener("click", () => {
-    // event.preventDefault();
 
     imprimirTicket();
 });
 
-function mostrarMensajeAgradecimiento(){
+function mostrarMensajeAgradecimiento() {
     const contenedorAgradecimiento = document.getElementById("mensaje-agradecimiento");
 
     contenedorAgradecimiento.innerText += ` ${nombreUser}!`;
@@ -22,7 +21,7 @@ function imprimirTicket() {
      * https://github.com/parallax/jsPDF
        https://parallax.github.io/jsPDF/docs/ */
 
-    const idProductos = [];
+    const productosVenta = [];
 
     // Gracias a CDN extraemos la clase jspdf del objeto global window
     const { jsPDF } = window.jspdf;
@@ -42,14 +41,26 @@ function imprimirTicket() {
 
     carrito.forEach(producto => {
 
-        idProductos.push(producto.id); // llenamos array de ids prouctos para crear la venta dsp
+        const existente = productosVenta.find(p => p.id === producto.id);
 
-        doc.text(`${producto.nombre} - ${producto.precio}`, 20, y);
+        if (existente) {
+            existente.cantidad++;
+        } else {
+            productosVenta.push({
+                id: producto.id,
+                nombre: producto.nombre,
+                cantidad: 1,
+                precio_unitario: producto.precio
+            });
+        }
+    });
+
+    productosVenta.forEach(producto => {
+        
+        doc.text(`${producto.cantidad}x ${producto.nombre} - ${producto.precio_unitario}`, 20, y);
 
         y += 5;
     });
-
-    console.log(idProductos);
 
     const precioTotal = carrito.reduce((total, producto) => total + parseInt(producto.precio), 0);
 
@@ -64,19 +75,21 @@ function imprimirTicket() {
 
     //imprimimos ticket de venta
     doc.save(`${nombreTicket}.pdf`);
+
+    registrarVenta(precioTotal, productosVenta);
 }
 
-async function registrarVenta(precioTotal, idProductos) {
+async function registrarVenta(precioTotal, productosVenta) {
     try {
         const fecha = new Date();
 
         const fechaFormato = fecha.toISOString().slice(0, 19).replace("T", " ");
 
         const data = {
-            date: fechaFormato,
-            total_price: precioTotal,
-            user_name: nombreUsuario,
-            products: idProductos
+            fecha: fechaFormato,
+            precio_total: precioTotal,
+            nombre_cliente: nombreUser,
+            products: productosVenta
         }
 
         const response = await fetch("http://localhost:3000/api/ventas", {
@@ -95,8 +108,9 @@ async function registrarVenta(precioTotal, idProductos) {
 
             //hecho esto eliminamos el item del sessionStorage y redirigimos
             sessionStorage.removeItem("nombreUsuario");
+            sessionStorage.removeItem("productosCarrito");
 
-            window.location.href = "index.html";
+            window.location.href = "bienvenida.html";
         }
     } catch (error) {
         console.error("Error al enviar los datos: ", error);
