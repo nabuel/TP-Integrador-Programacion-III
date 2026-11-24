@@ -1,18 +1,19 @@
-const nombreUser = sessionStorage.getItem("nombreUsuario");
+const userName = sessionStorage.getItem("nombreUsuario");
 let cart = JSON.parse(sessionStorage.getItem("productosCarrito")); // test
+const carritoSinRepetidos = [];
+const URL_BASE = "http://localhost:3000";
 
 const botonImprimir = document.getElementById("boton-imprimir");
 
 botonImprimir.addEventListener("click", () => {
-    // event.preventDefault();
 
     imprimirTicket();
 });
 
-function mostrarMensajeAgradecimiento(){
-    const contenedorAgradecimiento = document.getElementById("mensaje-agradecimiento");
+function showExitMessage() {
+    const exitMessage = document.getElementById("mensaje-agradecimiento");
 
-    contenedorAgradecimiento.innerText += ` ${nombreUser}!`;
+    exitMessage.innerText += ` ${userName}!`;
 }
 
 function imprimirTicket() {
@@ -21,7 +22,7 @@ function imprimirTicket() {
      * https://github.com/parallax/jsPDF
        https://parallax.github.io/jsPDF/docs/ */
 
-    const idProducts = [];
+    const productosVenta = [];
 
     // Gracias a CDN extraemos la clase jspdf del objeto global window
     const { jsPDF } = window.jspdf;
@@ -41,43 +42,59 @@ function imprimirTicket() {
 
     cart.forEach(product => {
 
-        idProducts.push(product.id); // llenamos array de ids prouctos para crear la venta dsp
+        const existente = productosVenta.find(p => p.id === product.id);
 
-        doc.text(`${product.nombre} - ${product.precio}`, 20, y);
+        if (existente) {
+            existente.cantidad++;
+        } else {
+            productosVenta.push({
+                id: product.id,
+                nombre: product.nombre,
+                cantidad: 1,
+                precio_unitario: product.precio
+            });
+        }
+    });
+
+    productosVenta.forEach(producto => {
+        
+        doc.text(`${producto.cantidad}x ${producto.nombre} - ${producto.precio_unitario}`, 20, y);
 
         y += 5;
     });
 
-
-    const precioTotal = cart.reduce((total, producto) => total + parseInt(producto.precio), 0);
+    const totalPrice = cart.reduce((total, product) => total + parseInt(product.precio), 0);
 
     // Separamos los productos del total
     y += 20;
 
-    doc.text(`TOTAL: $${precioTotal}`, 20, y);
+    doc.text(`TOTAL: $${totalPrice}`, 20, y);
 
-    const fecha = new Date();
+    const date = new Date();
+    
     //importar nombre user
-    const nombreTicket = `${nombreUser}_${fecha.toISOString()}`
+    const ticketName = `${userName}_${date.toISOString()}`
 
     //imprimimos ticket de venta
-    doc.save(`${nombreTicket}.pdf`);
+    doc.save(`${ticketName}.pdf`);
+
+    registrarVenta(totalPrice, productosVenta);
 }
 
-async function registrarVenta(totalPrice, idProducts) {
+async function registrarVenta(totalPrice, productosVenta) {
     try {
-        const fecha = new Date();
+        const date = new Date();
 
-        const fechaFormato = fecha.toISOString().slice(0, 19).replace("T", " ");
+        const formatDate = date.toISOString().slice(0, 19).replace("T", " ");
 
         const data = {
-            date: fechaFormato,
-            total_price: totalPrice,
-            user_name: nombreUser,
-            products: idProducts
+            fecha: formatDate,
+            precio_total: totalPrice,
+            nombre_cliente: userName,
+            products: productosVenta
         }
 
-        const response = await fetch("http://localhost:3000/api/ventas", {
+        const response = await fetch(`${URL_BASE}/api/ventas`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -85,16 +102,16 @@ async function registrarVenta(totalPrice, idProducts) {
             body: JSON.stringify(data)
         });
 
-        const result = response.json();
+        const result = await response.json();
 
         if (response.ok) {
-            console.log("Venta registrada: ", result.message);
             alert("Venta registrada: ", result.message);
 
             //hecho esto eliminamos el item del sessionStorage y redirigimos
             sessionStorage.removeItem("nombreUsuario");
+            sessionStorage.removeItem("productosCarrito");
 
-            window.location.href = "index.html";
+            window.location.href = "bienvenida.html";
         }
     } catch (error) {
         console.error("Error al enviar los datos: ", error);
@@ -103,7 +120,7 @@ async function registrarVenta(totalPrice, idProducts) {
 };
 
 function init() {
-    mostrarMensajeAgradecimiento();
+    showExitMessage();
 }
 
 init();

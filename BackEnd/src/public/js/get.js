@@ -1,32 +1,33 @@
 const contenedorProductos = document.getElementById("contenedor-productos");
 const form = document.getElementById("formGetById");
-const urlBase = "http://localhost:3000";
-
-const deleteButtons = document.querySelectorAll(".delete-btn");
-const modalProduct = document.getElementById("modalProduct");
+const URL_BASE = "http://localhost:3000";
 
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const id = event.target.idProducto.value.trim();
+  const id = event.target.productId.value.trim();
   buscarProducto(id);
 });
 
 /*=======================
         FUNCIONES
-    =======================*/
+=======================*/
 
+/**
+ * Busca el producto por el id recibido.
+ * @param {*} id id del producto a que se desea obtener
+ */
 async function buscarProducto(id) {
   try {
-    const response = await fetch(`${urlBase}/api/productos/${id}`);
-    const data = await response.json();
-    const product = data.payload[0];
-
-    if (response.ok) {
+    
+    let product = executeFetch(`${URL_BASE}/api/productos/${id}`);
+    
+    if(product){
+      
+      product = product.payload[0]
+      
       contenedorProductos.innerHTML = structureProductCard(product);
-    } else {
-      showMessage("error", producto.message);
     }
   } catch (error) {
     console.error(error);
@@ -39,13 +40,11 @@ async function buscarProducto(id) {
  * @param {*} product producto de donde se saca la información
  * @returns la estructura para renderizar el producto.
  */
-
 function structureProductCard(product){
-    let mensajeHTML = !product.activo
-    ? `<div class="card-producto product-deactivated">`
+    let messageHTML = !product.activo ? `<div class="card-producto product-deactivated">`
     : `<div class="card-producto">`;
 
-  mensajeHTML += `<img src="/img/${product.imagen}" alt="${product.nombre}" class="card-img">
+  messageHTML += `<img src="/img/${product.imagen}" alt="${product.nombre}" class="card-img">
                             <p class="nombre-prod font-large">${product.nombre}</p>
                             <p class="precio-prod font-large">${product.precio}$</p>
                             
@@ -57,7 +56,7 @@ function structureProductCard(product){
                                     
                                 </button>
 
-                                <button class="update-btn" onclick='renderForm(${JSON.stringify(product)})'>
+                                <button class="update-btn" onclick='window.location.assign("principal/modificar/producto/${product.id}")'>
                                 
                                     <img src="/img/icono-modificar.png" alt="modificar producto" >
                                     
@@ -66,24 +65,30 @@ function structureProductCard(product){
                             </div>
                         </div>`;
   
-  return mensajeHTML;
+  return messageHTML;
 }
 
+/**
+ * Elimina el producto indicado de la BD.
+ * @param {*} id id del producto que se quiere eliminar
+*/
 async function deleteProduct(id) {
   if (window.confirm("¿Desea eliminar el producto?")) {
 
     try {
-      const response = await fetch(`${urlBase}/api/productos/${id}`, {
+      const response = await fetch(`${URL_BASE}/api/productos/${id}`, {
         method: "DELETE"
       });
 
       if (!response.ok) {
         const result = await response.json();
 
-        return showMessage("error", result.message);
+        showMessage("error", result.message);
+        
+        return; 
       }
-
-      showMessage("exito", `se ha borrado el producto con id: ${id}`);
+      
+      window.alert(`se ha borrado el producto con id: ${id}`);
       
       window.location.reload();
     
@@ -93,66 +98,105 @@ async function deleteProduct(id) {
   }
 }
 
-
+/**
+ * Aplica los filtros para ver los productos según su categoria
+ */
 async function applyCategoryFilter() {
-  const filter = document.getElementById("category-filter");
+  const filter = document.getElementById("category-filter");  
   
-  
-  if (filter.value != "todos") {
-    
-    
-    
-  } else {
-
+  if(filter.value != "todos"){
+    window.location.reload();
+    return;
   }
 
-  // if (filter.value != "todos") {
-  //   const response = await fetch(`${urlBase}/api/productos/categoria/${filter.value}`);
-    
-  //   const data = await response.json();
-    
-  //   if (!response.ok) {
-  //     return showMessage("error", data.message);
-  //   }
-    
-  //   let productsHTML = "";
-    
-  //   data.payload.forEach((p) => (productsHTML += structureProductCard(p)));
-    
-  //   contenedorProductos.innerHTML = productsHTML;
-    
-  // } else {
-  //   window.location.reload();
-  // }
+  const data = executeFetch(`${URL_BASE}/api/productos/categoria/${filter.value}`);
+  
+  if(data) renderProductList(data.payload);
 }
 
+/**
+ * Ejecuta una petición fetch a la url indicada. En caso de que la petición no sea exitosa se muestra un mensaje.
+ * @param {*} url url a la cual se va a realizar la petición Get.
+ * @returns {Promise} una promesa la cual son los datos parseados como JSON de la response
+*/
+async function executeFetch(url){
+  const response = await fetch(url);
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    showMessage("error", data.message);
+    return;
+  }
+
+  return data;
+}
+
+/**
+ * Aplica los filtros para ver los productos activos o inactivos
+ */
 async function applyAvailableFilter() {
   const filter = document.getElementById("available-filter");
+  
+  if(filter.value == "default") {
 
-  if (filter.value != "default") {
-    const avaible = filter.value == "false" ? false : true;
-
-    const response = await fetch(`${urlBase}/api/productos/activos/${avaible}`);
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      return showMessage("error", data.message);
-    }
-
-    let productsHTML = "";
-
-    data.payload.forEach((p) => (productsHTML += structureProductCard(p)));
-
-    contenedorProductos.innerHTML = productsHTML;
-  } else {
     window.location.reload();
+  
+    return;
   }
+  
+  const available = filter.value == "false" ? false : true;
+
+
+  const data = executeFetch(`${URL_BASE}/api/productos/activos/${available}`);
+    
+  if(data) renderProductList(data.payload);
 }
 
+/**
+ * Aplica los filtros de ordenamiento
+ */
+async function applySortFilter(){
+  const sortContainer = document.getElementById("sort-container");
 
+  if(sortContainer.value == "predeterminado"){
+    window.location.reload();
+    return;
+  } 
+
+  let url = `${URL_BASE}/productos/orden/${sortContainer.value}`;
+
+  const data = executeFetch(url);
+  
+  if(data) renderProductList(data.payload);
+
+}
+
+/**
+ * Renderiza los productos de la lista
+ * @param {*} products lista de productos a renderizar 
+ */
+function renderProductList(products){
+  let productsHTML = "";
+
+  products.forEach(p => (productsHTML += structureProductCard(p)));
+
+  contenedorProductos.innerHTML = productsHTML;
+}
+
+/*
+  TO DO: CREAR LOS ENDPOINTS DE ORDENAMIENTO
+  /productos/orden/a-z
+  /productos/orden/z-a
+  /productos/orden/desc
+  /productos/orden/asc
+*/
+
+/**
+ * Renderiza el mensaje informativo.  
+ * @param {*} estado estado de la petición 
+ * @param {*} mensaje mensaje informatico para el usuario
+ */
 function showMessage(estado, mensaje) {
-      contenedorProductos.innerHTML = `
-          <p class="mensaje ${estado}">${mensaje}</p>
-      `;
+  contenedorProductos.innerHTML = `<p class="mensaje ${estado}">${mensaje}</p>`;
 }

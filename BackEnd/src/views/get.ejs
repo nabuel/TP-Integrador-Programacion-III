@@ -22,8 +22,8 @@
 
                 <form id="formGetById">
                     
-                    <label for="idProducto" class="font-large">ID del producto</label>
-                    <input type="number" min="1" name="idProducto">
+                    <label for="productId" class="font-large">ID del producto</label>
+                    <input type="number" min="1" name="productId">
                     
                     <input type="submit" value="Buscar producto" class="btn">
                     
@@ -57,9 +57,10 @@
                     <select name="ordenamiento" id="opciones-ordenamiento">
                         <!-- en los select podemos hacer dropdown -->
                         <option value="predeterminado">---</option>
-                        <option value="alfabetico">Alfabetico</option>
-                        <option value="desendente">Desendente</option>
-                        <option value="ascendente">Ascendente</option>
+                        <option value="a-z">A-Z</option>
+                        <option value="z-a">Z-A</option>
+                        <option value="ascendente">Precio ascendente</option>
+                        <option value="desendente">Precio descendente</option>
                         
                     </select>
                     
@@ -121,8 +122,6 @@
 
         </section>
         
-        <% sessionStorage.setItem("products", listaProductos) %>
-
     </main>
 
     <script src="/js/get.js"></script>

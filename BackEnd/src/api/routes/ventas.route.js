@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { traerVentas } from "../controllers/controlador.ventas.js";
+import { crearVenta, traerVentas } from "../controllers/controlador.ventas.js";
 import { requerirAutenticacion } from "../middlewares/middleware.js";
 
 const router = Router();
@@ -9,6 +9,6 @@ const router = Router();
 router.get("/", requerirAutenticacion, traerVentas);
 
 // Guardar una venta nueva
-// router.post("/", crearVenta);
+router.post("/", crearVenta);
 
 export default router;
