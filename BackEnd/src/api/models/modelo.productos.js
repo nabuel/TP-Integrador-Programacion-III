@@ -28,6 +28,17 @@ const getElementByCategory = (category) =>{
     return conexion.query(sql, category);
 }
 
+const getProductsSortedAsc = (attribute) =>{
+
+    return conexion.query(`SELECT * FROM productos ORDER BY ${attribute} ASC`);
+}
+
+const getProductsSortedDesc = (attribute) =>{
+
+    return conexion.query(`SELECT * FROM productos ORDER BY ${attribute} DESC`);
+}
+
+
 // Crear producto
 const createProducto = (nombre, precio, imagen, activo, categoria) =>{
     const sql = "INSERT productos SET nombre = ?,precio = ?,imagen = ?,activo = ?,categoria = ?";
@@ -57,6 +68,8 @@ export default {
     getElementsByAvaibletly,
     getProductoById,
     getElementByCategory,
+    getProductsSortedAsc,
+    getProductsSortedDesc,
     createProducto,
     updateProducto,
     deleteProducto

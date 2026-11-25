@@ -42,7 +42,7 @@
                     
                     <select id="category-filter">
                         
-                        <option value="todos">---</option>
+                        <option value="default">---</option>
                         <option value="Consola">Consola</option>
                         <option value="Juego">Juego</option>
                         
@@ -54,16 +54,16 @@
                     
                     <label>Orden</label>
                     
-                    <select name="ordenamiento" id="opciones-ordenamiento">
+                    <select id="sort-filter">
                         <!-- en los select podemos hacer dropdown -->
-                        <option value="predeterminado">---</option>
+                        <option value="default">---</option>
                         <option value="a-z">A-Z</option>
                         <option value="z-a">Z-A</option>
                         <option value="ascendente">Precio ascendente</option>
                         <option value="desendente">Precio descendente</option>
                         
                     </select>
-                    
+                    <button onclick="applySortFilter()" >APLICAR</button>
                 </div>
                 
                 <div id="available-filter-container" class="flex-column">
