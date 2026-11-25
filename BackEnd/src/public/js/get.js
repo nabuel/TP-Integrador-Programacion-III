@@ -21,7 +21,7 @@ form.addEventListener("submit", async (event) => {
 async function buscarProducto(id) {
   try {
     
-    let product = executeFetch(`${URL_BASE}/api/productos/${id}`);
+    let product = await executeFetch(`${URL_BASE}/api/productos/${id}`);
     
     if(product){
       
@@ -102,14 +102,15 @@ async function deleteProduct(id) {
  * Aplica los filtros para ver los productos según su categoria
  */
 async function applyCategoryFilter() {
-  const filter = document.getElementById("category-filter");  
+  const categoryFilter = document.getElementById("category-filter");  
+  const filterValue = categoryFilter.value;
   
-  if(filter.value != "todos"){
+  if(filterValue == "default"){
     window.location.reload();
     return;
   }
 
-  const data = executeFetch(`${URL_BASE}/api/productos/categoria/${filter.value}`);
+  const data = await executeFetch(`${URL_BASE}/api/productos/categoria/${filterValue}`);
   
   if(data) renderProductList(data.payload);
 }
@@ -136,19 +137,17 @@ async function executeFetch(url){
  * Aplica los filtros para ver los productos activos o inactivos
  */
 async function applyAvailableFilter() {
-  const filter = document.getElementById("available-filter");
-  
-  if(filter.value == "default") {
+  const avaibleFilter = document.getElementById("available-filter");
+  const filterValue = avaibleFilter.value;
 
+  if(filterValue == "default") {
     window.location.reload();
-  
     return;
   }
   
-  const available = filter.value == "false" ? false : true;
+  const available = filterValue == "false" ? false : true;
 
-
-  const data = executeFetch(`${URL_BASE}/api/productos/activos/${available}`);
+  const data = await executeFetch(`${URL_BASE}/api/productos/activos/${available}`);
     
   if(data) renderProductList(data.payload);
 }
@@ -157,19 +156,25 @@ async function applyAvailableFilter() {
  * Aplica los filtros de ordenamiento
  */
 async function applySortFilter(){
-  const sortContainer = document.getElementById("sort-container");
+  const sortFilter = document.getElementById("sort-filter");
+  const sortValue = sortFilter.value;
 
-  if(sortContainer.value == "predeterminado"){
+  if(sortValue == "default"){
     window.location.reload();
     return;
   } 
+  
+  let attribute;
+  let order;
+  
+  (sortValue == "a-z" || sortValue == "z-a" ) ? attribute = "nombre" : attribute = "precio";
+  (sortValue == "a-z" || sortValue == "ascendente") ? order = "asc" : order = "desc";
 
-  let url = `${URL_BASE}/productos/orden/${sortContainer.value}`;
+  let url = `${URL_BASE}/api/productos/${order}/${attribute}`;
 
-  const data = executeFetch(url);
+  const data = await executeFetch(url);
   
   if(data) renderProductList(data.payload);
-
 }
 
 /**
@@ -183,14 +188,6 @@ function renderProductList(products){
 
   contenedorProductos.innerHTML = productsHTML;
 }
-
-/*
-  TO DO: CREAR LOS ENDPOINTS DE ORDENAMIENTO
-  /productos/orden/a-z
-  /productos/orden/z-a
-  /productos/orden/desc
-  /productos/orden/asc
-*/
 
 /**
  * Renderiza el mensaje informativo.  

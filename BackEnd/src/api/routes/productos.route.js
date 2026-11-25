@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { traerProductos, traerProducto, getElementByCategory,getElementsByAvaibletly,crearProducto, modificarProducto, borrarProducto} from "../controllers/controlador.producto.js";
+import { traerProductos, traerProducto, getElementByCategory,getElementsByAvaibletly,crearProducto, modificarProducto, borrarProducto, 
+    getProductsSortedAsc, getProductsSortedDesc } from "../controllers/controlador.producto.js";
 import { requerirAutenticacion, validarId, validarProducto } from "../middlewares/middleware.js";
 
 const router = Router();
@@ -7,10 +8,6 @@ const router = Router();
 //  Obtengo todos los productos.
 
 router.get("/", traerProductos);
-
-// Obtengo todos los productos activos
-
-// router.get("/activos", traerProductosActivos);
 
 // Get products by their avaibletly
 
@@ -24,6 +21,14 @@ router.get("/categoria/:categoria", getElementByCategory)
 
 router.get("/:id", validarId, traerProducto);
 
+// Get products sort by their attribute from lowerst value to higest value
+//  TO DO: crear middlewares para validar atributo
+
+router.get("/asc/:atributo",  requerirAutenticacion, getProductsSortedAsc);
+
+// Get products sorted by their attribute from higest value to lowerst value
+
+router.get("/desc/:atributo",  requerirAutenticacion, getProductsSortedDesc);
 
 //  Guardado de un nuevo product. 
 

@@ -1,7 +1,7 @@
-import modeloProductos from "../models/modelo.productos.js";
+import modelProducts from "../models/modelo.productos.js";
 
 const traerProductos = async (_, res) => {
-    const [productos] = await modeloProductos.getProductos();
+    const [productos] = await modelProducts.getProductos();
 
     if (productos.length === 0) {
         return res.status(404).json({
@@ -14,25 +14,12 @@ const traerProductos = async (_, res) => {
     });
 };
 
-// const traerProductosActivos = async (_, res) => {
-//     const [productosActivos] = await modeloProductos.getProductosActivos();
-
-//     if(productosActivos.length === 0){
-//         return res.status(404).json({
-//             message: "No se han encontrado productos"
-//         });
-//     };
-
-//     res.status(200).json({
-//         payload: productosActivos
-//     });
-// }
 
 const getElementsByAvaibletly = async (req, res) => {
 
     const avaible = req.params.disponible == "false" ? false : true;
 
-    const [products] = await modeloProductos.getElementsByAvaibletly(avaible);
+    const [products] = await modelProducts.getElementsByAvaibletly(avaible);
 
     if (products.length === 0) {
         return res.status(404).json({
@@ -49,7 +36,7 @@ const traerProducto = async (req, res) => {
 
     try {
 
-        const [producto] = await modeloProductos.getProductoById(req.params.id)
+        const [producto] = await modelProducts.getProductoById(req.params.id)
 
         if (!producto.length) {
             return res.status(404).json({
@@ -72,7 +59,7 @@ const traerProducto = async (req, res) => {
 const getElementByCategory = async (req, res) => {
     try {
         const category = req.params.categoria;
-        const [products] = await modeloProductos.getElementByCategory(category);
+        const [products] = await modelProducts.getElementByCategory(category);
 
         if (!products.length > 0) {
             return res.status(400).json({
@@ -86,11 +73,48 @@ const getElementByCategory = async (req, res) => {
 
     } catch (error) {
         console.error(error);
-
     }
-
 }
 
+const getProductsSortedAsc = async (req, res) =>{
+    try{
+        const attribute = req.params.atributo;
+
+        const [products] = await modelProducts.getProductsSortedAsc(attribute);
+        
+        if (products.length === 0) {
+            return res.status(404).json({
+                message: "No se han encontrado productos"
+            });
+        };
+            
+        res.status(200).json({
+            payload: products
+        });
+    }catch(error){
+        console.error(error);
+    }
+}
+
+const getProductsSortedDesc = async (req, res) =>{
+    try{
+        const attribute = req.params.atributo;
+
+        const [products] = await modelProducts.getProductsSortedDesc(attribute);    
+            
+        if (products.length === 0) {
+            return res.status(404).json({
+                message: "No se han encontrado productos"
+            });
+        };
+            
+        res.status(200).json({
+            payload: products
+        });
+    }catch(error){
+        console.error(error);
+    }
+}
 
 const crearProducto = async (req,res)=>{
     try{
@@ -98,7 +122,7 @@ const crearProducto = async (req,res)=>{
         
         console.log(req.body);
 
-        const [respuesta] = await modeloProductos.createProducto(productName,productPrice,productImg,productActive,productCategory)
+        const [respuesta] = await modelProducts.createProducto(productName,productPrice,productImg,productActive,productCategory)
 
         res.status(201).json({
             message: `Producto creado`,
@@ -110,14 +134,12 @@ const crearProducto = async (req,res)=>{
             message: "Error al crear producto"
         });
     };
-
-
 };
 
 const modificarProducto = async (req, res) => {
     try {
         const { productId, productName, productPrice, productImg, productActive, productCategory } = req.body;
-        const [respuesta] = await modeloProductos.updateProducto(productName, productPrice, productImg, productActive, productCategory, productId);
+        const [respuesta] = await modelProducts.updateProducto(productName, productPrice, productImg, productActive, productCategory, productId);
 
         if (respuesta.changedRows === 0) {
             return res.status(400).json({
@@ -135,23 +157,19 @@ const modificarProducto = async (req, res) => {
             message: "Error interno del servidor al modificar un producto"
         });
     }
-
 }
 
 const borrarProducto = async (req, res) => {
     try {
         const id = req.params.id;
 
-        const [rows] = await modeloProductos.deleteProducto(id);
-
-
+        const [rows] = await modelProducts.deleteProducto(id);
 
         if (rows.length === 0) {
 
             return res.status(400).json({
                 message: `Producto con id ${id} innexistente`
             })
-
         }
 
         res.sendStatus(204);
@@ -169,6 +187,8 @@ export {
     getElementsByAvaibletly,
     traerProducto,
     getElementByCategory,
+    getProductsSortedAsc,
+    getProductsSortedDesc,
     crearProducto,
     modificarProducto,
     borrarProducto
