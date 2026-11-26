@@ -67,6 +67,11 @@ const getElementByCategory = async (req, res) => {
             });
         };
 
+        /*
+            Devolvemos un status 200 con un JSON donde incrustamos la clave payload
+            con los productos obtenidos
+        */
+
         res.status(200).json({
             payload: products
         });

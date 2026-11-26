@@ -110,6 +110,7 @@ async function applyCategoryFilter() {
     return;
   }
 
+
   const data = await executeFetch(`${URL_BASE}/api/productos/categoria/${filterValue}`);
   
   if(data) renderProductList(data.payload);
