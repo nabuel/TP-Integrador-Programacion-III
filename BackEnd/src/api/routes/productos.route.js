@@ -5,6 +5,11 @@ import { requerirAutenticacion, validarId, validarProducto } from "../middleware
 
 const router = Router();
 
+/*
+Aclaracion: hay algunas rutas que no protejemos para poder consumirlas desde el frontend.    
+    -> Validar con POSTMAN
+*/
+
 //  Obtengo todos los productos.
 
 router.get("/", traerProductos);
@@ -24,11 +29,11 @@ router.get("/:id", validarId, traerProducto);
 // Get products sort by their attribute from lowerst value to higest value
 //  TO DO: crear middlewares para validar atributo
 
-router.get("/asc/:atributo",  requerirAutenticacion, getProductsSortedAsc);
+router.get("/asc/:atributo", getProductsSortedAsc);
 
 // Get products sorted by their attribute from higest value to lowerst value
 
-router.get("/desc/:atributo",  requerirAutenticacion, getProductsSortedDesc);
+router.get("/desc/:atributo", getProductsSortedDesc);
 
 //  Guardado de un nuevo product. 
 

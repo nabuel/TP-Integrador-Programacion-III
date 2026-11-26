@@ -12,10 +12,8 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="./css/styles.css">
-    <link rel="icon" type="image/png" href="./favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="./favicon/favicon.svg" />
-    <link rel="shortcut icon" href="./favicon/favicon.ico" />
-    <!-- <link rel="manifest" href="./favicon/site.webmanifest" /> -->
+    <link rel="shortcut icon" href="../BackEnd/src/public/favicon/favicon.svg" />
+
 </head>
 
 <body>
@@ -26,7 +24,7 @@
 
             <div>
                 <a href="./productos.html">
-                    <img id="logo-rappigames" src="img/logo-2026.png" alt="logo-rappigames" width="150">
+                    <img id="logo-rappigames" src="../BackEnd/src/public/img/logo-2026.png" alt="logo-rappigames" width="150">
                 </a>
 
             </div>
@@ -43,11 +41,11 @@
 
             <div id="contenedor-carrito">
 
-                <img id="musica-img" src="./img/music.png" alt="musica">
+                <img id="musica-img" src="../BackEnd/src/public/img/music.png" alt="musica">
 
                 <a href="./carrito.html">
 
-                    <img id="carrito-img" src="./img/cart.png" alt="carrito">
+                    <img id="carrito-img" src="../BackEnd/src/public/img/cart.png" alt="carrito">
 
                 </a>
 
@@ -66,6 +64,46 @@
     <main>
 
         <h2 class="texto-gradiente" id="mensaje-bienvenida">¡Un placer tenerte, </h2>
+
+        <section id="seccion-filtros" class="font-size-filter">
+
+            <div id="contenedor-filtros">
+
+                <div id="category-container" class="flex-column">
+
+                    <label>Filtrar por categoria</label>
+
+                    <!-- El select actua como un input, lo podemos agarrar con JS -->
+
+                    <select id="category-filter">
+
+                        <option value="default">---</option>
+                        <option value="Consola">Consola</option>
+                        <option value="Juego">Juego</option>
+
+                    </select>
+                    <button onclick="applyCategoryFilter()">Aplicar</button>
+                </div>
+
+                <div id="sort-container" class="flex-column">
+
+                    <label>Orden</label>
+
+                    <select id="sort-filter">
+                        <!-- en los select podemos hacer dropdown -->
+                        <option value="default">---</option>
+                        <option value="a-z">A-Z</option>
+                        <option value="z-a">Z-A</option>
+                        <option value="ascendente">Precio ascendente</option>
+                        <option value="desendente">Precio descendente</option>
+
+                    </select>
+                    <button onclick="applySortFilter()">APLICAR</button>
+                </div>
+
+            </div>
+
+        </section>
 
         <section id="contenedor-productos"></section>
 

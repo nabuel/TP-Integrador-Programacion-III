@@ -1,28 +1,104 @@
-const userName = sessionStorage.getItem("nombreUsuario");
-let cart = JSON.parse(sessionStorage.getItem("productosCarrito")); // test
-const carritoSinRepetidos = [];
+const USERNAME = sessionStorage.getItem("nombreUsuario");
+const btnSalir = document.getElementById("boton-salir");
+
+/**
+ * mainCart: es el carrito logico principal.
+ * secondCart: es el carrito secundario que se diferencia del principal por solo contener los productos no repetidos.
+*/
+let mainCart = JSON.parse(sessionStorage.getItem("productosCarrito"));
+const secondCart = [];
 const URL_BASE = "http://localhost:3000";
 
-const botonImprimir = document.getElementById("boton-imprimir");
+const printButton = document.getElementById("boton-imprimir");
 
-botonImprimir.addEventListener("click", () => {
+printButton.addEventListener("click", () => {
 
-    imprimirTicket();
+    printTicket();
+    window.location.replace("bienvenida.html");
 });
 
-function showExitMessage() {
+btnSalir.addEventListener("click", () => {
+
+    deleteSession();
+    window.location.replace("bienvenida.html");
+});
+
+function showByeMessage() {
     const exitMessage = document.getElementById("mensaje-agradecimiento");
 
-    exitMessage.innerText += ` ${userName}!`;
+    exitMessage.innerText += `¡Gracias por tu compra, ${USERNAME}, vuelva prontos!`;
 }
 
-function imprimirTicket() {
+function deleteSession() {
+    sessionStorage.removeItem("nombreUsuario");
+    sessionStorage.removeItem("productosCarrito");
+}
+
+/**
+ * Esta es la lista que almacena los datos necesarios para hacer el INSERT en la tabla de productos_ventas. 
+ * Estos campos necesarios son: id, nombre, cantidad, precio_unitario.
+*/
+const productsSales = [];
+const totalPrice = mainCart.reduce((total, product) => total + parseInt(product.precio), 0);
+
+function getDatesOfSales() {
+
+    mainCart.forEach(product => {
+
+        const existente = productsSales.find(p => p.id === product.id);
+
+        if (existente) {
+            existente.cantidad++;
+        } else {
+            productsSales.push({
+                id: product.id,
+                nombre: product.nombre,
+                cantidad: 1,
+                precio_unitario: product.precio
+            });
+        }
+    });
+}
+
+
+async function registerSale(totalPrice, products) {
+    try {
+        const date = new Date();
+
+        const formatDate = date.toISOString().slice(0, 19).replace("T", " ");
+
+        const data = {
+            fecha: formatDate,
+            precio_total: totalPrice,
+            nombre_cliente: USERNAME,
+            products: products
+        }
+
+        const response = await fetch(`${URL_BASE}/api/ventas`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert(`${result.message}`);
+        }
+    } catch (error) {
+        console.error("Error al enviar los datos: ", error);
+        alert(`${result.message}`);
+    }
+};
+
+function printTicket() {
 
     /**
      * https://github.com/parallax/jsPDF
        https://parallax.github.io/jsPDF/docs/ */
 
-    const productosVenta = [];
 
     // Gracias a CDN extraemos la clase jspdf del objeto global window
     const { jsPDF } = window.jspdf;
@@ -40,30 +116,13 @@ function imprimirTicket() {
 
     doc.setFontSize(14); // reducimos tam. fuente para imprimir prod. del ticket.
 
-    cart.forEach(product => {
+    productsSales.forEach(producto => {
 
-        const existente = productosVenta.find(p => p.id === product.id);
-
-        if (existente) {
-            existente.cantidad++;
-        } else {
-            productosVenta.push({
-                id: product.id,
-                nombre: product.nombre,
-                cantidad: 1,
-                precio_unitario: product.precio
-            });
-        }
-    });
-
-    productosVenta.forEach(producto => {
-        
         doc.text(`${producto.cantidad}x ${producto.nombre} - ${producto.precio_unitario}`, 20, y);
 
         y += 5;
     });
 
-    const totalPrice = cart.reduce((total, product) => total + parseInt(product.precio), 0);
 
     // Separamos los productos del total
     y += 20;
@@ -71,56 +130,21 @@ function imprimirTicket() {
     doc.text(`TOTAL: $${totalPrice}`, 20, y);
 
     const date = new Date();
-    
+
     //importar nombre user
-    const ticketName = `${userName}_${date.toISOString()}`
+    const ticketName = `${USERNAME}_${date.toISOString()}`
 
     //imprimimos ticket de venta
     doc.save(`${ticketName}.pdf`);
 
-    registrarVenta(totalPrice, productosVenta);
 }
 
-async function registrarVenta(totalPrice, productosVenta) {
-    try {
-        const date = new Date();
-
-        const formatDate = date.toISOString().slice(0, 19).replace("T", " ");
-
-        const data = {
-            fecha: formatDate,
-            precio_total: totalPrice,
-            nombre_cliente: userName,
-            products: productosVenta
-        }
-
-        const response = await fetch(`${URL_BASE}/api/ventas`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        });
-
-        const result = await response.json();
-
-        if (response.ok) {
-            alert("Venta registrada: ", result.message);
-
-            //hecho esto eliminamos el item del sessionStorage y redirigimos
-            sessionStorage.removeItem("nombreUsuario");
-            sessionStorage.removeItem("productosCarrito");
-
-            window.location.href = "bienvenida.html";
-        }
-    } catch (error) {
-        console.error("Error al enviar los datos: ", error);
-        alert("Error al procesar la solicitud");
-    }
-};
 
 function init() {
-    showExitMessage();
+    showByeMessage();
+    getDatesOfSales();
+    registerSale(totalPrice, productsSales);
+    deleteSession();
 }
 
 init();
