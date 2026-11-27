@@ -10,24 +10,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tiny5+Duo:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-
+        
     <link rel="stylesheet" href="./css/styles.css">
-    
-    <link rel="icon" type="image/png" href="./favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="./favicon/favicon.svg" />
-    <link rel="shortcut icon" href="./favicon/favicon.ico" />
-    <!-- <link rel="manifest" href="../favicon/site.webmanifest" /> -->
+    <link rel="shortcut icon" href="../BackEnd/src/public/favicon/favicon.svg" />
+
 </head>
 
 <body>
-    <header>
+    <header class="header-carrito">
 
         <section class="section-logo">
 
             <div>
                 
                 <a href="./productos.html">
-                    <img src="img/logo-2026.png" alt="logo-rapigames" width="200">
+                    <img src="../BackEnd/src/public/img/logo-2026.png" alt="logo-rapigames" width="200">
                 </a>
 
             </div>
@@ -35,28 +32,28 @@
             <div>
 
                 <h2 class="texto-gradiente">RappiGames</h2>
-                <h6 class="texto-gradiente">by Franco L. & Nahuel M.</h4>
+                <h6 class="texto-gradiente">por Franco L. & Nahuel M.</h4>
                 
             </div>
 
         </section>
 
-        <p id="empresa-desc" class="texto-gradiente">The world's leading gaming and console company.</p>
-
     </header>
-
-    <hr>
 
     <main>
 
-        <h3 id="title-carrito" class="texto-gradiente">Your cart</h3>
-        <p id="mensaje-bienvenida"></p>
+        <h3 id="title-carrito" class="color-titulos centrado font-40 sombra-texto"></h3>
 
-        <section id="contenedor-productos">Carrito sin productos</section>
+        <section class="contenedor-productos centrado" id="contenedor-productos"> </section>
         
-        <p id="precio-total"></p>
+        <div class="contenedor-botones-carrito">
 
-        <button type="button" class="texto-gradiente" id="btn-finalizar-compra">Buy >></button>
+            <p class="color-titulos font-40" id="precio-total"></p>
+            
+            <!-- Agregar validacion y mensaje error -->
+            <button type="button" class="boton color-titulos" id="btn-finalizar-compra">Comprar >></button>
+        
+        </div>
     
     </main>
 

@@ -12,11 +12,8 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="./css/styles.css">
+    <link rel="shortcut icon" href="../BackEnd/src/public/favicon/favicon.svg" />
 
-    <link rel="icon" type="image/png" href="./favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="./favicon/favicon.svg" />
-    <link rel="shortcut icon" href="./favicon/favicon.ico" />
-    <!-- <link rel="manifest" href="/favicon/site.webmanifest" /> -->
 </head>
 
 <body>
@@ -26,40 +23,49 @@
 
             <div>
 
-                <img src="img/logo-2026.png" alt="logo-rapigames" width="200">
+                <img src="../BackEnd/src/public/img/logo-2026.png" alt="logo-rapigames" width="200">
 
             </div>
 
             <div>
+
                 <h2 class="texto-gradiente">RappiGames</h2>
-                <h6 class="texto-gradiente">by Franco L. & Nahuel M.</h4>
+                <h6 class="texto-gradiente">por Franco L. & Nahuel M.</h4>
 
             </div>
 
         </section>
 
-        <p id="empresa-desc" class="texto-gradiente">The world's leading gaming and console company.</p>
-        
+
     </header>
 
     <main>
 
-        <form id="form-inicio" action="./productos.html">
-            <label for="name" class="texto-gradiente" id="label-name">Your name</label><br>
-            <input id="fill-text" type="text"><br><br>
-            <input type="submit" class="texto-gradiente" id="submit-continuar" value="Continue">
-        </form>
+        <h1 class="color-titulos sombra-texto centrado font-40">Ingresá tu nombre</h1>
+
+        <div id="contenedor-form-bienvenida">
+
+            <form id="form-inicio" action="./productos.html">
+                <!-- <label for="name" class="color-titulos sombra-texto" id="label-name"></label> -->
+                <input id="fill-text" type="text">
+                <input type="submit" class="boton color-titulos sombra-texto" id="submit-continuar" value="Ingresar >">
+
+
+            </form>
+
+            <div class="centrado" id="contenedor-error"></div>
+        </div>
+
 
     </main>
 
-    <script>
-        const form = document.getElementById("form-inicio");
-        const contenedorNombre = document.getElementById("fill-text")
-        form.addEventListener("submit", event =>{
-            sessionStorage.setItem("nombreUsuario", contenedorNombre.value)
-        })
+    <footer class="final">
 
-    </script>
+        <p id="empresa-desc" class="texto-gradiente">La compañia de videojuegos y consolas que lidera el mercado.</p>
+
+    </footer>
+
+    <script src="./js/bienvenida.js"></script>
 
 </body>
 

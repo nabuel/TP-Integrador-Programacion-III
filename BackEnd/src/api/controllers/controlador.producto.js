@@ -1,11 +1,11 @@
-import modeloProductos from "../models/modelo.productos.js";
+import modelProducts from "../models/modelo.productos.js";
 
-const traerProductos = async (_, res) =>{
-    const [productos] =  await modeloProductos.getProductos();
-    
-    if(productos.length === 0){
+const traerProductos = async (_, res) => {
+    const [productos] = await modelProducts.getProductos();
+
+    if (productos.length === 0) {
         return res.status(404).json({
-            mensaje: "No se han encontrado productos"
+            message: "No se han encontrado productos"
         });
     };
 
@@ -14,97 +14,174 @@ const traerProductos = async (_, res) =>{
     });
 };
 
-const traerProductosActivos = async (_, res) => {
-    const [productosActivos] = await modeloProductos.getProductosActivos();
 
-    if(productosActivos.length === 0){
+const getElementsByAvaibletly = async (req, res) => {
+
+    const avaible = req.params.disponible == "false" ? false : true;
+
+    const [products] = await modelProducts.getElementsByAvaibletly(avaible);
+
+    if (products.length === 0) {
         return res.status(404).json({
-            mensaje: "No se han encontrado productos"
+            message: "No se han encontrado productos"
         });
     };
 
     res.status(200).json({
-        payload: productosActivos
+        payload: products
     });
 }
 
-const traerProducto = async (req, res)=>{
+const traerProducto = async (req, res) => {
 
-    try{
-        
-        const [producto] = await modeloProductos.getProductoById(req.params.id)
-        
-        if(!producto.length){
+    try {
+
+        const [producto] = await modelProducts.getProductoById(req.params.id)
+
+        if (!producto.length) {
             return res.status(404).json({
-                mensaje: `No se ha encontrado un producto con id ${req.params.id}`
+                message: `No se ha encontrado un producto con id ${req.params.id}`
             });
         }
-    
+
         res.status(200).json({
             payload: producto
         });
-        
-    } catch(error){
+
+    } catch (error) {
         res.status(500).json({
-            mensaje: "Error interno con la base de datos"
+            message: "Error interno con la base de datos"
         });
+    }
+}
+
+
+const getElementByCategory = async (req, res) => {
+    try {
+        const category = req.params.categoria;
+        const [products] = await modelProducts.getElementByCategory(category);
+
+        if (!products.length > 0) {
+            return res.status(400).json({
+                message: `No hay productos catalogados como "${category}"`
+            });
+        };
+
+        /*
+            Devolvemos un status 200 con un JSON donde incrustamos la clave payload
+            con los productos obtenidos
+        */
+
+        res.status(200).json({
+            payload: products
+        });
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+const getProductsSortedAsc = async (req, res) =>{
+    try{
+        const attribute = req.params.atributo;
+
+        const [products] = await modelProducts.getProductsSortedAsc(attribute);
+        
+        if (products.length === 0) {
+            return res.status(404).json({
+                message: "No se han encontrado productos"
+            });
+        };
+            
+        res.status(200).json({
+            payload: products
+        });
+    }catch(error){
+        console.error(error);
+    }
+}
+
+const getProductsSortedDesc = async (req, res) =>{
+    try{
+        const attribute = req.params.atributo;
+
+        const [products] = await modelProducts.getProductsSortedDesc(attribute);    
+            
+        if (products.length === 0) {
+            return res.status(404).json({
+                message: "No se han encontrado productos"
+            });
+        };
+            
+        res.status(200).json({
+            payload: products
+        });
+    }catch(error){
+        console.error(error);
     }
 }
 
 const crearProducto = async (req,res)=>{
     try{
-        const {nombre,precio,imagen,activo,categoria} = req.body;
+        const {productName,productPrice,productImg,productActive,productCategory} = req.body;
         
-        const [respuesta] = await modeloProductos.createProducto(nombre,imagen,precio,activo,categoria)
+        console.log(req.body);
+
+        const [respuesta] = await modelProducts.createProducto(productName,productPrice,productImg,productActive,productCategory)
 
         res.status(201).json({
-            mensaje: `Producto creado`,
-            productoId : respuesta.insertId
+            message: `Producto creado`,
+            productoId: respuesta.insertId
         });
 
-    } catch(error){
+    } catch (error) {
         res.status(500).json({
-            mensaje: "Error al crear producto"
+            message: "Error al crear producto"
         });
     };
-
-
 };
 
-const modificarProducto = async (req,res)=>{
-    try{
-        const {nombre, imagen, precio, activo, categoria, id} = req.body;
-        const [respuesta] = await modeloProductos.updateProducto(nombre, imagen, precio, activo, categoria, id)
-        
-        if(respuesta.changedRows === 0){
+const modificarProducto = async (req, res) => {
+    try {
+        const { productId, productName, productPrice, productImg, productActive, productCategory } = req.body;
+        const [respuesta] = await modelProducts.updateProducto(productName, productPrice, productImg, productActive, productCategory, productId);
+
+        if (respuesta.changedRows === 0) {
             return res.status(400).json({
-                mensaje : `No se han aplicado cambios al producto con id ${id}` 
+                message: `No se han aplicado cambios al producto con id ${productId}`
             })
         }
+
         res.status(200).json({
-            mensaje: `Juego con id ${id} actualizado`
+            message: `Producto con id ${productId} actualizado`
         })
-        
-    }catch(error){
+
+    } catch (error) {
         // Ej: Fallo la conexion a la BBDD, tardo demasiado, la tabla no existe, error de sintaxis
         res.status(500).json({
-            mensaje: "Error interno del servidor al modificar un producto"
+            message: "Error interno del servidor al modificar un producto"
         });
     }
-    
 }
 
-const borrarProducto = async (req, res)=>{
-    try{
+const borrarProducto = async (req, res) => {
+    try {
         const id = req.params.id;
-        
-        res.status(204).json({
-            mensaje : `Producto con id ${id} eliminado correctamente`
-        });
 
-    }catch(error){
+        const [rows] = await modelProducts.deleteProducto(id);
+
+        if (rows.length === 0) {
+
+            return res.status(400).json({
+                message: `Producto con id ${id} innexistente`
+            })
+        }
+
+        res.sendStatus(204);
+
+    } catch (error) {
         res.status(500).json({
-            mensaje: "Error al intentar borrar producto"
+            message: "Error al intentar borrar producto"
         });
     }
 }
@@ -112,8 +189,11 @@ const borrarProducto = async (req, res)=>{
 
 export {
     traerProductos,
-    traerProductosActivos,
+    getElementsByAvaibletly,
     traerProducto,
+    getElementByCategory,
+    getProductsSortedAsc,
+    getProductsSortedDesc,
     crearProducto,
     modificarProducto,
     borrarProducto

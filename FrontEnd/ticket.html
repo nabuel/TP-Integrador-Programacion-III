@@ -1,13 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tiny5+Duo:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+
 
     <link rel="stylesheet" href="./css/styles.css">
-    <title>Ticket</title>
+    <link rel="shortcut icon" href="../BackEnd/src/public/favicon/favicon.svg" />
+
 </head>
+
 <body>
-    <h1>PANTALLA TICKET</h1>
+
+    <header class="header-ticket">
+
+        <section class="section-logo">
+
+            <div>
+                <a href="./productos.html">
+                    <img id="logo-rappigames" src="../BackEnd/src/public/img/logo-2026.png" alt="logo-rappigames" width="150">
+                </a>
+
+            </div>
+
+            <div>
+                <h2 class="texto-gradiente">RappiGames</h2>
+                <h6 class="texto-gradiente">por Franco L. & Nahuel M.</h4>
+
+            </div>
+
+        </section>
+
+    </header>
+
+    <main>
+
+        <h2 class="texto-gradiente" id="mensaje-agradecimiento">  </h2>
+
+        <section id="ticket">
+
+
+        </section>
+
+        <div class="contenedor-botones-ticket">
+
+            <button class="boton color-titulos" id="boton-imprimir">Imprimir ticket</button>
+            
+            <!-- La idea es que este sea el boton para volver a iniciar un proceso de compra, 
+            me gustaria redirigir automaticamente si no se toca el mismo en 60 segundos aprox. -->
+            <button class="boton color-titulos" id="boton-salir">Salir</button>
+
+        </div>    
+
+    </main>
+
 </body>
+
+<script src="./js/ticket.js"></script>
+
 </html>

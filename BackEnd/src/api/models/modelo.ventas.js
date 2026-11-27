@@ -1,5 +1,5 @@
 /*====================
-    Modelos de producto
+    Modelos de ventas
 ====================*/
 import conexion from "../database/db.js";
 
@@ -10,11 +10,21 @@ const getVentas = () => {
 }
 
 // Insertar venta nueva (desde cliente)
-const createVenta = (id, fecha, nombre_cliente, precio_total) => {
-    return conexion.query(`INSERT INTO ventas (id, fecha, nombre_cliente, precio_total)
-                            VALUES (${id}, ${fecha}, ${nombre_cliente}, ${precio_total})`);
+const createVenta = (fecha, nombre_cliente, precio_total) => {
+    const sql = `INSERT INTO ventas (fecha, nombre_cliente, precio_total)
+                            VALUES (?, ?, ?);`
+    return conexion.query(sql, [fecha, nombre_cliente, precio_total]);
 }
+
+const insertIntoProductSales = (productId, saleId, cantidad, precio_unitario) => {
+    const sql = `INSERT INTO productos_ventas (id_producto, id_venta, cantidad, precio_unitario)
+                            VALUES (?, ?, ?, ?);` 
+    return conexion.query(sql, [productId, saleId, cantidad, precio_unitario]);
+}
+
+
 export default {
     getVentas,
-    createVenta
+    createVenta,
+    insertIntoProductSales
 }

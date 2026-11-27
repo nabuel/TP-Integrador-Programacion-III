@@ -1,71 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>RappiGames</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RappiGames</title>
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Tiny5+Duo:ital,wght@0,100..900;1,100..900&display=swap"
-            rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tiny5+Duo:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 
-        <link rel="stylesheet" href="./css/styles.css">
-        <link rel="icon" type="image/png" href="./favicon/favicon-96x96.png" sizes="96x96" />
-        <link rel="icon" type="image/svg+xml" href="./favicon/favicon.svg" />
-        <link rel="shortcut icon" href="./favicon/favicon.ico" />
-        <!-- <link rel="manifest" href="./favicon/site.webmanifest" /> -->
-    </head>
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="shortcut icon" href="../BackEnd/src/public/favicon/favicon.svg" />
 
-    <body>
+</head>
 
-        <header>
-            <section class="section-logo">
+<body>
 
-                <div>
-                    <a href="./productos.html">
-                        <img id="logo-rappigames" src="img/logo-2026.png" alt="logo-rappigames" width="150">
-                    </a>
-                
+    <header>
+
+        <section class="section-logo">
+
+            <div>
+                <a href="./productos.html">
+                    <img id="logo-rappigames" src="../BackEnd/src/public/img/logo-2026.png" alt="logo-rappigames" width="150">
+                </a>
+
+            </div>
+
+            <div>
+                <h2 class="texto-gradiente">RappiGames</h2>
+                <h6 class="texto-gradiente">por Franco L. & Nahuel M.</h4>
+
+            </div>
+
+        </section>
+
+        <nav class="barra-navegacion">
+
+            <div id="contenedor-carrito">
+
+                <img id="musica-img" src="../BackEnd/src/public/img/music.png" alt="musica">
+
+                <a href="./carrito.html">
+
+                    <img id="carrito-img" src="../BackEnd/src/public/img/cart.png" alt="carrito">
+
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+    <audio id="musicaFondo" autoplay loop>
+        <source src="audio/Silver Surfer.mp3" type="audio/mpeg">
+    </audio>
+
+    <main>
+
+        <h2 class="color-titulos sombra-texto centrado font-40" id="mensaje-bienvenida">¡Un placer, </h2>
+        <p class="color-titulos sombra-texto centrado font-30">¡Recordá utilizar los <span class="color-titulos-estilo">filtros</span> para tu búsqueda!</p>
+
+        <section id="seccion-filtros" class="font-size-filter">
+
+            <div class="centrado color-titulos" id="contenedor-filtros">
+
+                <div id="category-container" class="flex-column">
+
+                    <label for="categoria" class="color-titulos-estilo"></label>
+
+                    <!-- El select actua como un input, lo podemos agarrar con JS -->
+
+                    <select id="category-filter">
+
+                        <option value="default">Categoria</option>
+                        <option value="Consola">Consola</option>
+                        <option value="Juego">Juego</option>
+
+                    </select>
+                    <button class="boton color-titulos sombra-texto" onclick="applyCategoryFilter()">✓</button>
                 </div>
 
-                <div>
-                    <h2 class="texto-gradiente">RappiGames</h2>
-                    <h6 class="texto-gradiente">by Franco L. & Nahuel M.</h4>
+                <div id="sort-container" class="flex-column">
 
-                </div>
-            </section>
+                    <label for="orden" class="color-titulos-estilo"></label>
 
-            <nav>
+                    <select id="sort-filter">
+                        <option value="default">Ordenamiento</option>
+                        <option value="a-z">Nombre ASC</option>
+                        <option value="z-a">Nombre DESC</option>
+                        <option value="ascendente">Precio ASC</option>
+                        <option value="desendente">Precio DESC</option>
 
-                <p>
-                    <a id="parrafo-admin-nav" href="./login.html">Admin</a>
-                </p>
-
-                <div id="contenedor-carrito">
-
-                    <a href="./carrito.html">
-                        <img id="carrito-img" src="./img/cart.png" alt="carrito">
-                    </a>
-
+                    </select>
+                    <button class="boton color-titulos sombra-texto" onclick="applySortFilter()">✓</button>
                 </div>
 
-            </nav>
+            </div>
 
-        </header>
-        <hr>
-        <main>
-            
-            <h2 id="mensaje-bienvenida"></h2>
+        </section>
 
-            <section id="contenedor-productos">
-            </section>
+        <section id="contenedor-productos"></section>
 
-        </main>
+    </main>
 
-        <footer>
-        </footer>
-        <script src="./js/productos.js"></script>
-    </body>
+    <script src="./js/productos.js"></script>
+</body>
+
 </html>

@@ -1,13 +1,50 @@
 /* Ajustamos el body */
 body {
     margin: 0px;
-    background-color: beige;
+    background: linear-gradient(90deg, #faf8ff, #f3ecff, #ecfbf9);
     font-family: tiny5 duo;
+    flex-direction: column;
+    margin: 30px;
 }
+
+.font-large{
+    font-size: larger;
+}
+
+.font-size-filter{
+    font-size: 30px
+}
+
+.product-deactivated{
+    opacity: 0.4;
+}
+
+.btn{
+    background: linear-gradient(90deg, #d6006b,#6a1fb8);
+    font-family: tiny5 duo;
+    width: fit-content;
+    appearance: button;
+    color: #faf8ff;
+    border-radius: 20px;
+    padding: 5px 15px;
+}
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+
+
 
 /* Logo rappigames */
 #logo-rappigames {
     width: 200px;
+}
+
+/* Logo user logout */
+nav p a img {
+    width: 80px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 /* Primera seccion donde esta el logo, el nombre de la empresa y sus integrantes. */
@@ -30,7 +67,7 @@ body {
 
 /* El h6 especifico del primer section */
 .section-logo h6 {
-    width: 155px;
+    width: 160px;
     margin-top: 0;
     font-size: 10px;
     margin-left: 64px;
@@ -41,6 +78,7 @@ body {
 form {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 /* Label de nombre en el form */
@@ -79,11 +117,11 @@ form {
 /* Aplicamos un gradiente como fondo y lo recortamos a la forma del texto para el titulo de la empresa */
 
 .texto-gradiente {
-  background: linear-gradient(90deg, #ff0080, #7928ca, #2afadf);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+    background: linear-gradient(90deg, #ff0080, #7928ca, #2afadf);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
 }
 
 /* Ajustamos el NAV */
@@ -102,11 +140,101 @@ header {
 #carrito-img {
     width: 80px;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-}
+}    
+
+/*=====================================
+FILTROS DE BÚSQUEDA
+=====================================*/    
 
 /* Parrafo admin nav */
-#parrafo-admin-nav {
+#contenedor-productos-por-id {
     text-decoration: none;
-    color: #641501;
-    font-size: 40px;
+    /* color: #641501;
+    font-size: 40px; */
 }
+
+/* Mensajes de error */
+.mensaje-error {
+    text-align: center;
+    /* color: #641501; */
+    /* font-size: 40px; */
+}
+
+#contenedor-productos-por-id input{
+    height: 30px;
+    margin: 10px 0;
+    font-family: tiny5 duo;
+}
+
+
+
+select{
+    height: 30px;
+    font-family: tiny5 duo;
+}    
+
+
+
+#seccion-filtros{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-top: #ddd3f2 1px solid;
+    border-bottom: #ddd3f2 1px solid;
+    padding: 50px 0px;
+}    
+
+#seccion-filtros label{
+    margin: 20px 0px;
+}    
+
+
+
+
+/*=====================================
+    CARTAS DE LOS PRODUCTOS (POV ADMIN)
+======================================*/
+#contenedor-productos{
+    display: flex;
+    flex-direction: column;
+    margin: 3% 12%;
+}
+
+
+.card-producto{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: #ddd3f2 1px solid;
+    margin: 45px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.card-img{
+    width: 200px;
+    max-height: 200px;
+    object-fit: contain;
+    margin: 15px;
+    border-radius: 20px;
+}
+
+.iconos-acciones{
+    display: flex;
+    flex-direction: column;
+}
+
+.iconos-acciones button{
+    background-color: unset;
+    border: none;
+    margin: 15px;
+}
+
+.iconos-acciones img{
+    width: 65px;
+}
+
+
+/* ESTO SIRVE PARA MODIFICAR EL FONDO DEL MODAL */
+/* dialog::backdrop { background: rgba(0,0,0,.5); } */

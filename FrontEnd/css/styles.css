@@ -1,8 +1,42 @@
-/* Ajustamos el body */
+/* Variables CSS */
+:root {
+    --color-fondo: linear-gradient(90deg, #faf8ff, #f3ecff, #ecfbf9);
+    --color-fuente: linear-gradient(90deg, #a406b3, #c55ece, #f3680b);
+    --color-fondo-boton: #f1ecfb;
+    --color-bordes: #ddd3f2;
+    --color-boton-hover: #e0dbe9;
+    --color-titulos: brown;
+
+
+
+}
+
+/*================================
+ESTILADO GENERAL DE LA WEB
+==================================*/
+main {
+    max-height: 100vh;
+}
+
+/* Ajustamos el body, chequear si se puede setear max. de altura */
 body {
     margin: 0px;
-    background-color: beige;
+    background: var(--color-fondo);
     font-family: "Tiny5 Duo", sans-serif;
+    max-height: 100vh;
+
+}
+
+/* Fondo gradiente y clipeado al texto */
+/* 
+background: crea el degradado.
+background-clip: text: recorta el fondo para que solo se vea dentro de las letras.
+color: transparent: hace transparente el color original del texto.
+*/
+.texto-gradiente {
+    background: var(--color-fuente);
+    background-clip: text;
+    color: transparent;
 }
 
 /* Logo rappigames */
@@ -10,18 +44,10 @@ body {
     width: 200px;
 }
 
-/* Hr que separa el logo de la descr. */
-#separador-logo {
-    margin: 0px;
-
-}
-
 /* Descripcion empresa */
-#empresa-desc{
-    margin-top: 5%;
+#empresa-desc {
     /* La sintaxis para dar sombra es text-shadow: ejeX ejeY desenfoque color; */
-    text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.5); 
-    margin-right: -20%;
+    text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* Primera seccion donde esta el logo, el nombre de la empresa y sus integrantes. */
@@ -46,86 +72,115 @@ body {
 
 /* El h6 especifico del primer section */
 .section-logo h6 {
-    width: 155px;
+    width: 160px;
     margin-top: 0;
     font-size: 10px;
     margin-left: 64px;
     text-shadow: -1px 3px 3px rgba(-11, -11, -37, 0.4);
 }
 
+#contenedor-form-bienvenida {
+    height: 30em;
+}
+
 /* Form pantalla bienvenida */
-form {
+#form-inicio {
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+/* Input de texto para el nombre */
+#fill-text {
+    width: 20%;
+    height: 30px;
+    border-radius: 12px;
+    margin: 15px;
 }
 
 /* Label de nombre en el form */
 #label-name {
     font-weight: 600;
-    font-size: 40px;
-    text-align: center;
+    font-size: 70px;
     text-shadow: -1px 2px 8px rgba(-11, -11, -37, 0.4);
 }
 
-/* Boton de submit en el form */
-#submit-continuar {
-    font-family: "Tiny5 Duo", sans-serif;
+/*=================================================
+                BOTONES EN GENERAL
+==================================================*/
+
+.boton {
+    font-family: inherit;
     font-size: 30px;
     font-weight: 600;
     border-radius: 10px;
-    width: 200px;
-    margin-left: 45%;
     transition: background-color 0.3s ease;
     text-shadow: -1px 2px 4px rgba(-11, -11, -37, 0.4);
+    background-color: var(--color-fondo-boton);
+    border-color: var(--color-bordes);
 }
 
-#submit-continuar:hover {
+/* Pseudoclase hover de los botones */
 
-    background-color: #641501;
+.boton:hover {
+    background-color: var(--color-boton-hover);
     transform: scale(1.05);
     opacity: 0.9;
-}   
-#fill-text {
-    margin-left: 40%;
-    width: 20%;
-    height: 30px;
-    border-radius: 12px;
 }
 
-/* Aplicamos un gradiente como fondo y lo recortamos a la forma del texto para el titulo de la empresa */
+/* Contenedor de botones */
+.contenedor-botones-ticket {
+    display: flex;
+    justify-content: space-evenly;
+}
 
-.texto-gradiente {
-  background: linear-gradient(90deg, #ff0080, #7928ca, #2afadf);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+.contenedor-botones-carrito {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Ajustamos el NAV */
-nav {
-    display: flex;
-    padding: 50px;
-    margin-right: -11%;
+.barra-navegacion {
+    padding: 2.5%;
+    margin-right: -10%;
 }
 
 /* Ajustamos el header en comun*/
 header {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 0px;
+    border-bottom: #ddd3f2 1px solid;
+    margin: 3% 12%;
 }
 
 /* Pisamos el selector para la pantalla bienvenida */
 .header-bienvenida {
-    margin-bottom: 150px;
+    padding-right: 62.5%;
+}
+
+/* Pisamos el selector para la pantalla ticket */
+.header-ticket {
+    padding-right: 62.5%;
+}
+
+/* Pisamos el selector para la pantalla carrito */
+.header-carrito {
+    padding-right: 62.5%;
 }
 
 
-/* Img carrito */
+/* Logo carrito y musica */
 #carrito-img {
     width: 80px;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    padding-left: 20px;
+}
+
+#musica-img {
+    width: 70px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    cursor: pointer;
 }
 
 /* Parrafo admin nav */
@@ -135,27 +190,190 @@ header {
     font-size: 40px;
 }
 
-/* Titulo carrito pag. carrito */
-#title-carrito {
-    text-align: center;
-    font-size: 40px;
-    text-shadow: -2px 3px 1px rgba(-19, -19, -37, 0.2);
+.oculto {
+    display: none;
+}
+
+/*===========================================
+ESTILADO PRODUCTOS.HTML (CONTENEDORES)
+=============================================*/
+
+#contenedor-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin: 3% 12%;
+    border-top: #ddd3f2 1px solid;
+}
+
+.card-producto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: #ddd3f2 1px solid;
+    margin: 45px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.intern-container {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+}
+
+.card-img {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    /* margin: 15px; */
+    border-radius: 30px;
+}
+
+#seccion-filtros {
+    display: flex;
+    justify-content: center;
+}
+
+#contenedor-filtros {
+    display: flex;
+    justify-content: space-between;
+    width: 35%;
+}
+
+#sort-container,
+#category-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+#sort-container select,
+#category-container select {
+    border-radius: 10px;
+}
+
+/* Tuvimos que estilar al boton porque la img del producto
+esta por dentro */
+.btn-agregar-prod-carrito {
+    width: 200px;
+    height: 200px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.color-titulos-estilo {
+    color: rgb(197, 25, 25);
+    text-decoration: underline rgb(197, 25, 25);
+}
+
+/*===========================================
+ESTILADO CARRITO.HTML (CONTENEDORES)
+=============================================*/
+
+ul {
+    list-style: none;
+}
+
+.circulo {
+    width: 50px;
+    height: 50px;
+    background-color: var(--color-titulos);
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    font-weight: bold;
+
+    margin-left: 10px;
+    margin-top: 0;
+}
+
+.card-img-carrito {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    border-radius: 30px;
+}
+
+.first-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.boton-eliminar {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#precio-total {
+    margin: 0;
 }
 
 #btn-finalizar-compra {
-    font-family: "Tiny5 Duo", sans-serif;
-    font-size: 30px;
-    font-weight: 600;
-    border-radius: 10px;
-    width: 200px;
-    margin-left: 45%;
-    transition: background-color 0.3s ease;
-    text-shadow: -1px 2px 8px rgba(-11, -11, -37, 0.4);
+    margin: 10px 0px;
 }
 
-#btn-finalizar-compra:hover {
+/*================================
+CLASES QUE VAMOS A COMPARTIR MUCHO
+=================================*/
 
-    background-color: #641501;
-    transform: scale(1.05);
-    opacity: 0.9;
-}  
+.centrado {
+    text-align: center;
+}
+
+.final {
+    text-align: end;
+}
+
+.sombra-texto {
+    text-shadow: -2px 3px 1px rgba(-19, -19, -37, 0.2);
+}
+
+.font-40 {
+    font-size: 40px;
+}
+
+.font-30 {
+    font-size: 30px;
+}
+
+.color-titulos {
+    color: var(--color-titulos)
+}
+
+.error {
+    margin: 0;
+    padding-top: 20px;
+    color: red;
+    text-shadow: 2px 2px black;
+    font-size: 25px;
+}
+
+.exito {
+    margin: 0;
+    padding-top: 20px;
+    padding-left: 10px;
+    color: rgb(11, 235, 112);
+    text-shadow: 2px 2px black;
+}

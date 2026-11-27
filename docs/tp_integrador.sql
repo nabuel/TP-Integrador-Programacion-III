@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.1deb3
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 07-11-2026 a las 01:10:52
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Host: localhost:3306
+-- Generation Time: Nov 21, 2026 at 03:12 AM
+-- Server version: 10.11.14-MariaDB-0ubuntu0.24.04.1
+-- PHP Version: 8.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,25 +18,32 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `tp_integrador`
+-- Database: `tp_integrador`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `administradores`
+-- Table structure for table `administradores`
 --
 
 CREATE TABLE `administradores` (
   `id` int(11) NOT NULL,
   `email` varchar(25) NOT NULL,
-  `password` varchar(12) NOT NULL
+  `password` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `administradores`
+--
+
+INSERT INTO `administradores` (`id`, `email`, `password`) VALUES
+(3, 'goku@dbz.com', '$2b$10$.HrLNKPARoVhkrqtw6E8luvGEYQkdsZ0z/fVX6Nzr20wQtQrR6wNK');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `productos`
+-- Table structure for table `productos`
 --
 
 CREATE TABLE `productos` (
@@ -49,7 +56,7 @@ CREATE TABLE `productos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `productos`
+-- Dumping data for table `productos`
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `precio`, `imagen`, `activo`, `categoria`) VALUES
@@ -65,7 +72,7 @@ INSERT INTO `productos` (`id`, `nombre`, `precio`, `imagen`, `activo`, `categori
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `productos_ventas`
+-- Table structure for table `productos_ventas`
 --
 
 CREATE TABLE `productos_ventas` (
@@ -76,7 +83,7 @@ CREATE TABLE `productos_ventas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `productos_ventas`
+-- Dumping data for table `productos_ventas`
 --
 
 INSERT INTO `productos_ventas` (`id_producto`, `id_venta`, `cantidad`, `precio_unitario`) VALUES
@@ -91,7 +98,7 @@ INSERT INTO `productos_ventas` (`id_producto`, `id_venta`, `cantidad`, `precio_u
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ventas`
+-- Table structure for table `ventas`
 --
 
 CREATE TABLE `ventas` (
@@ -102,7 +109,7 @@ CREATE TABLE `ventas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `ventas`
+-- Dumping data for table `ventas`
 --
 
 INSERT INTO `ventas` (`id`, `fecha`, `nombre_cliente`, `precio_total`) VALUES
@@ -112,63 +119,63 @@ INSERT INTO `ventas` (`id`, `fecha`, `nombre_cliente`, `precio_total`) VALUES
 (4, '2026-11-05 16:45:00', 'Camila Díaz', 685000);
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `administradores`
+-- Indexes for table `administradores`
 --
 ALTER TABLE `administradores`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indices de la tabla `productos`
+-- Indexes for table `productos`
 --
 ALTER TABLE `productos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `productos_ventas`
+-- Indexes for table `productos_ventas`
 --
 ALTER TABLE `productos_ventas`
   ADD PRIMARY KEY (`id_producto`,`id_venta`),
   ADD KEY `fk_pv_venta` (`id_venta`);
 
 --
--- Indices de la tabla `ventas`
+-- Indexes for table `ventas`
 --
 ALTER TABLE `ventas`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `administradores`
+-- AUTO_INCREMENT for table `administradores`
 --
 ALTER TABLE `administradores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de la tabla `productos`
+-- AUTO_INCREMENT for table `productos`
 --
 ALTER TABLE `productos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT de la tabla `ventas`
+-- AUTO_INCREMENT for table `ventas`
 --
 ALTER TABLE `ventas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `productos_ventas`
+-- Constraints for table `productos_ventas`
 --
 ALTER TABLE `productos_ventas`
   ADD CONSTRAINT `fk_pv_producto` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,

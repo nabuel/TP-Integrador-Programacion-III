@@ -1,69 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-
-
-    <link rel="stylesheet" href="css/styles.css">
-    
-    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon/favicon.ico" />
-    <link rel="manifest" href="/favicon/site.webmanifest" />
-</head>
-<body>
-
-    <header>
-
-        <section class="section-logo">
-
-            <div>
-
-                <img src="img/logo-2026.png" alt="logo-rapigames" width="200">
-
-            </div>
-
-            <div>
-
-                <h2>RappiGames</h2>
-                <h6>by Franco L. & Nahuel M.</h4>
-                
-            </div>
-
-        </section>
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
 
     </header>
 
     <main>
+
         <section class="form-inicio-sesion">
-            <h2>Iniciar sesión</h2>
-            <form action="">
+
+            <h2> <%= about %> </h2>
+
+            <form action="/login" method="POST">
+
                 <label for="email">Email</label>
-                <input type="email" placeholder="admin@gmail.com" name="email" required>
+                <input type="email" placeholder="admin@gmail.com" name="email" id="emailUser" required>
 
                 <label for="password">Constraseña</label>
-                <input type="password" placeholder="3 a 12 caracteres" name="password" required>
+                <input type="password" placeholder="3 a 12 caracteres" name="password" id="passwordUser" required>
 
                 <input type="submit" value="Iniciar sesión">
+                
             </form>
+
+            <% if (typeof error !== "undefined") { %>
+		        <p class="mensaje-error"> <%= error %> </p>
+            <% } %> 
+            
         </section>
+
     </main>
 
-    <script>
-        try{
-            const btn_inicio = document.getElementById("form-inicio-sesion")
-            const url = "http://localhost:3000/";
-
-            btn_inicio.addEventListener(event =>{
-                event.preventDefault();
-
-
-            })
-        }catch(error){
-
-        }
-    </script>
-</body>
-</html>
+<%- include("partials/footer.ejs") %> 
