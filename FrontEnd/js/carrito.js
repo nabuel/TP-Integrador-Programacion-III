@@ -5,7 +5,6 @@ const nombre = sessionStorage.getItem("nombreUsuario");
 const URL_BASE = "http://localhost:3000";
 
 
-const carritoSinRepetidos = [];
 
 btnFinalizarCompra.addEventListener("click", () => {
     if (carrito.length > 0) {
@@ -46,6 +45,9 @@ function mostrarValorCarrito() {
 function mostrarCarrito() {
     let mensaje = "";
 
+    const carritoSinRepetidos = [];
+
+
     //  Elimina los elementos repetidos para la vista
     carrito.forEach((p) => {
         if (!carritoSinRepetidos.some((producto) => producto.id == p.id)) carritoSinRepetidos.push(p);
@@ -56,11 +58,11 @@ function mostrarCarrito() {
         (mensaje += `<div class="card-producto">
                         <div class="first-container">
                             <p class="circulo" id="contador-${p.id}">${carrito.reduce(
-                                    (sum, producto) => {
-                                        if (producto.id === p.id) {
-                                            sum += 1;
-                                        } return sum;
-                                    }, 0, )}
+            (sum, producto) => {
+                if (producto.id === p.id) {
+                    sum += 1;
+                } return sum;
+            }, 0,)}
                             </p>
                             <button class="boton boton-eliminar" id="${p.id}">🗑️</button>
                         </div>
@@ -156,8 +158,6 @@ function restarProducto(producto) {
 function eliminarProducto(producto) {
     carrito = carrito.filter((p) => p.id != producto.id);
 
-
-    carritoSinRepetidos.splice(carritoSinRepetidos.indexOf(producto), 1);
 
     almacenarCarrito();
     mostrarMensaje();

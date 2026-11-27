@@ -41,7 +41,7 @@ function structureProductCard(product) {
                         </button>
                         <p>${product.nombre}</p>
                         <p>${product.precio}$</p>
-                    </div>`;
+                    </div>`
 
     return messageHTML;
 }
