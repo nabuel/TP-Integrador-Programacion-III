@@ -37,6 +37,7 @@ color: transparent: hace transparente el color original del texto.
     background: var(--color-fuente);
     background-clip: text;
     color: transparent;
+    text-align: center;
 }
 
 /* Logo rappigames */
