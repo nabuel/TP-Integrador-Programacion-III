@@ -7,7 +7,7 @@
             
             <a id="boton-cerrarsesion" href="/logout"><img src="/img/user-logout.png" alt="icono-logout"></a>
                 
-            <a id="boton-crearusuario" href="/api/usuarios/registrar"><img src="/img/user-create-logo.png" alt="icono-crearuser"></a>
+            <a id="boton-crearusuario" href="/dashboard/principal/registrar/admin"><img src="/img/user-create-logo.png" alt="icono-crearuser"></a>
 
             
 
@@ -31,11 +31,10 @@
             
             </div>
 
-            <button onclick="window.location.assign('principal/registrar/producto')">Crear producto +</button>
-
             <div id="contenedor-filtros">
 
-                
+                <button class="boton" onclick="window.location.assign('principal/registrar/producto')">Crear producto +</button>
+
                 <div id="category-container" class="flex-column">
                     
                     <label>Filtrar por categoria</label>
@@ -49,7 +48,7 @@
                         <option value="Juego">Juego</option>
                         
                     </select>
-                    <button onclick="applyCategoryFilter()" >APLICAR</button>
+                    <button class="boton" onclick="applyCategoryFilter()" >APLICAR</button>
                 </div>
                 
                 <div id="sort-container" class="flex-column">
@@ -65,7 +64,7 @@
                         <option value="desendente">Precio descendente</option>
                         
                     </select>
-                    <button onclick="applySortFilter()" >APLICAR</button>
+                    <button class="boton" onclick="applySortFilter()" >APLICAR</button>
                 </div>
                 
                 <div id="available-filter-container" class="flex-column">
@@ -79,7 +78,7 @@
                         <option value="false">inactivos</option>
                         
                     </select>
-                    <button onclick="applyAvailableFilter()" >APLICAR</button>
+                    <button class="boton" onclick="applyAvailableFilter()" >APLICAR</button>
                 </div>
             </div>
                 
