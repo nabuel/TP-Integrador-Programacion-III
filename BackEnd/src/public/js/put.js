@@ -46,10 +46,10 @@ async function updateProduct(data) {
 
 
         if (!response.ok) {
-            return mostrarMensaje("error", result.message)
+            return showMessage("error", result.message)
         }
 
-        mostrarMensaje("exito", result.message)
+        showMessage("exito", result.message)
 
 
     } catch (error) {
@@ -57,8 +57,8 @@ async function updateProduct(data) {
     }
 }
 
-function mostrarMensaje(estado, mensaje) {
+function showMessage(estado, mensaje) {
     messageContainer.innerHTML = `
-        <p class="mensaje ${estado}">${mensaje}</p>
+        <p class="${estado} centrado font-30">${mensaje}</p>
     `;
 }

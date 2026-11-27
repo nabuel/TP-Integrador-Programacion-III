@@ -7,7 +7,7 @@
 
             <section class="form-registro">
 
-                <h2>
+                <h2 class="color-titulos sombra-texto centrado font-40">
                     <%= about %>
                 </h2>
 
@@ -22,16 +22,16 @@
                     <label for="password">Contraseña</label>
                     <input type="password" placeholder="3 a 12 caracteres" name="password" id="passwordUser" required>
 
-                    <input type="submit" value="Registrar">
+                    <input type="submit" class="boton" value="Registrar">
 
                 </form>
 
                 <% if (typeof error !=="undefined" ) { %>
-                    <p class="mensaje-error">
+                    <p class="error centrado">
                         <%= error %>
                     </p>
                     <% } else if (typeof exito !=="undefined" ) { %>
-                        <p class="mensaje-exito">
+                        <p class="exito centrado font-30">
                             <%= exito %>
                         </p>
                         <% } %>

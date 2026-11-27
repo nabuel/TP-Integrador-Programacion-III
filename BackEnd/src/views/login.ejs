@@ -18,6 +18,8 @@
                 <input type="password" placeholder="3 a 12 caracteres" name="password" id="passwordUser" required>
 
                 <input class="boton sombra-texto" type="submit" value="Iniciar sesión">
+                <input class="boton sombra-texto" id="acceso-tester" type="submit" value="Acceso tester">
+
                 
             </form>
 
@@ -28,5 +30,17 @@
         </section>
 
     </main>
+
+    <script>
+
+        const emailUser = document.getElementById("emailUser");
+        const passwordUser = document.getElementById("passwordUser");
+        const btnAcceso = document.getElementById("acceso-tester");
+
+        btnAcceso.addEventListener("click", () => {
+            emailUser.value = "goku@dbz.com";
+            passwordUser.value = "goku";
+        });
+    </script>
 
 <%- include("partials/footer.ejs") %> 
