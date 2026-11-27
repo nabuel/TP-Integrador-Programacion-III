@@ -41,21 +41,25 @@
 
     <main>
 
+        <h1 class="color-titulos sombra-texto centrado font-40">Ingresá tu nombre</h1>
+
         <div id="contenedor-form-bienvenida">
 
             <form id="form-inicio" action="./productos.html">
-                <label for="name" class="texto-gradiente" id="label-name">Ingresá tu nombre</label><br>
-                <input id="fill-text" type="text"><br><br>
-                <input type="submit" class="texto-gradiente" id="submit-continuar" value="Ingresar >>">
+                <!-- <label for="name" class="color-titulos sombra-texto" id="label-name"></label> -->
+                <input id="fill-text" type="text">
+                <input type="submit" class="boton color-titulos sombra-texto" id="submit-continuar" value="Ingresar >">
+
+
             </form>
 
+            <div class="centrado" id="contenedor-error"></div>
         </div>
 
-        <div id="contenedor-error"></div>
 
     </main>
 
-    <footer>
+    <footer class="final">
 
         <p id="empresa-desc" class="texto-gradiente">La compañia de videojuegos y consolas que lidera el mercado.</p>
 
