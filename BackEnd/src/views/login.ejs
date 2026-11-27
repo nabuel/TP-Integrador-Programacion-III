@@ -7,17 +7,17 @@
 
         <section class="form-inicio-sesion">
 
-            <h2> <%= about %> </h2>
+            <h2 class="color-titulos sombra-texto centrado font-40"> <%= about %> </h2>
 
             <form action="/login" method="POST">
 
-                <label for="email">Email</label>
+                <label class="sombra-texto" for="email">Email</label>
                 <input type="email" placeholder="admin@gmail.com" name="email" id="emailUser" required>
 
-                <label for="password">Constraseña</label>
+                <label class="sombra-texto" for="password">Constraseña</label>
                 <input type="password" placeholder="3 a 12 caracteres" name="password" id="passwordUser" required>
 
-                <input type="submit" value="Iniciar sesión">
+                <input class="boton sombra-texto" type="submit" value="Iniciar sesión">
                 
             </form>
 
