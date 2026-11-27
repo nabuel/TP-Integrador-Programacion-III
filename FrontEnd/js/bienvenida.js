@@ -18,6 +18,6 @@ form.addEventListener("submit", event => {
 
 function mostrarError() {
     console.log();
-    divError.innerHTML = `<p class="mensajerror">¡El nombre debe tener mas de 3 caracteres!</p>`;
+    divError.innerHTML = `<p class="error">¡El nombre debe tener mas de 3 carácteres!</p>`;
     setTimeout(() => { divError.classList.add("oculto"); }, 3000);
 }

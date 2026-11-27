@@ -35,19 +35,13 @@ async function executeFetch(url) {
  * @returns la estructura para renderizar el producto.
  */
 function structureProductCard(product) {
-    let messageHTML = !product.activo ? `<div class="card-producto product-deactivated">`
-        : `<div class="card-producto">`;
-
-    messageHTML += `<button class="btn-agregar-prod-carrito"  onclick="agregarCarrito(${product.id})">
-                        <img src="${URL_BASE}/img/${product.imagen}" alt="${product.nombre}" class="card-img">
-                    </button>
-                            <p class="nombre-prod font-large">${product.nombre}</p>
-                            <p class="precio-prod font-large">${product.precio}$</p>
-                            
-                            <div class="iconos-acciones">
-                            
-                            </div>
-                        </div>`;
+    let messageHTML = `<div class="card-producto">
+                        <button class="btn-agregar-prod-carrito boton"  onclick="agregarCarrito(${product.id})">    
+                            <img src="${URL_BASE}/img/${product.imagen}" alt="${product.nombre}" class="card-img">
+                        </button>
+                        <p>${product.nombre}</p>
+                        <p>${product.precio}$</p>
+                    </div>`;
 
     return messageHTML;
 }

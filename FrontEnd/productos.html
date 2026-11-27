@@ -55,50 +55,48 @@
 
     </header>
 
-    <hr>
-
     <audio id="musicaFondo" autoplay loop>
         <source src="audio/Silver Surfer.mp3" type="audio/mpeg">
     </audio>
 
     <main>
 
-        <h2 class="texto-gradiente" id="mensaje-bienvenida">¡Un placer tenerte, </h2>
+        <h2 class="color-titulos sombra-texto centrado font-40" id="mensaje-bienvenida">¡Un placer, </h2>
+        <p class="color-titulos sombra-texto centrado font-30">¡Recordá utilizar los <span class="color-titulos-estilo">filtros</span> para tu búsqueda!</p>
 
         <section id="seccion-filtros" class="font-size-filter">
 
-            <div id="contenedor-filtros">
+            <div class="centrado color-titulos" id="contenedor-filtros">
 
                 <div id="category-container" class="flex-column">
 
-                    <label>Filtrar por categoria</label>
+                    <label for="categoria" class="color-titulos-estilo"></label>
 
                     <!-- El select actua como un input, lo podemos agarrar con JS -->
 
                     <select id="category-filter">
 
-                        <option value="default">---</option>
+                        <option value="default">Categoria</option>
                         <option value="Consola">Consola</option>
                         <option value="Juego">Juego</option>
 
                     </select>
-                    <button onclick="applyCategoryFilter()">Aplicar</button>
+                    <button class="boton color-titulos sombra-texto" onclick="applyCategoryFilter()">✓</button>
                 </div>
 
                 <div id="sort-container" class="flex-column">
 
-                    <label>Orden</label>
+                    <label for="orden" class="color-titulos-estilo"></label>
 
                     <select id="sort-filter">
-                        <!-- en los select podemos hacer dropdown -->
-                        <option value="default">---</option>
-                        <option value="a-z">A-Z</option>
-                        <option value="z-a">Z-A</option>
-                        <option value="ascendente">Precio ascendente</option>
-                        <option value="desendente">Precio descendente</option>
+                        <option value="default">Ordenamiento</option>
+                        <option value="a-z">Nombre ASC</option>
+                        <option value="z-a">Nombre DESC</option>
+                        <option value="ascendente">Precio ASC</option>
+                        <option value="desendente">Precio DESC</option>
 
                     </select>
-                    <button onclick="applySortFilter()">APLICAR</button>
+                    <button class="boton color-titulos sombra-texto" onclick="applySortFilter()">✓</button>
                 </div>
 
             </div>

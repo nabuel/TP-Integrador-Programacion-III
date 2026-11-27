@@ -2,6 +2,7 @@ const contenedorProductos = document.getElementById("contenedor-productos");
 const btnFinalizarCompra = document.getElementById("btn-finalizar-compra");
 let carrito = JSON.parse(sessionStorage.getItem("productosCarrito")); //  Testear si trae los productos del carrito
 const nombre = sessionStorage.getItem("nombreUsuario");
+const URL_BASE = "http://localhost:3000";
 
 
 const carritoSinRepetidos = [];
@@ -43,7 +44,7 @@ function mostrarValorCarrito() {
 }
 
 function mostrarCarrito() {
-    let mensaje = "<ul>";
+    let mensaje = "";
 
     //  Elimina los elementos repetidos para la vista
     carrito.forEach((p) => {
@@ -52,25 +53,26 @@ function mostrarCarrito() {
 
     carritoSinRepetidos.forEach(
         p =>
-        (mensaje += `<li class="bloque-producto">
-                        <img class="card-img" src="./img/${p.imagen}" alt="${p.nombre}">
-                        <p class="nombre-item">${p.nombre} - ${p.precio}$</p>
-                        <button class="boton-eliminar" id="${p.id}">Eliminar</button>
-                        <button class="boton-sumar" id="${p.id}">+</button>
-                        <p class="cantidad" id="contador-${p.id}">${carrito.reduce(
-            (sum, producto) => {
-                if (producto.id === p.id) {
-                    sum += 1;
-                }
-                return sum;
-            },
-            0,
-        )}</p>
-            <button class="boton-restar" id="${p.id}">-</button>
-        </li>`),
+        (mensaje += `<div class="card-producto">
+                        <div class="first-container">
+                            <p class="circulo" id="contador-${p.id}">${carrito.reduce(
+                                    (sum, producto) => {
+                                        if (producto.id === p.id) {
+                                            sum += 1;
+                                        } return sum;
+                                    }, 0, )}
+                            </p>
+                            <button class="boton boton-eliminar" id="${p.id}">🗑️</button>
+                        </div>
+                        <img class="card-img-carrito" src="${URL_BASE}/img/${p.imagen}" alt="${p.nombre}">
+                        <p>${p.nombre} — ${p.precio}$</p>
+                        <div class="intern-container">
+                            <button class="boton boton-restar" id="${p.id}">-</button>
+                            
+                            <button class="boton boton-sumar" id="${p.id}">+</button>
+                        </div>
+                    </div>`),
     );
-
-    mensaje += "</ul>";
     contenedorProductos.innerHTML = mensaje;
 
     //  ESCUCHA EL EVENTO DE ELIMINAR UN PRODUCTO DEL CARRITO
