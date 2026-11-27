@@ -1,3 +1,16 @@
+/* Variables CSS */
+:root {
+    --color-fondo: linear-gradient(90deg, #faf8ff, #f3ecff, #ecfbf9);
+    --color-fuente: linear-gradient(90deg, #a406b3, #c55ece, #f3680b);
+    --color-fondo-boton: #f1ecfb;
+    --color-bordes: #ddd3f2;
+    --color-boton-hover: #e0dbe9;
+    --color-titulos: brown;
+
+
+
+}
+
 /* Ajustamos el body */
 body {
     margin: 0px;
@@ -12,22 +25,14 @@ body {
 }
 
 .font-size-filter{
-    font-size: 30px
+    font-size: 20px
 }
 
 .product-deactivated{
     opacity: 0.4;
 }
 
-.btn{
-    background: linear-gradient(90deg, #d6006b,#6a1fb8);
-    font-family: tiny5 duo;
-    width: fit-content;
-    appearance: button;
-    color: #faf8ff;
-    border-radius: 20px;
-    padding: 5px 15px;
-}
+
 
 .flex-column{
     display: flex;
@@ -142,22 +147,57 @@ header {
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }    
 
+/*=================================================
+                BOTONES EN GENERAL
+==================================================*/
+
+.boton {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    text-shadow: -1px 2px 4px rgba(-11, -11, -37, 0.4);
+    background-color: var(--color-fondo-boton);
+    border-color: var(--color-bordes);
+}
+
+/* Pseudoclase hover de los botones */
+
+.boton:hover {
+    background-color: var(--color-boton-hover);
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+/* Boton particular */
+.btn{
+    background: linear-gradient(90deg, #d6006b,#6a1fb8);
+    font-family: tiny5 duo;
+    width: fit-content;
+    appearance: button;
+    color: #faf8ff;
+    border-radius: 20px;
+    padding: 5px 15px;
+}
+
 /*=====================================
 FILTROS DE BÚSQUEDA
 =====================================*/    
 
+#contenedor-filtros {
+    display: flex;
+    flex-direction: column;
+}
+
 /* Parrafo admin nav */
 #contenedor-productos-por-id {
     text-decoration: none;
-    /* color: #641501;
-    font-size: 40px; */
 }
 
 /* Mensajes de error */
 .mensaje-error {
     text-align: center;
-    /* color: #641501; */
-    /* font-size: 40px; */
 }
 
 #contenedor-productos-por-id input{
@@ -174,14 +214,13 @@ select{
 }    
 
 
-
 #seccion-filtros{
     display: flex;
     align-items: center;
     justify-content: space-around;
     border-top: #ddd3f2 1px solid;
     border-bottom: #ddd3f2 1px solid;
-    padding: 50px 0px;
+    padding: 10px 0px;
 }    
 
 #seccion-filtros label{
@@ -233,6 +272,50 @@ select{
 
 .iconos-acciones img{
     width: 65px;
+}
+
+/*================================
+CLASES QUE VAMOS A COMPARTIR MUCHO
+=================================*/
+
+.centrado {
+    text-align: center;
+}
+
+.final {
+    text-align: end;
+}
+
+.sombra-texto {
+    text-shadow: -2px 3px 1px rgba(-19, -19, -37, 0.2);
+}
+
+.font-40 {
+    font-size: 40px;
+}
+
+.font-30 {
+    font-size: 30px;
+}
+
+.color-titulos {
+    color: var(--color-titulos)
+}
+
+.error {
+    margin: 0;
+    padding-top: 20px;
+    color: red;
+    text-shadow: 2px 2px black;
+    font-size: 25px;
+}
+
+.exito {
+    margin: 0;
+    padding-top: 20px;
+    padding-left: 10px;
+    color: rgb(11, 235, 112);
+    text-shadow: 2px 2px black;
 }
 
 
